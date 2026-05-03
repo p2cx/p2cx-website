@@ -1,0 +1,31 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+  - stage: Deploy_Preview
+    jobs:
+      - job: Deploy
+        steps:
+          - checkout: self
+
+          # Füge einen Schritt hinzu, um den Repository-Namen zu überprüfen
+          - script: echo $(Build.Repository.Name)
+            displayName: 'Display Repository Name'
+
+          # Füge einen Schritt hinzu, um den Inhalt des Verzeichnisses zu überprüfen
+          - script: ls -la $(Pipeline.Workspace)/s
+            displayName: 'List files in workspace'
+
+          - task: CopyFilesOverSSH@0
+            inputs: 
+              sshEndpoint: 'contribution.zone_website'
+              sourceFolder: 'web' #'$(Pipeline.Workspace)/s/$(Build.Repository.Name)'
+              contents: '**'
+              targetFolder: 'web'
+              # cleanTargetFolder: true # requires SSH permissions in addition to SFTP
+              overwrite: true

@@ -1,0 +1,103 @@
+/* p2cx.css — gemeinsame Styles für alle Seiten */
+:root{
+  --p2cx-gold:#c9a44c;
+  --p2cx-text:#1f2937;
+  --p2cx-muted:#6b7280;
+  --p2cx-border:#e5e7eb;
+  --p2cx-shadow:0 4px 12px rgba(2,6,23,.08);
+  --p2cx-shadow-hover:0 8px 24px rgba(2,6,23,.12);
+  --p2cx-radius:12px;
+  --p2cx-bg:#f8fafc;
+}
+
+html, body {
+  background: var(--p2cx-bg);
+  color: var(--p2cx-text);
+}
+
+/* Cards */
+.p2cx-card{
+  background:#fff;
+  border:1px solid var(--p2cx-border);
+  border-radius:var(--p2cx-radius);
+  box-shadow:var(--p2cx-shadow);
+  transition:transform .2s ease, box-shadow .2s ease
+}
+.p2cx-card:hover{ transform:translateY(-2px); box-shadow:var(--p2cx-shadow-hover) }
+.p2cx-card-quiet{ box-shadow:0 2px 8px rgba(2,6,23,.06) }
+.p2cx-body{ padding:1.25rem }
+@media(min-width:768px){
+  .p2cx-body{ padding:1.5rem }
+}
+
+/* Buttons */
+.btn-p2cx{
+  --bs-btn-bg:var(--p2cx-gold);
+  --bs-btn-border-color:var(--p2cx-gold);
+  --bs-btn-hover-bg:#b8923f;
+  --bs-btn-hover-border-color:#b8923f;
+  --bs-btn-color:#fff;
+}
+
+/* Links */
+a{ color:var(--p2cx-gold); text-decoration:none }
+a:hover{ text-decoration:underline }
+
+/* Chips */
+.chip{
+  display:inline-block;
+  padding:.35rem .6rem;
+  border-radius:999px;
+  font-size:.82rem;
+  background:#f3f4f6;
+  color:#374151;
+  border:1px solid #e5e7eb
+}
+
+/* Log block */
+.log{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:.85rem;
+  background:#0f172a;
+  color:#e2e8f0;
+  border-radius:8px;
+  padding:12px
+}
+.log .ok{color:#4ade80}
+.log .warn{color:#fbbf24}
+.log .err{color:#f87171}
+
+/* Header Flag Icons */
+.flag{ display:inline-block; vertical-align:middle }
+
+/* Utility tweaks */
+.smallmuted, .text-muted { color: var(--p2cx-muted)!important }
+
+/* === Helpers aus index.html (bewährt) === */
+.text-gold { color: var(--p2cx-gold); }
+.eyebrow { letter-spacing:.03em; font-size:.85rem; text-transform:uppercase; }
+
+.ico{
+  display:inline-block;
+  width:1.15em;
+  height:1.15em;
+  vertical-align:-0.18em;
+  margin-right:.4rem;
+  color:var(--p2cx-gold);
+}
+.ico svg{
+  width:100%;
+  height:100%;
+  display:block;
+  fill:currentColor;
+}
+
+/* Sektionstitel minimal kleiner (nur im Main, nicht Hero) */
+main h2{ font-size:clamp(1.25rem,2.2vw,1.7rem); line-height:1.2 }
+main h2.mb-3{ margin-bottom:.75rem }
+
+/* Einheitlicher vertikaler Rhythmus für alle Inhaltsblöcke */
+main section{ padding-block:1rem }         /* ≈ py-3 */
+main section .p2cx-card{ margin:0 }
+main section h2{ margin-top:0; margin-bottom:.5rem; line-height:1.2 }
+

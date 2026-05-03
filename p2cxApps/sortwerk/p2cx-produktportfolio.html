@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>p2cx — Produktportfolio</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --p2cx-gold:#c9a44c;
+    --p2cx-gold-dark:#b8923f;
+    --p2cx-gold-soft:#faf5eb;
+    --p2cx-text:#1f2937;
+    --p2cx-muted:#6b7280;
+    --p2cx-border:#e5e7eb;
+    --p2cx-shadow:0 4px 12px rgba(2,6,23,.08);
+    --p2cx-shadow-hover:0 8px 24px rgba(2,6,23,.12);
+    --p2cx-radius:12px;
+    --p2cx-bg:#f8fafc;
+  }
+  html, body{ background:var(--p2cx-bg); color:var(--p2cx-text); font-family:'Inter',-apple-system,system-ui,sans-serif; }
+  h1,h2,h3,h4,h5{ letter-spacing:-0.02em; }
+
+  .nav-p2cx{ position:sticky; top:0; z-index:50; background:rgba(248,250,252,.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--p2cx-border); }
+  .nav-p2cx .brand{ font-weight:800; font-size:1.15rem; letter-spacing:-0.02em; }
+  .nav-p2cx .brand span{ color:var(--p2cx-gold); }
+  .nav-p2cx a.nav-link{ color:var(--p2cx-muted); font-size:.85rem; padding:.35rem .75rem; border-radius:999px; }
+  .nav-p2cx a.nav-link:hover{ color:var(--p2cx-text); background:#fff; text-decoration:none; }
+
+  .p2cx-card{
+    background:#fff;
+    border:1px solid var(--p2cx-border);
+    border-radius:var(--p2cx-radius);
+    box-shadow:var(--p2cx-shadow);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .p2cx-card:hover{ transform:translateY(-2px); box-shadow:var(--p2cx-shadow-hover); }
+  .p2cx-body{ padding:1.5rem; }
+
+  a{ color:var(--p2cx-gold); text-decoration:none; }
+  a:hover{ text-decoration:underline; }
+  .btn-p2cx{ background:var(--p2cx-gold); border-color:var(--p2cx-gold); color:#fff; font-weight:600; }
+  .btn-p2cx:hover{ background:var(--p2cx-gold-dark); border-color:var(--p2cx-gold-dark); color:#fff; }
+  .btn-outline-p2cx{ color:var(--p2cx-gold); border:1px solid var(--p2cx-gold); background:#fff; font-weight:600; }
+  .btn-outline-p2cx:hover{ background:var(--p2cx-gold); color:#fff; }
+
+  .text-gold{ color:var(--p2cx-gold); }
+  .bg-gold-soft{ background:var(--p2cx-gold-soft); }
+  .eyebrow{ letter-spacing:.12em; font-size:.75rem; text-transform:uppercase; color:var(--p2cx-gold); font-weight:700; }
+  .smallmuted{ color:var(--p2cx-muted); }
+
+  .chip{ display:inline-block; padding:.3rem .65rem; border-radius:999px; font-size:.75rem; background:#f3f4f6; color:#374151; border:1px solid var(--p2cx-border); font-weight:500; }
+  .chip-gold{ background:var(--p2cx-gold-soft); color:var(--p2cx-gold-dark); border-color:#e8d5a3; }
+  .chip-live{ background:#f0fdf4; color:#166534; border-color:#bbf7d0; }
+  .chip-dev{ background:#fef3c7; color:#92400e; border-color:#fde68a; }
+
+  .ico{ display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:12px; background:var(--p2cx-gold-soft); color:var(--p2cx-gold); }
+  .ico svg{ width:22px; height:22px; }
+  .ico-sm{ width:32px; height:32px; border-radius:9px; }
+  .ico-sm svg{ width:16px; height:16px; }
+
+  .hero{ padding:5rem 0 3rem; position:relative; overflow:hidden; }
+  .hero::before{ content:''; position:absolute; top:-100px; right:-100px; width:400px; height:400px; background:radial-gradient(circle, rgba(201,164,76,.12) 0%, transparent 70%); border-radius:50%; pointer-events:none; }
+  .hero h1{ font-size:clamp(2.2rem,4.5vw,3.6rem); font-weight:800; line-height:1.1; }
+  .hero h1 span{ color:var(--p2cx-gold); }
+  .hero .lead{ font-size:1.15rem; color:var(--p2cx-muted); max-width:640px; }
+  .hero-stats{ display:flex; gap:2.5rem; margin-top:2rem; flex-wrap:wrap; }
+  .hero-stat .val{ font-size:2rem; font-weight:800; color:var(--p2cx-gold); line-height:1; }
+  .hero-stat .lbl{ font-size:.8rem; color:var(--p2cx-muted); text-transform:uppercase; letter-spacing:.08em; margin-top:.35rem; }
+
+  section.block{ padding:4rem 0; }
+  section.block.alt{ background:#fff; border-top:1px solid var(--p2cx-border); border-bottom:1px solid var(--p2cx-border); }
+  .section-title{ font-size:clamp(1.6rem,2.8vw,2.2rem); font-weight:800; margin-bottom:.4rem; }
+  .section-sub{ color:var(--p2cx-muted); font-size:1.05rem; margin-bottom:2.5rem; max-width:720px; }
+
+  /* Product Cards */
+  .product-card{ background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); padding:1.5rem; position:relative; transition:all .2s ease; height:100%; display:flex; flex-direction:column; }
+  .product-card:hover{ border-color:var(--p2cx-gold); box-shadow:var(--p2cx-shadow-hover); transform:translateY(-2px); }
+  .product-card .product-name{ font-size:1.1rem; font-weight:700; margin:.75rem 0 .4rem; }
+  .product-card .product-desc{ font-size:.88rem; color:var(--p2cx-muted); line-height:1.55; flex:1; }
+  .product-card .product-features{ margin-top:.75rem; display:flex; flex-wrap:wrap; gap:.35rem; }
+  .product-card .product-url{ font-size:.78rem; color:var(--p2cx-muted); margin-top:.75rem; font-family:ui-monospace,Menlo,Consolas,monospace; }
+
+  /* Flow */
+  .flow{ display:grid; grid-template-columns:repeat(4,1fr); gap:.8rem; }
+  @media(max-width:900px){ .flow{ grid-template-columns:repeat(2,1fr); } }
+  .flow-step{ background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); padding:1.1rem; position:relative; box-shadow:var(--p2cx-shadow); }
+  .flow-step .num{ display:inline-flex; width:26px; height:26px; align-items:center; justify-content:center; border-radius:50%; background:var(--p2cx-gold); color:#fff; font-weight:800; font-size:.75rem; margin-bottom:.6rem; }
+  .flow-step h5{ font-size:.95rem; font-weight:700; margin:0 0 .25rem; }
+  .flow-step p{ font-size:.8rem; color:var(--p2cx-muted); margin:0; line-height:1.45; }
+
+  /* Highlights */
+  .highlight{ display:flex; gap:1rem; padding:1.1rem; background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); box-shadow:var(--p2cx-shadow); height:100%; }
+  .highlight h5{ font-size:.95rem; font-weight:700; margin:0 0 .25rem; }
+  .highlight p{ font-size:.82rem; color:var(--p2cx-muted); margin:0; line-height:1.5; }
+
+  /* Deep-dive section */
+  .dd-feature{ display:flex; gap:1rem; padding:1rem; background:var(--p2cx-bg); border:1px solid var(--p2cx-border); border-radius:10px; margin-bottom:.6rem; }
+  .dd-feature .ico-sm{ flex-shrink:0; }
+  .dd-feature h5{ font-size:.92rem; font-weight:700; margin:0 0 .2rem; }
+  .dd-feature p{ font-size:.82rem; color:var(--p2cx-muted); margin:0; line-height:1.5; }
+
+  footer{ padding:3rem 0 2rem; border-top:1px solid var(--p2cx-border); background:#fff; }
+  footer .brand{ font-weight:800; font-size:1.2rem; }
+  footer .brand span{ color:var(--p2cx-gold); }
+</style>
+</head>
+<body>
+
+<nav class="nav-p2cx">
+  <div class="container d-flex align-items-center justify-content-between py-3">
+    <div class="brand">p2cx <span>GmbH</span></div>
+    <div class="d-none d-md-flex gap-1">
+      <a class="nav-link" href="#portfolio">Portfolio</a>
+      <a class="nav-link" href="#sortwerk">sortwerk</a>
+      <a class="nav-link" href="#weitere">Weitere Produkte</a>
+      <a class="nav-link" href="#ansatz">Ansatz</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div class="eyebrow mb-3">Produktportfolio 2026</div>
+    <h1>Digitale Prozesse.<br>Gebaut mit <span>AI &amp; Automatisierung</span>.</h1>
+    <p class="lead mt-3">
+      Von Dokumentenverarbeitung bis Regulierungs-Monitoring: Produktive Anwendungen, die heute im Einsatz sind. Jedes Produkt folgt dem gleichen Prinzip: Workshop, Build, Betrieb.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="val">8</div><div class="lbl">Produkte</div></div>
+      <div class="hero-stat"><div class="val">19</div><div class="lbl">Instanzen Live</div></div>
+      <div class="hero-stat"><div class="val">40+</div><div class="lbl">AI-Bots</div></div>
+      <div class="hero-stat"><div class="val">EU</div><div class="lbl">Datenstandort</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- PORTFOLIO OVERVIEW -->
+<section id="portfolio" class="block alt">
+  <div class="container">
+    <div class="eyebrow mb-2">Portfolio</div>
+    <h2 class="section-title">Was wir gebaut haben</h2>
+    <p class="section-sub">Jedes Produkt ist eine vollwertige Anwendung mit eigener Datenbank, Benutzeroberfläche und AI-Integration. Alle laufen auf EU-Infrastruktur.</p>
+
+    <div class="row g-3">
+
+      <!-- sortwerk -->
+      <div class="col-md-6 col-lg-4">
+        <div class="product-card">
+          <div class="d-flex align-items-center gap-2">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <span class="chip chip-live">Live</span>
+          </div>
+          <div class="product-name">sortwerk</div>
+          <div class="product-desc">Intelligente Dokumentenverarbeitung: Email/PDF rein, AI klassifiziert, Workflows verarbeiten automatisch. DATEV-Anbindung, 7-Schritt-Kontierung, Multi-Tenant.</div>
+          <div class="product-features">
+            <span class="chip chip-gold">10 Workflows</span>
+            <span class="chip chip-gold">6 AI-Bots</span>
+            <span class="chip">DATEV</span>
+            <span class="chip">OCR</span>
+          </div>
+          <div class="product-url">4 Tenants: p2cx, Gessis, LSS, Datenpassage</div>
+        </div>
+      </div>
+
+      <!-- EU Regulation Radar -->
+      <div class="col-md-6 col-lg-4">
+        <div class="product-card">
+          <div class="d-flex align-items-center gap-2">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <span class="chip chip-live">Live</span>
+          </div>
+          <div class="product-name">EU Regulation Radar</div>
+          <div class="product-desc">Regulierungs-Monitoring: EU-Verordnungen automatisch erfassen, mit 14 AI-Bots analysieren, Relevanz bewerten, Massnahmen tracken. Erster Kunde: Clatronic.</div>
+          <div class="product-features">
+            <span class="chip chip-gold">14 AI-Bots</span>
+            <span class="chip">5-Phasen-Prozess</span>
+            <span class="chip">Watch Profiles</span>
+          </div>
+          <div class="product-url">eu-radar.p2cx.de</div>
+        </div>
+      </div>
+
+      <!-- SteuerPortal -->
+      <div class="col-md-6 col-lg-4">
+        <div class="product-card">
+          <div class="d-flex align-items-center gap-2">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <span class="chip chip-live">Live</span>
+          </div>
+          <div class="product-name">SteuerPortal</div>
+          <div class="product-desc">Digitale Kollaboration zwischen Steuerberatung und Mandanten. 10 Workflow-Templates, 17 AI-Bots, rollenbasierte Dashboards, Aufgaben und Nachrichten.</div>
+          <div class="product-features">
+            <span class="chip chip-gold">17 AI-Bots</span>
+            <span class="chip">10 Templates</span>
+            <span class="chip">Multi-Rolle</span>
+          </div>
+          <div class="product-url">steuerportal.p2cx.de</div>
+        </div>
+      </div>
+
+      <!-- Operations Platform -->
+      <div class="col-md-6 col-lg-4">
+        <div class="product-card">
+          <div class="d-flex align-items-center gap-2">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <span class="chip chip-live">Live</span>
+          </div>
+          <div class="product-name">Operations Platform</div>
+          <div class="product-desc">CRM &amp; Sales-Pipeline: Leads, Kontakte, Opportunities, Angebote, Aufträge, Rechnungen. AI-Extraktion aus Sprache, Text und Visitenkarten.</div>
+          <div class="product-features">
+            <span class="chip chip-gold">Voice AI</span>
+            <span class="chip">Sales Pipeline</span>
+            <span class="chip">Invoicing</span>
+          </div>
+          <div class="product-url">op.p2cx.de</div>
+        </div>
+      </div>
+
+      <!-- Clubpartner Manager -->
+      <div class="col-md-6 col-lg-4">
+        <div class="product-card">
+          <div class="d-flex align-items-center gap-2">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            </div>
+            <span class="chip chip-live">Live</span>
+          </div>
+          <div class="product-name">Clubpartner Manager</div>
+          <div class="product-desc">Sponsoring-CRM für Sportvereine (2.–4. Liga): Werbeflächen verwalten, Pakete schnüren, Angebote erstellen, Barter-Deals tracken. eRechnung-fähig.</div>
+          <div class="product-features">
+            <span class="chip chip-gold">Gantt-Belegung</span>
+            <span class="chip">eRechnung</span>
+            <span class="chip">Voice Input</span>
+          </div>
+          <div class="product-url">Lokaler Betrieb</div>
+        </div>
+      </div>
+
+      <!-- dealflow -->
+      <div class="col-md-6 col-lg-4">
+        <div class="product-card">
+          <div class="d-flex align-items-center gap-2">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <span class="chip chip-dev">In Entwicklung</span>
+          </div>
+          <div class="product-name">dealflow</div>
+          <div class="product-desc">Deal-Analyse-Pipeline: Dokumente aufnehmen, per AI extrahieren, scoren und gegen Deal-Datenbank matchen. Automatisierte Bewertung eingehender Deals.</div>
+          <div class="product-features">
+            <span class="chip chip-gold">Bot Pipeline</span>
+            <span class="chip">Scoring</span>
+            <span class="chip">Matching</span>
+          </div>
+          <div class="product-url">dev.dealflow.p2cx.de</div>
+        </div>
+      </div>
+
+      <!-- myp2cx -->
+      <div class="col-md-6 col-lg-4">
+        <div class="product-card">
+          <div class="d-flex align-items-center gap-2">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+            </div>
+            <span class="chip chip-live">Intern</span>
+          </div>
+          <div class="product-name">myp2cx</div>
+          <div class="product-desc">Internes Operations-Cockpit: Produkt-Lifecycle, Standards-Compliance, 19 Environments monitoren, Tracking-DB, Security-Policies. Das Herz der Plattform.</div>
+          <div class="product-features">
+            <span class="chip chip-gold">19 Environments</span>
+            <span class="chip">Standards-Check</span>
+            <span class="chip">Monitoring</span>
+          </div>
+          <div class="product-url">my.p2cx.de</div>
+        </div>
+      </div>
+
+      <!-- Value Delivery Log -->
+      <div class="col-md-6 col-lg-4">
+        <div class="product-card">
+          <div class="d-flex align-items-center gap-2">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <span class="chip chip-live">Intern</span>
+          </div>
+          <div class="product-name">Value Delivery Log</div>
+          <div class="product-desc">Zeiterfassung mit Spracherkennung: Mobile-first PWA, deutsche Spracheingabe, Issue-Tracking, Timeline-Ansicht. Schnelle Erfassung ohne Tippen.</div>
+          <div class="product-features">
+            <span class="chip chip-gold">Voice Input</span>
+            <span class="chip">PWA</span>
+            <span class="chip">Mobile-first</span>
+          </div>
+          <div class="product-url">timeentries.p2cx.de</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SORTWERK DEEP DIVE -->
+<section id="sortwerk" class="block">
+  <div class="container">
+    <div class="eyebrow mb-2">Flagship-Produkt</div>
+    <h2 class="section-title">sortwerk — Dokumentenverarbeitung mit AI</h2>
+    <p class="section-sub">Von der eingehenden Email bis zur fertigen DATEV-Buchung. Vollautomatisch, mit menschlicher Kontrolle an den richtigen Stellen.</p>
+
+    <div class="flow mb-5">
+      <div class="flow-step">
+        <span class="num">1</span>
+        <h5>Eingang</h5>
+        <p>Email, Upload, SharePoint, OneDrive</p>
+      </div>
+      <div class="flow-step">
+        <span class="num">2</span>
+        <h5>OCR &amp; AI</h5>
+        <p>Texterkennung + 6 Analyse-Bots</p>
+      </div>
+      <div class="flow-step">
+        <span class="num">3</span>
+        <h5>Dispatch</h5>
+        <p>Kategorie prüfen, Folgeaktionen wählen</p>
+      </div>
+      <div class="flow-step">
+        <span class="num">4</span>
+        <h5>Folgeworkflow</h5>
+        <p>Kontierung, Vertrag, Aufgabe, Termin</p>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-lg-6">
+        <h4 class="h6 fw-bold mb-3" style="color:var(--p2cx-gold);">10 Workflow-Templates</h4>
+        <div class="dd-feature">
+          <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <div><h5>Dokumenteneingang (10 Steps)</h5><p>Eingang, OCR, QuickClassifier, 5 Analyse-Bots, Dispatch, Folgeworkflow</p></div>
+        </div>
+        <div class="dd-feature">
+          <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+          <div><h5>Rechnung Business (12 Steps)</h5><p>7-Schritt-Kontierung: Beleg-Extraktion, Positions-Analyse, Konten-Matching, DATEV-Export</p></div>
+        </div>
+        <div class="dd-feature">
+          <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div><h5>Vertragsanalyse (3 Steps)</h5><p>AI extrahiert Laufzeit, Fristen, Kosten. Vertragsakte mit Gruppen-Ansicht.</p></div>
+        </div>
+        <div class="dd-feature">
+          <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div><h5>+ Termine, Aufgaben, Steuer, Privat, Ausgang, Sonstiges</h5><p>Jede Kategorie hat ihren eigenen optimierten Workflow</p></div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <h4 class="h6 fw-bold mb-3" style="color:var(--p2cx-gold);">Features</h4>
+        <div class="dd-feature">
+          <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <div><h5>AI-Dokumenten-Assistent (RAG)</h5><p>Chat über alle Dokumente: Volltextsuche + AI-Antwort mit Quellenangabe</p></div>
+        </div>
+        <div class="dd-feature">
+          <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+          <div><h5>DATEV-Integration</h5><p>Automatischer Upload per Email an DATEV Unternehmen Online, Kontenrahmen pro Tenant</p></div>
+        </div>
+        <div class="dd-feature">
+          <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div><h5>Multi-Tenant</h5><p>4 Mandanten auf getrennten Instanzen, eigene Konfiguration und Kontenrahmen</p></div>
+        </div>
+        <div class="dd-feature">
+          <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div><h5>Email-Import</h5><p>Automatischer Import aus Postfächern, Subject-Cleanup, PDF-Filter, Body-Dokumente</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EU REGULATION RADAR -->
+<section id="weitere" class="block alt">
+  <div class="container">
+    <div class="eyebrow mb-2">Compliance &amp; Regulierung</div>
+    <h2 class="section-title">EU Regulation Radar — 14 AI-Bots analysieren Regulierungen</h2>
+    <p class="section-sub">Automatisches Monitoring neuer EU-Verordnungen. Relevanz-Bewertung, Impact-Analyse und Massnahmen-Tracking für Unternehmen.</p>
+
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="highlight">
+          <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <div><h5>Intake &amp; OCR</h5><p>Regulierungstexte erfassen: Upload, Newsletter-Import, automatische Texterkennung</p></div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="highlight">
+          <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+          <div><h5>14 AI-Bots</h5><p>Summary, Relevanz, Implikationen, Risiko, Zielgruppe, Zeithorizont, Business-Relevanz u.v.m.</p></div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="highlight">
+          <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <div><h5>Massnahmen-Tracking</h5><p>Deadlines, Verantwortliche, Watch Profiles pro Kunde. Nichts wird übersehen.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANSATZ / TECH -->
+<section id="ansatz" class="block">
+  <div class="container">
+    <div class="eyebrow mb-2">Unser Ansatz</div>
+    <h2 class="section-title">Wie wir bauen</h2>
+    <p class="section-sub">Gleicher Stack, gleiche Patterns, gleiche Qualität. Jedes neue Produkt profitiert von den vorherigen.</p>
+
+    <div class="row g-3">
+      <div class="col-md-6 col-lg-3">
+        <div class="highlight">
+          <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <div><h5>Einheitlicher Stack</h5><p>Next.js, React, TypeScript, Tailwind, PostgreSQL. Kein Vendor Lock-in.</p></div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="highlight">
+          <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+          <div><h5>AI-First (EU)</h5><p>Mammouth.ai (EU-hosted), OpenAI Fallback. Alle Daten bleiben in der EU.</p></div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="highlight">
+          <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div><h5>Playbook-Standards</h5><p>Design-System, Deployment, Monitoring, Security — einmal definiert, überall angewendet.</p></div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="highlight">
+          <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></div>
+          <div><h5>Zentrales Monitoring</h5><p>myp2cx überwacht alle 19 Instanzen: Health, AI-Kosten, Errors, Process Runs.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing Model -->
+    <div class="p2cx-card mt-5">
+      <div class="p2cx-body">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <div class="eyebrow mb-2">Geschäftsmodell</div>
+            <h4 class="h5 fw-bold">33% der Einsparungen — kein Vorab-Invest</h4>
+            <p class="smallmuted">Workshop (3h), Build (Tage, nicht Monate), Betrieb mit SLA. Monatlich kündbar. Du gibst nur 33% deiner Einsparungen weiter. Kein Konzept-Roman, kein Vertragsmarathon.</p>
+          </div>
+          <div class="col-md-4 text-md-end mt-3 mt-md-0">
+            <div style="font-size:3rem; font-weight:800; color:var(--p2cx-gold); line-height:1;">33%</div>
+            <div class="smallmuted small">Outcome-Pricing</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+      <div>
+        <div class="brand">p2cx <span>GmbH</span></div>
+        <div class="smallmuted small">Digitale Prozesse. Starkes Unternehmen.</div>
+      </div>
+      <div class="smallmuted small">
+        Produktportfolio · April 2026 · p2cx.de
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

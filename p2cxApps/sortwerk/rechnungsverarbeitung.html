@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sortwerk — Rechnungsverarbeitung für Unternehmen</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* p2cx.css — eingebettet */
+  :root{
+    --p2cx-gold:#c9a44c;
+    --p2cx-gold-dark:#b8923f;
+    --p2cx-gold-soft:#faf5eb;
+    --p2cx-text:#1f2937;
+    --p2cx-muted:#6b7280;
+    --p2cx-border:#e5e7eb;
+    --p2cx-shadow:0 4px 12px rgba(2,6,23,.08);
+    --p2cx-shadow-hover:0 8px 24px rgba(2,6,23,.12);
+    --p2cx-radius:12px;
+    --p2cx-bg:#f8fafc;
+  }
+  html, body{ background:var(--p2cx-bg); color:var(--p2cx-text); font-family:'Inter',-apple-system,system-ui,sans-serif; }
+  h1,h2,h3,h4,h5{ letter-spacing:-0.02em; }
+
+  /* Navigation */
+  .nav-p2cx{ position:sticky; top:0; z-index:50; background:rgba(248,250,252,.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--p2cx-border); }
+  .nav-p2cx .brand{ font-weight:800; font-size:1.15rem; letter-spacing:-0.02em; }
+  .nav-p2cx .brand span{ color:var(--p2cx-gold); }
+  .nav-p2cx a.nav-link{ color:var(--p2cx-muted); font-size:.85rem; padding:.35rem .75rem; border-radius:999px; }
+  .nav-p2cx a.nav-link:hover{ color:var(--p2cx-text); background:#fff; text-decoration:none; }
+
+  /* Cards */
+  .p2cx-card{
+    background:#fff;
+    border:1px solid var(--p2cx-border);
+    border-radius:var(--p2cx-radius);
+    box-shadow:var(--p2cx-shadow);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .p2cx-card:hover{ transform:translateY(-2px); box-shadow:var(--p2cx-shadow-hover); }
+  .p2cx-body{ padding:1.5rem; }
+
+  /* Links / Buttons */
+  a{ color:var(--p2cx-gold); text-decoration:none; }
+  a:hover{ text-decoration:underline; }
+  .btn-p2cx{ background:var(--p2cx-gold); border-color:var(--p2cx-gold); color:#fff; font-weight:600; }
+  .btn-p2cx:hover{ background:var(--p2cx-gold-dark); border-color:var(--p2cx-gold-dark); color:#fff; }
+  .btn-outline-p2cx{ color:var(--p2cx-gold); border:1px solid var(--p2cx-gold); background:#fff; font-weight:600; }
+  .btn-outline-p2cx:hover{ background:var(--p2cx-gold); color:#fff; }
+
+  /* Helpers */
+  .text-gold{ color:var(--p2cx-gold); }
+  .bg-gold-soft{ background:var(--p2cx-gold-soft); }
+  .eyebrow{ letter-spacing:.12em; font-size:.75rem; text-transform:uppercase; color:var(--p2cx-gold); font-weight:700; }
+  .smallmuted{ color:var(--p2cx-muted); }
+
+  /* Chips / Badges */
+  .chip{ display:inline-block; padding:.3rem .65rem; border-radius:999px; font-size:.75rem; background:#f3f4f6; color:#374151; border:1px solid var(--p2cx-border); font-weight:500; }
+  .chip-gold{ background:var(--p2cx-gold-soft); color:var(--p2cx-gold-dark); border-color:#e8d5a3; }
+  .chip-auto{ background:#f0fdf4; color:#166534; border-color:#bbf7d0; }
+  .chip-ai{ background:var(--p2cx-gold-soft); color:var(--p2cx-gold-dark); border-color:#e8d5a3; }
+  .chip-manual{ background:#f1f5f9; color:#475569; border-color:#e2e8f0; }
+
+  /* Icons */
+  .ico{ display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:12px; background:var(--p2cx-gold-soft); color:var(--p2cx-gold); }
+  .ico svg{ width:22px; height:22px; }
+  .ico-sm{ width:32px; height:32px; border-radius:9px; }
+  .ico-sm svg{ width:16px; height:16px; }
+
+  /* Hero */
+  .hero{ padding:5rem 0 3rem; position:relative; overflow:hidden; }
+  .hero::before{ content:''; position:absolute; top:-100px; right:-100px; width:400px; height:400px; background:radial-gradient(circle, rgba(201,164,76,.12) 0%, transparent 70%); border-radius:50%; pointer-events:none; }
+  .hero h1{ font-size:clamp(2.2rem,4.5vw,3.6rem); font-weight:800; line-height:1.1; }
+  .hero h1 span{ color:var(--p2cx-gold); }
+  .hero .lead{ font-size:1.15rem; color:var(--p2cx-muted); max-width:640px; }
+  .hero-stats{ display:flex; gap:2.5rem; margin-top:2rem; flex-wrap:wrap; }
+  .hero-stat .val{ font-size:2rem; font-weight:800; color:var(--p2cx-gold); line-height:1; }
+  .hero-stat .lbl{ font-size:.8rem; color:var(--p2cx-muted); text-transform:uppercase; letter-spacing:.08em; margin-top:.35rem; }
+
+  /* Sections */
+  section.block{ padding:4rem 0; }
+  section.block.alt{ background:#fff; border-top:1px solid var(--p2cx-border); border-bottom:1px solid var(--p2cx-border); }
+  .section-title{ font-size:clamp(1.6rem,2.8vw,2.2rem); font-weight:800; margin-bottom:.4rem; }
+  .section-sub{ color:var(--p2cx-muted); font-size:1.05rem; margin-bottom:2.5rem; max-width:720px; }
+
+  /* Flow */
+  .flow{ display:grid; grid-template-columns:repeat(5,1fr); gap:.8rem; }
+  @media(max-width:900px){ .flow{ grid-template-columns:repeat(2,1fr); } }
+  .flow-step{ background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); padding:1.1rem; position:relative; box-shadow:var(--p2cx-shadow); }
+  .flow-step .num{ display:inline-flex; width:26px; height:26px; align-items:center; justify-content:center; border-radius:50%; background:var(--p2cx-gold); color:#fff; font-weight:800; font-size:.75rem; margin-bottom:.6rem; }
+  .flow-step h5{ font-size:.95rem; font-weight:700; margin:0 0 .25rem; }
+  .flow-step p{ font-size:.8rem; color:var(--p2cx-muted); margin:0; line-height:1.45; }
+
+  /* Step list (workflow) */
+  .step-list{ display:grid; gap:.55rem; }
+  .step-item{ display:grid; grid-template-columns:38px 1fr auto; gap:.9rem; align-items:center; background:#fff; border:1px solid var(--p2cx-border); border-radius:10px; padding:.75rem 1rem; transition:all .15s ease; }
+  .step-item:hover{ border-color:#e8d5a3; transform:translateX(2px); }
+  .step-item .n{ display:flex; width:30px; height:30px; border-radius:8px; background:var(--p2cx-gold-soft); color:var(--p2cx-gold-dark); font-weight:800; font-size:.85rem; align-items:center; justify-content:center; }
+  .step-item .title{ font-size:.92rem; font-weight:600; }
+  .step-item .desc{ font-size:.78rem; color:var(--p2cx-muted); margin-top:.1rem; }
+
+  /* Bot-Cards */
+  .bot-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:1rem; }
+  @media(max-width:900px){ .bot-grid{ grid-template-columns:1fr; } }
+  .bot-card{ background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); padding:1.25rem; position:relative; transition:all .2s ease; }
+  .bot-card:hover{ border-color:var(--p2cx-gold); box-shadow:var(--p2cx-shadow-hover); transform:translateY(-2px); }
+  .bot-card .num{ position:absolute; top:-10px; left:1.25rem; background:var(--p2cx-gold); color:#fff; font-size:.7rem; font-weight:800; padding:.2rem .55rem; border-radius:999px; letter-spacing:.05em; }
+  .bot-card h4{ font-size:1rem; font-weight:700; margin:.35rem 0 .5rem; }
+  .bot-card p{ font-size:.82rem; color:var(--p2cx-muted); margin:0 0 .75rem; line-height:1.55; }
+  .bot-card .out{ font-size:.72rem; font-family:ui-monospace,Menlo,Consolas,monospace; color:var(--p2cx-gold-dark); background:var(--p2cx-gold-soft); padding:.45rem .65rem; border-radius:6px; }
+
+  /* DATEV-Zeile */
+  .datev-row{ font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.78rem; background:#0f172a; color:#e2e8f0; padding:.85rem 1rem; border-radius:8px; overflow-x:auto; white-space:nowrap; }
+  .datev-row .k{ color:#fbbf24; }
+  .datev-row .n{ color:#4ade80; }
+  .datev-row .t{ color:#94a3b8; }
+
+  /* Journal-Tabelle */
+  .journal-tbl{ width:100%; border-collapse:collapse; font-size:.88rem; }
+  .journal-tbl th{ text-align:left; font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--p2cx-muted); padding:.6rem .75rem; border-bottom:1px solid var(--p2cx-border); font-weight:600; }
+  .journal-tbl td{ padding:.7rem .75rem; border-bottom:1px solid #f1f5f9; }
+  .journal-tbl tr:last-child td{ border-bottom:none; }
+  .journal-tbl .num{ font-family:ui-monospace,Menlo,Consolas,monospace; text-align:right; }
+  .journal-tbl .total{ font-weight:700; background:var(--p2cx-gold-soft); }
+
+  /* SUSA-Row */
+  .susa-row{ display:grid; grid-template-columns:80px 1fr 110px 110px 110px 90px; gap:1rem; padding:.6rem .85rem; border-bottom:1px solid #f1f5f9; font-size:.88rem; align-items:center; }
+  .susa-row.head{ font-size:.7rem; text-transform:uppercase; letter-spacing:.06em; color:var(--p2cx-muted); font-weight:600; border-bottom:1px solid var(--p2cx-border); }
+  .susa-row .k{ font-family:ui-monospace,Menlo,Consolas,monospace; font-weight:600; }
+  .susa-row .num{ font-family:ui-monospace,Menlo,Consolas,monospace; text-align:right; }
+  @media(max-width:700px){ .susa-row{ grid-template-columns:60px 1fr 90px; } .susa-row .hide-sm{ display:none; } }
+
+  /* Highlights */
+  .highlight{ display:flex; gap:1rem; padding:1.1rem; background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); box-shadow:var(--p2cx-shadow); height:100%; }
+  .highlight h5{ font-size:.95rem; font-weight:700; margin:0 0 .25rem; }
+  .highlight p{ font-size:.82rem; color:var(--p2cx-muted); margin:0; line-height:1.5; }
+
+  /* POC-Stempel */
+  .poc-stamp{
+    display:inline-flex; align-items:center; gap:.6rem;
+    padding:.7rem 1.2rem;
+    background:linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border:2px solid #16a34a;
+    border-radius:999px;
+    color:#15803d;
+    font-weight:700;
+    font-size:.95rem;
+    letter-spacing:.02em;
+    box-shadow:0 4px 14px rgba(22,163,74,.18);
+    transform:rotate(-1.5deg);
+  }
+  .poc-stamp svg{ width:22px; height:22px; }
+
+  /* Next-Step-Card */
+  .next-step{ display:flex; gap:.9rem; align-items:flex-start; padding:1rem; background:#fff; border:1px solid var(--p2cx-border); border-radius:10px; transition:all .15s ease; }
+  .next-step:hover{ border-color:var(--p2cx-gold); box-shadow:var(--p2cx-shadow); }
+  .next-step .n{ display:flex; width:32px; height:32px; border-radius:8px; background:var(--p2cx-gold); color:#fff; font-weight:800; font-size:.9rem; align-items:center; justify-content:center; flex-shrink:0; }
+  .next-step .t{ font-size:.92rem; font-weight:700; margin-bottom:.2rem; }
+  .next-step .d{ font-size:.8rem; color:var(--p2cx-muted); line-height:1.5; }
+  .next-step .owner{ display:inline-block; margin-top:.4rem; font-size:.7rem; font-weight:600; padding:.15rem .5rem; border-radius:4px; background:var(--p2cx-gold-soft); color:var(--p2cx-gold-dark); letter-spacing:.05em; text-transform:uppercase; }
+
+  /* Footer */
+  footer{ padding:3rem 0 2rem; border-top:1px solid var(--p2cx-border); background:#fff; }
+  footer .brand{ font-weight:800; font-size:1.2rem; }
+  footer .brand span{ color:var(--p2cx-gold); }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav-p2cx">
+  <div class="container d-flex align-items-center justify-content-between py-3">
+    <div class="brand">sort<span>werk</span></div>
+    <div class="d-none d-md-flex gap-1">
+      <a class="nav-link" href="#ueberblick">Überblick</a>
+      <a class="nav-link" href="#eingang">Eingang</a>
+      <a class="nav-link" href="#eingangsrechnung">Eingangsrechnung</a>
+      <a class="nav-link" href="#ausgangsrechnung">Ausgangsrechnung</a>
+      <a class="nav-link" href="#datev">DATEV</a>
+      <a class="nav-link" href="#journal">Journal</a>
+      <a class="nav-link" href="#susa">SuSa</a>
+      <a class="nav-link" href="#infra">Infrastruktur</a>
+      <a class="nav-link" href="#status">Status</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div class="eyebrow mb-3">Rechnungsverarbeitung für Unternehmen</div>
+    <h1>Rechnungen automatisch<br>bis ins <span>Journal</span>.</h1>
+    <p class="lead mt-3">
+      Vom Posteingang zur fertigen Buchung — Email-Import, OCR, KI-Kontierung, DATEV-Upload und SuSa-Auswertung in einem durchgängigen Prozess. Prüfbar in jedem Schritt.
+    </p>
+    <div class="d-flex gap-2 mt-4">
+      <a href="#ueberblick" class="btn btn-p2cx px-4 py-2">Der Prozess im Überblick</a>
+      <a href="#eingangsrechnung" class="btn btn-outline-p2cx px-4 py-2">Live-Durchlauf</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="val">5</div><div class="lbl">Phasen Eingang</div></div>
+      <div class="hero-stat"><div class="val">12</div><div class="lbl">Steps Rechnung</div></div>
+      <div class="hero-stat"><div class="val">6</div><div class="lbl">Kontierungs-Bots</div></div>
+      <div class="hero-stat"><div class="val">1</div><div class="lbl">Klick zu DATEV</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ÜBERBLICK -->
+<section id="ueberblick" class="block alt">
+  <div class="container">
+    <div class="eyebrow mb-2">Der Weg eines Dokuments</div>
+    <h2 class="section-title">Von der Email bis zur SuSa</h2>
+    <p class="section-sub">Jede Rechnung durchläuft denselben strukturierten Prozess — automatisch, nachvollziehbar, abbrechbar an jedem Punkt.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <span class="num">1</span>
+        <h5>Eingang</h5>
+        <p>Email, Upload oder OneDrive — PDFs werden automatisch erkannt und übernommen.</p>
+      </div>
+      <div class="flow-step">
+        <span class="num">2</span>
+        <h5>OCR & Klassifikation</h5>
+        <p>Text-Extraktion und KI-Einordnung: Absender, Kategorie, vorgeschlagene Aktionen.</p>
+      </div>
+      <div class="flow-step">
+        <span class="num">3</span>
+        <h5>Dispatch</h5>
+        <p>Ein Blick, ein Klick: Prüfen und Folgeworkflows starten.</p>
+      </div>
+      <div class="flow-step">
+        <span class="num">4</span>
+        <h5>Kontierung</h5>
+        <p>Sechs spezialisierte Bots extrahieren, prüfen und bebuchen jede Position einzeln.</p>
+      </div>
+      <div class="flow-step">
+        <span class="num">5</span>
+        <h5>DATEV & SuSa</h5>
+        <p>Upload nach DATEV Unternehmen Online, Journal und SuSa automatisch aktualisiert.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EINGANG -->
+<section id="eingang" class="block">
+  <div class="container">
+    <div class="eyebrow mb-2">Phase 1 & 2</div>
+    <h2 class="section-title">So kommt die Rechnung rein</h2>
+    <p class="section-sub">Drei Eingangskanäle, eine einheitliche Verarbeitung. Kein manuelles Ablegen, kein manuelles Einlesen.</p>
+
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="ico mb-3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <h4 class="h6 fw-bold">Email-Postfach</h4>
+            <p class="smallmuted small mb-2">Rechnungen an ein dediziertes Postfach weiterleiten. Microsoft Graph API holt sie ab, extrahiert PDF-Anhänge und entfernt Präfixe wie FW/WG/AW automatisch.</p>
+            <span class="chip chip-gold">Standardweg</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="ico mb-3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+            <h4 class="h6 fw-bold">Manueller Upload</h4>
+            <p class="smallmuted small mb-2">Drag &amp; Drop direkt in die Oberfläche — ideal für Post, Fotos oder einzelne Belege unterwegs.</p>
+            <span class="chip">Ergänzend</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="ico mb-3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+            </div>
+            <h4 class="h6 fw-bold">OneDrive / SharePoint</h4>
+            <p class="smallmuted small mb-2">Synchronisierte Eingangsordner, für bestehende Ablagestrukturen.</p>
+            <span class="chip">Optional</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mt-1">
+      <div class="col-md-6">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+              <h4 class="h6 fw-bold m-0">OCR &amp; Text-Extraktion</h4>
+            </div>
+            <p class="smallmuted small mb-2">Vierstufige OCR-Kaskade — immer der beste verfügbare Weg:</p>
+            <ol class="small smallmuted mb-0 ps-3">
+              <li><strong>pdf-parse</strong> — direkter Textlayer (schnell, kostenlos)</li>
+              <li><strong>Encodian</strong> — Azure Germany West Central (EU-konform)</li>
+              <li><strong>KI-Vision</strong> — Fallback für Scans und Fotos</li>
+              <li><strong>Tesseract</strong> — lokaler Fallback</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg></div>
+              <h4 class="h6 fw-bold m-0">QuickClassifier Bot</h4>
+            </div>
+            <p class="smallmuted small mb-2">Ein einziger Bot statt sechs: Absender, Zusammenfassung, Kategorie und vorgeschlagene Folgeaktionen in einem Durchlauf.</p>
+            <div class="d-flex flex-wrap gap-1 mt-2">
+              <span class="chip">Absender</span>
+              <span class="chip">Betreff</span>
+              <span class="chip">Kategorie</span>
+              <span class="chip">Confidence</span>
+              <span class="chip chip-gold">Auto-Bestätigung ≥ 80%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EINGANGSRECHNUNG BUSINESS -->
+<section id="eingangsrechnung" class="block alt">
+  <div class="container">
+    <div class="eyebrow mb-2">Workflow · rechnung-business</div>
+    <h2 class="section-title">Eingangsrechnung — 12 Schritte</h2>
+    <p class="section-sub">Drei automatische, sieben KI-gestützte und zwei manuelle Schritte. Jeder Schritt liefert strukturiertes Output — im Zweifel jederzeit prüfbar.</p>
+
+    <div class="row g-4">
+      <div class="col-lg-7">
+        <div class="step-list">
+          <div class="step-item"><div class="n">1</div><div><div class="title">Dokumenttyp bestätigt</div><div class="desc">Basisdaten übernommen, Rechnung erkannt.</div></div><span class="chip chip-auto">auto</span></div>
+          <div class="step-item"><div class="n">2</div><div><div class="title">An DATEV gesendet</div><div class="desc">PDF per Graph API an DATEV Unternehmen Online.</div></div><span class="chip chip-auto">auto</span></div>
+          <div class="step-item"><div class="n">3</div><div><div class="title">Beleg-Extraktion</div><div class="desc">Positionen, Beträge, Lieferant, Fälligkeit.</div></div><span class="chip chip-ai">Bot 1</span></div>
+          <div class="step-item"><div class="n">4</div><div><div class="title">Quellen-Konsistenz</div><div class="desc">Netto + USt = Brutto? Summen, Datumslogik.</div></div><span class="chip chip-ai">Bot 2</span></div>
+          <div class="step-item"><div class="n">5</div><div><div class="title">Positions-Analyse</div><div class="desc">GWG, Anlage, Bewirtung 70/30, Privatanteile.</div></div><span class="chip chip-ai">Bot 3</span></div>
+          <div class="step-item"><div class="n">6</div><div><div class="title">Kontenrahmen &amp; Kostenart</div><div class="desc">SKR03 / SKR04 / SKR49 / IKR · Kostenart-Taxonomie.</div></div><span class="chip chip-ai">Bot 4</span></div>
+          <div class="step-item"><div class="n">7</div><div><div class="title">Konten-Matching</div><div class="desc">Konten, BU-Schlüssel, Kreditorenkonto — lernt aus der Historie.</div></div><span class="chip chip-ai">Bot 5</span></div>
+          <div class="step-item"><div class="n">8</div><div><div class="title">Steuer- &amp; Buchungslogik</div><div class="desc">DATEV-Steuerschlüssel (2=7%, 3=19%, 0=steuerfrei).</div></div><span class="chip chip-ai">Bot 5</span></div>
+          <div class="step-item"><div class="n">9</div><div><div class="title">Buchungsvorschlag</div><div class="desc">DATEV-Zeilen (Brutto) + Journal (aufgelöst).</div></div><span class="chip chip-ai">Bot 6</span></div>
+          <div class="step-item"><div class="n">10</div><div><div class="title">Kontierung prüfen</div><div class="desc">Checkliste: Konten, Schlüssel, Journal-Balance.</div></div><span class="chip chip-manual">manuell</span></div>
+          <div class="step-item"><div class="n">11</div><div><div class="title">Zahlungsfreigabe</div><div class="desc">Betrag, Zahlungsweg, Skonto — übersprungen bei bezahlt.</div></div><span class="chip chip-manual">manuell</span></div>
+          <div class="step-item"><div class="n">12</div><div><div class="title">Archivierung &amp; Buchung</div><div class="desc">GoBD-Archivierung, finaler DATEV-Export.</div></div><span class="chip chip-auto">auto</span></div>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="eyebrow mb-2">Beispiel</div>
+            <h4 class="h6 fw-bold mb-1">Apple AirPods · 238,00 € brutto</h4>
+            <p class="smallmuted small mb-3">Eingangsrechnung ER-2026-042, bezahlt per Überweisung. Nettobetrag 200 € → automatische GWG-Klassifikation.</p>
+
+            <div class="mb-3">
+              <div class="eyebrow small mb-2">DATEV-Zeile (EXTF)</div>
+              <div class="datev-row">
+                <span class="n">238,00</span><span class="t">;</span><span class="k">S</span><span class="t">;EUR;;;</span><span class="k">0480</span><span class="t">;</span><span class="k">1600</span><span class="t">;</span><span class="k">3</span><span class="t">;0204;</span><span class="k">ER-2026-042</span><span class="t">;;;Apple AirPods GWG</span>
+              </div>
+            </div>
+
+            <div>
+              <div class="eyebrow small mb-2">Journal (intern aufgelöst)</div>
+              <table class="journal-tbl">
+                <thead><tr><th>Konto</th><th>Bezeichnung</th><th class="text-end">Soll</th><th class="text-end">Haben</th></tr></thead>
+                <tbody>
+                  <tr><td>0480</td><td>GWG</td><td class="num">200,00</td><td class="num">—</td></tr>
+                  <tr><td>1576</td><td>Vorsteuer 19%</td><td class="num">38,00</td><td class="num">—</td></tr>
+                  <tr><td>1600</td><td>Verbindlichkeiten</td><td class="num">—</td><td class="num">238,00</td></tr>
+                  <tr class="total"><td colspan="2">Summen (balanced)</td><td class="num">238,00</td><td class="num">238,00</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Die 6 Bots -->
+    <div class="mt-5 pt-3">
+      <div class="eyebrow mb-2">Die sechs Kontierungs-Bots</div>
+      <h3 class="section-title" style="font-size:1.5rem;">Ein Bot pro Aufgabe — statt einer Blackbox</h3>
+      <p class="section-sub">Jeder Schritt ist isoliert, prüfbar und wiederholbar. Wenn etwas schiefgeht, weiß man exakt wo.</p>
+
+      <div class="bot-grid">
+        <div class="bot-card">
+          <span class="num">BOT 1</span>
+          <h4>Beleg-Extraktion</h4>
+          <p>Erfasst Lieferant, Rechnungsnummer, Datum, Fälligkeit und jede einzelne Position mit Menge, Einzelpreis und Steuersatz.</p>
+          <div class="out">→ vendor, positions[], taxBreakdown</div>
+        </div>
+        <div class="bot-card">
+          <span class="num">BOT 2</span>
+          <h4>Quellen-Konsistenz</h4>
+          <p>Prüft die Extraktion gegen den OCR-Text: Rechenlogik, Summen, plausible Datumsangaben. Korrekturen werden dokumentiert.</p>
+          <div class="out">→ validated, corrections[], checks</div>
+        </div>
+        <div class="bot-card">
+          <span class="num">BOT 3</span>
+          <h4>Positions-Analyse</h4>
+          <p>GWG-Schwellen (250 € / 800 €), Anlage-Klassifikation mit AfA, Bewirtung 70/30-Split, Privatanteile je Position.</p>
+          <div class="out">→ classification, splits[], afaInfo</div>
+        </div>
+        <div class="bot-card">
+          <span class="num">BOT 4</span>
+          <h4>Kontenrahmen &amp; Kostenart</h4>
+          <p>Ordnet jede Position einer Kostenart zu — Bürobedarf, Telekom, Bewirtung, GWG, Anlage, Fremdleistungen, u. v. m.</p>
+          <div class="out">→ kontenrahmen, kostenart, indizien[]</div>
+        </div>
+        <div class="bot-card">
+          <span class="num">BOT 5</span>
+          <h4>Konten-Matching</h4>
+          <p>Findet konkrete Konten (0480, 4930, 4650, …) und BU-Schlüssel. <strong>Nutzt die bisherigen Buchungen des Mandanten als Kontext</strong> — wer Telekom schon immer auf 4920 gebucht hat, bekommt auch diesmal 4920. Liefert zusätzlich Personenkonten für Debitoren und Kreditoren.</p>
+          <div class="out">→ hauptkonto, personenkonto, historyMatch</div>
+        </div>
+        <div class="bot-card">
+          <span class="num">BOT 6</span>
+          <h4>Buchungsvorschlag</h4>
+          <p>Baut DATEV-Zeilen (Brutto mit Automatikkonto) und das aufgelöste Journal. Balance-Check ist Pflicht.</p>
+          <div class="out">→ datevZeilen[], journal[], balanced</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEBITOREN / KREDITOREN + LERNFÄHIGKEIT -->
+    <div class="mt-5 pt-3">
+      <div class="eyebrow mb-2">Personenkonten &amp; Lernfähigkeit</div>
+      <h3 class="section-title" style="font-size:1.5rem;">Echte Buchhaltung, keine Sammelbuchungen</h3>
+      <p class="section-sub">Jeder Lieferant bekommt sein Kreditorenkonto, jeder Kunde sein Debitorenkonto — automatisch beim ersten Beleg. Und Bot 5 lernt mit: einmal richtig gebucht, bleibt es richtig.</p>
+
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="p2cx-card h-100">
+            <div class="p2cx-body">
+              <div class="d-flex align-items-center gap-2 mb-3">
+                <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                <div>
+                  <div class="eyebrow">Debitoren &amp; Kreditoren</div>
+                  <h4 class="h6 fw-bold m-0">Personenkonto statt Sammelkonto</h4>
+                </div>
+              </div>
+
+              <div class="row g-2 mb-3">
+                <div class="col-6">
+                  <div class="p-3 rounded" style="background:#fef2f2; border:1px solid #fecaca;">
+                    <div class="eyebrow small mb-1" style="color:#dc2626;">Vorher</div>
+                    <div class="small fw-semibold">Sammelkonto</div>
+                    <div class="smallmuted small mt-1">Alle Lieferanten auf <code>1600</code>, alle Kunden auf <code>1400</code>. Kein OP-Abgleich, keine Mahnungen, keine Auswertung je Partner.</div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="p-3 rounded" style="background:var(--p2cx-gold-soft); border:1px solid #e8d5a3;">
+                    <div class="eyebrow small mb-1">Jetzt</div>
+                    <div class="small fw-semibold">Personenkonto</div>
+                    <div class="smallmuted small mt-1">Debitoren ab <code>10000</code>, Kreditoren ab <code>70000</code>. Automatisch angelegt, automatisch gefunden, OP-fähig.</div>
+                  </div>
+                </div>
+              </div>
+
+              <ul class="small smallmuted mb-0 ps-3">
+                <li>Erkennung über Name, USt-ID, IBAN</li>
+                <li>Duplikat-Check beim Anlegen (Schreibweisen, Rechtsformen)</li>
+                <li>Grundlage für Offene-Posten-Liste und Mahnwesen</li>
+                <li>Auswertungen pro Lieferant / Kunde direkt in der SuSa</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="p2cx-card h-100">
+            <div class="p2cx-body">
+              <div class="d-flex align-items-center gap-2 mb-3">
+                <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+                <div>
+                  <div class="eyebrow">Bot 5 lernt mit</div>
+                  <h4 class="h6 fw-bold m-0">Historie als Kontext</h4>
+                </div>
+              </div>
+
+              <p class="smallmuted small mb-3">Beim Konten-Matching bekommt Bot 5 nicht nur den aktuellen Beleg, sondern auch die bisherigen Buchungen des Mandanten als Entscheidungshilfe.</p>
+
+              <div class="d-flex flex-column gap-2">
+                <div class="d-flex gap-2 align-items-start p-2 rounded" style="background:#f8fafc;">
+                  <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+                  <div>
+                    <div class="fw-semibold small">Konsistenz statt Raten</div>
+                    <div class="smallmuted small">Einmal richtig gebucht, bleibt die Zuordnung stabil — auch über Monate.</div>
+                  </div>
+                </div>
+                <div class="d-flex gap-2 align-items-start p-2 rounded" style="background:#f8fafc;">
+                  <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+                  <div>
+                    <div class="fw-semibold small">Keine Regelpflege</div>
+                    <div class="smallmuted small">Kein statisches Regelwerk, keine Keyword-Listen. Der Mandant trainiert den Bot durch sein Buchungsverhalten.</div>
+                  </div>
+                </div>
+                <div class="d-flex gap-2 align-items-start p-2 rounded" style="background:#f8fafc;">
+                  <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+                  <div>
+                    <div class="fw-semibold small">Kreditor wird wiedererkannt</div>
+                    <div class="smallmuted small">Gleiche Firma → gleiches Personenkonto, auch bei unterschiedlicher Schreibweise.</div>
+                  </div>
+                </div>
+                <div class="d-flex gap-2 align-items-start p-2 rounded" style="background:#f8fafc;">
+                  <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+                  <div>
+                    <div class="fw-semibold small">Transparent in der Prüfung</div>
+                    <div class="smallmuted small">Jeder Vorschlag wird mit dem passenden historischen Beleg belegt — nachvollziehbar, kein Blackbox-Effekt.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUSGANGSRECHNUNG -->
+<section id="ausgangsrechnung" class="block">
+  <div class="container">
+    <div class="eyebrow mb-2">Workflow · rechnungsausgang</div>
+    <h2 class="section-title">Ausgangsrechnung — 11 Schritte</h2>
+    <p class="section-sub">Derselbe robuste Prozess wie beim Eingang — mit Erlöskonten, Zahlungseingangs-Überwachung und ohne GWG-Logik.</p>
+
+    <div class="row g-4">
+      <div class="col-lg-7">
+        <div class="step-list">
+          <div class="step-item"><div class="n">1</div><div><div class="title">Rechnung erfasst</div><div class="desc">Ausgangsrechnung automatisch erkannt.</div></div><span class="chip chip-auto">auto</span></div>
+          <div class="step-item"><div class="n">2</div><div><div class="title">An DATEV gesendet</div><div class="desc">PDF an DATEV Upload-Email.</div></div><span class="chip chip-auto">auto</span></div>
+          <div class="step-item"><div class="n">3</div><div><div class="title">Beleg-Extraktion</div><div class="desc">Positionen, Empfänger, Zahlungsbedingungen.</div></div><span class="chip chip-ai">Bot 1</span></div>
+          <div class="step-item"><div class="n">4</div><div><div class="title">Quellen-Konsistenz</div><div class="desc">Plausibilität &amp; Summen-Checks.</div></div><span class="chip chip-ai">Bot 2</span></div>
+          <div class="step-item"><div class="n">5</div><div><div class="title">Positions-Analyse</div><div class="desc">Standardumsätze — keine GWG-Prüfung.</div></div><span class="chip chip-ai">Bot 3</span></div>
+          <div class="step-item"><div class="n">6</div><div><div class="title">Kontenrahmen &amp; Erlösart</div><div class="desc">Erlöse 19 %, 7 %, steuerfrei, innergemeinschaftlich, Reverse-Charge.</div></div><span class="chip chip-ai">Bot 4</span></div>
+          <div class="step-item"><div class="n">7</div><div><div class="title">Konten-Matching</div><div class="desc">Erlöskonto, USt-Konto und Debitorenkonto — lernt aus der Historie.</div></div><span class="chip chip-ai">Bot 5</span></div>
+          <div class="step-item"><div class="n">8</div><div><div class="title">Steuer- &amp; Buchungslogik</div><div class="desc">USt-Behandlung, DATEV-Steuerschlüssel.</div></div><span class="chip chip-ai">Bot 5</span></div>
+          <div class="step-item"><div class="n">9</div><div><div class="title">Buchungsvorschlag</div><div class="desc">DATEV-Zeilen + Journal mit Forderungsbuchung.</div></div><span class="chip chip-ai">Bot 6</span></div>
+          <div class="step-item"><div class="n">10</div><div><div class="title">Kontierung prüfen</div><div class="desc">Checkliste: Erlöskonto, Steuerschlüssel, Balance.</div></div><span class="chip chip-manual">manuell</span></div>
+          <div class="step-item"><div class="n">11</div><div><div class="title">Zahlungseingang überwachen</div><div class="desc">Abgleich, ggf. Erinnerung oder Mahnung.</div></div><span class="chip chip-manual">manuell</span></div>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="eyebrow mb-2">Unterschiede zur Eingangsseite</div>
+            <h4 class="h6 fw-bold mb-3">Zwei Welten, ein Prozess</h4>
+            <div class="d-flex flex-column gap-3">
+              <div class="d-flex gap-3">
+                <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div>
+                  <div class="fw-semibold small">Gegenkonto</div>
+                  <div class="smallmuted small">1400 Forderungen (offen) / 1200 Bank (bezahlt)</div>
+                </div>
+              </div>
+              <div class="d-flex gap-3">
+                <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div>
+                  <div class="fw-semibold small">Erlöskonten statt Aufwand</div>
+                  <div class="smallmuted small">8400 Erlöse 19%, 8300 Erlöse 7%, 8125 i.g. Lieferungen</div>
+                </div>
+              </div>
+              <div class="d-flex gap-3">
+                <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div>
+                  <div class="fw-semibold small">Keine GWG-Prüfung</div>
+                  <div class="smallmuted small">Alle Positionen „Normal"</div>
+                </div>
+              </div>
+              <div class="d-flex gap-3">
+                <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div>
+                  <div class="fw-semibold small">Zahlungseingang statt Freigabe</div>
+                  <div class="smallmuted small">Letzter Step überwacht den Geldeingang</div>
+                </div>
+              </div>
+              <div class="d-flex gap-3">
+                <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div>
+                  <div class="fw-semibold small">Gleiche sechs Bots</div>
+                  <div class="smallmuted small">Kontierungs-Engine ist identisch — nur die Taxonomie wechselt</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATEV -->
+<section id="datev" class="block alt">
+  <div class="container">
+    <div class="eyebrow mb-2">Integration</div>
+    <h2 class="section-title">DATEV Unternehmen Online — ohne Medienbruch</h2>
+    <p class="section-sub">Jede Rechnung geht als PDF automatisch an DATEV. Kein Export, kein Upload-Portal, keine manuellen Schritte.</p>
+
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+              <div>
+                <div class="eyebrow">Mechanismus</div>
+                <h4 class="h6 fw-bold m-0">Per Email via Microsoft Graph API</h4>
+              </div>
+            </div>
+            <ol class="small smallmuted ps-3 mb-0">
+              <li>Template-Config wird pro Workflow geladen</li>
+              <li>Prüfung: DATEV-Upload aktiviert?</li>
+              <li>PDF aus Upload-Ordner laden</li>
+              <li>Graph API Token (Client Credentials)</li>
+              <li>POST <code>sendMail</code> mit PDF als Base64-Attachment</li>
+              <li>Betreff: „Rechnung: dateiname.pdf"</li>
+              <li>Empfänger: DATEV Unternehmen Online Upload-Email</li>
+              <li>Absender: bei DATEV freigeschalteter Account</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="eyebrow mb-2">Admin-Einstellungen</div>
+            <h4 class="h6 fw-bold mb-3">Pro Workflow konfigurierbar</h4>
+            <div class="d-flex flex-column gap-2">
+              <div class="d-flex justify-content-between align-items-center p-2 rounded" style="background:#f8fafc;">
+                <span class="small">DATEV-Upload aktiviert</span>
+                <span class="chip chip-gold">Toggle</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center p-2 rounded" style="background:#f8fafc;">
+                <span class="small">DATEV Upload-Email</span>
+                <code class="small">…@uploadmail.datev.de</code>
+              </div>
+              <div class="d-flex justify-content-between align-items-center p-2 rounded" style="background:#f8fafc;">
+                <span class="small">Absender-Email</span>
+                <code class="small">buchhaltung@firma.de</code>
+              </div>
+              <div class="d-flex justify-content-between align-items-center p-2 rounded" style="background:#f8fafc;">
+                <span class="small">Kontenrahmen</span>
+                <span class="chip">SKR03 · 04 · 49 · IKR</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center p-2 rounded" style="background:#f8fafc;">
+                <span class="small">Auto-Bestätigung Confidence</span>
+                <span class="chip chip-gold">≥ 80%</span>
+              </div>
+            </div>
+            <p class="smallmuted small mt-3 mb-0">Einstellungen pro Workflow-Template. Kein Code-Deploy nötig, Änderungen sind sofort wirksam.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNAL -->
+<section id="journal" class="block">
+  <div class="container">
+    <div class="eyebrow mb-2">Interne Sicht</div>
+    <h2 class="section-title">Journal — jede Buchung im Klartext</h2>
+    <p class="section-sub">Neben der DATEV-Zeile (Brutto mit Automatikkonto) gibt es eine aufgelöste Journal-Ansicht — mit getrennter Steuerbuchung. Immer ausgeglichen, immer nachvollziehbar.</p>
+
+    <div class="row g-4">
+      <div class="col-lg-7">
+        <div class="p2cx-card">
+          <div class="p2cx-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <div class="fw-bold">Eingangsrechnung ER-2026-042</div>
+                <div class="smallmuted small">Apple Distribution · 02.04.2026 · 238,00 € brutto</div>
+              </div>
+              <span class="chip chip-gold">balanced</span>
+            </div>
+
+            <table class="journal-tbl">
+              <thead>
+                <tr>
+                  <th>Konto</th>
+                  <th>Bezeichnung</th>
+                  <th class="text-end">Soll</th>
+                  <th class="text-end">Haben</th>
+                  <th>Steuer</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>0480</code></td>
+                  <td>Geringwertige Wirtschaftsgüter</td>
+                  <td class="num">200,00</td>
+                  <td class="num">—</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><code>1576</code></td>
+                  <td>Abziehbare Vorsteuer 19%</td>
+                  <td class="num">38,00</td>
+                  <td class="num">—</td>
+                  <td><span class="chip">19%</span></td>
+                </tr>
+                <tr>
+                  <td><code>1600</code></td>
+                  <td>Verbindlichkeiten aus L&amp;L</td>
+                  <td class="num">—</td>
+                  <td class="num">238,00</td>
+                  <td>—</td>
+                </tr>
+                <tr class="total">
+                  <td colspan="2">Summen</td>
+                  <td class="num">238,00</td>
+                  <td class="num">238,00</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <h4 class="h6 fw-bold mb-3">Warum zwei Sichten?</h4>
+            <div class="d-flex flex-column gap-3">
+              <div>
+                <div class="fw-semibold small text-gold">DATEV-Zeile</div>
+                <p class="smallmuted small mb-0">Eine Zeile pro Position. Brutto-Betrag, Automatikkonto, BU-Schlüssel regelt die Steuer. DATEV-kompatibel.</p>
+              </div>
+              <div>
+                <div class="fw-semibold small text-gold">Journal-Sicht</div>
+                <p class="smallmuted small mb-0">Soll/Haben getrennt. Steuerbuchung explizit. Perfekt für interne Prüfung und die Kontierungs-Freigabe.</p>
+              </div>
+              <div>
+                <div class="fw-semibold small text-gold">Automatische Balance-Prüfung</div>
+                <p class="smallmuted small mb-0">Wenn Soll ≠ Haben — Workflow stoppt. Keine unauffälligen Fehlbuchungen.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUSA -->
+<section id="susa" class="block alt">
+  <div class="container">
+    <div class="eyebrow mb-2">Reporting</div>
+    <h2 class="section-title">Summen- &amp; Saldenliste — live</h2>
+    <p class="section-sub">Die SuSa kombiniert die DATEV-Ist-Zahlen mit den aktuellen Kontierungsvorschlägen aus sortwerk. So sehen Sie jederzeit, wo Sie stehen — ohne auf den Monatsabschluss zu warten.</p>
+
+    <div class="p2cx-card">
+      <div class="p2cx-body">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+          <div>
+            <div class="fw-bold">Summen- und Saldenliste</div>
+            <div class="smallmuted small">März 2026 · kombiniert (DATEV + vorläufig)</div>
+          </div>
+          <div class="d-flex gap-1">
+            <span class="chip">DATEV</span>
+            <span class="chip chip-gold">Vorläufig</span>
+            <span class="chip chip-gold">Kombiniert</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="susa-row head">
+            <div>Konto</div>
+            <div>Bezeichnung</div>
+            <div class="text-end">Soll</div>
+            <div class="text-end hide-sm">Haben</div>
+            <div class="text-end hide-sm">Saldo</div>
+            <div class="text-end hide-sm">Quelle</div>
+          </div>
+          <div class="susa-row">
+            <div class="k">0480</div>
+            <div>Geringwertige Wirtschaftsgüter</div>
+            <div class="num">1.300,00</div>
+            <div class="num hide-sm">—</div>
+            <div class="num hide-sm">1.300,00</div>
+            <div class="text-end hide-sm"><span class="chip chip-gold">komb.</span></div>
+          </div>
+          <div class="susa-row">
+            <div class="k">1200</div>
+            <div>Bank</div>
+            <div class="num">48.520,00</div>
+            <div class="num hide-sm">31.200,00</div>
+            <div class="num hide-sm">17.320,00</div>
+            <div class="text-end hide-sm"><span class="chip">DATEV</span></div>
+          </div>
+          <div class="susa-row">
+            <div class="k">1576</div>
+            <div>Abziehbare Vorsteuer 19%</div>
+            <div class="num">2.438,00</div>
+            <div class="num hide-sm">—</div>
+            <div class="num hide-sm">2.438,00</div>
+            <div class="text-end hide-sm"><span class="chip chip-gold">komb.</span></div>
+          </div>
+          <div class="susa-row">
+            <div class="k">1600</div>
+            <div>Verbindlichkeiten aus L&amp;L</div>
+            <div class="num">—</div>
+            <div class="num hide-sm">12.850,00</div>
+            <div class="num hide-sm">-12.850,00</div>
+            <div class="text-end hide-sm"><span class="chip chip-gold">komb.</span></div>
+          </div>
+          <div class="susa-row">
+            <div class="k">4930</div>
+            <div>Bürobedarf</div>
+            <div class="num">540,00</div>
+            <div class="num hide-sm">—</div>
+            <div class="num hide-sm">540,00</div>
+            <div class="text-end hide-sm"><span class="chip chip-gold">Vorl.</span></div>
+          </div>
+          <div class="susa-row">
+            <div class="k">4650</div>
+            <div>Bewirtungskosten abziehbar</div>
+            <div class="num">168,00</div>
+            <div class="num hide-sm">—</div>
+            <div class="num hide-sm">168,00</div>
+            <div class="text-end hide-sm"><span class="chip chip-gold">Vorl.</span></div>
+          </div>
+          <div class="susa-row">
+            <div class="k">8400</div>
+            <div>Erlöse 19% USt</div>
+            <div class="num">—</div>
+            <div class="num hide-sm">42.100,00</div>
+            <div class="num hide-sm">-42.100,00</div>
+            <div class="text-end hide-sm"><span class="chip">DATEV</span></div>
+          </div>
+          <div class="susa-row total" style="background:var(--p2cx-gold-soft); font-weight:700;">
+            <div></div>
+            <div>Summen März 2026</div>
+            <div class="num">53.966,00</div>
+            <div class="num hide-sm">86.150,00</div>
+            <div class="num hide-sm"></div>
+            <div></div>
+          </div>
+        </div>
+
+        <div class="row g-3 mt-3 pt-2">
+          <div class="col-md-3">
+            <div class="p-2 rounded text-center" style="background:#f8fafc;">
+              <div class="smallmuted small">Soll gesamt</div>
+              <div class="fw-bold text-gold">53.966 €</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-2 rounded text-center" style="background:#f8fafc;">
+              <div class="smallmuted small">Haben gesamt</div>
+              <div class="fw-bold text-gold">86.150 €</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-2 rounded text-center" style="background:#f8fafc;">
+              <div class="smallmuted small">Konten</div>
+              <div class="fw-bold">42</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-2 rounded text-center" style="background:#f8fafc;">
+              <div class="smallmuted small">Vorläufige Belege</div>
+              <div class="fw-bold">17</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mt-4">
+      <div class="col-md-4">
+        <div class="highlight">
+          <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <div>
+            <h5>Drill-Down auf jeden Beleg</h5>
+            <p>Konto anklicken → alle zugrundeliegenden Belege mit Link zum Workflow.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="highlight">
+          <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div>
+            <h5>Monatsfilter</h5>
+            <p>Alle verfügbaren Monate aus DATEV + aktuelle Vorläufige.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="highlight">
+          <div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg></div>
+          <div>
+            <h5>SKR-Kontengruppen</h5>
+            <p>Anlage, Finanz, Erlöse, Aufwand — automatisch gruppiert.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section class="block">
+  <div class="container">
+    <div class="eyebrow mb-2">Warum sortwerk</div>
+    <h2 class="section-title">Kein Gedöns. Nur Prozess.</h2>
+    <p class="section-sub">Automatisiert wo möglich, prüfbar wo nötig, nachvollziehbar in jedem Schritt.</p>
+
+    <div class="row g-3">
+      <div class="col-md-4"><div class="highlight"><div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div><h5>Zero Manual Data Entry</h5><p>Alle Daten aus OCR und KI — kein manuelles Abtippen, nirgends.</p></div></div></div>
+      <div class="col-md-4"><div class="highlight"><div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7L9 18l-5-5"/></svg></div><div><h5>Prüfbar in jedem Schritt</h5><p>Strukturiertes Output pro Bot, Debug-Panel in jedem Step.</p></div></div></div>
+      <div class="col-md-4"><div class="highlight"><div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div><div><h5>Multi-Tenant</h5><p>Mehrere Mandanten parallel, saubere Trennung, eigene Kontenrahmen.</p></div></div></div>
+      <div class="col-md-4"><div class="highlight"><div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div><h5>EU-konform</h5><p>OCR &amp; KI in Azure Germany West Central, EU-gehostete Mammouth-Modelle.</p></div></div></div>
+      <div class="col-md-4"><div class="highlight"><div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-6 4 2 8-6-5-6 5 2-8-6-4h7z"/></svg></div><div><h5>GoBD-tauglich</h5><p>Audit-Trail, Event-Sourcing, unveränderliche Archivierung.</p></div></div></div>
+      <div class="col-md-4"><div class="highlight"><div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><div><h5>Ein Klick zu DATEV</h5><p>Automatischer Upload an Unternehmen Online — kein Medienbruch.</p></div></div></div>
+      <div class="col-md-4"><div class="highlight"><div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/><polyline points="21 4 21 10 15 10"/></svg></div><div><h5>Lernt aus Ihrer Historie</h5><p>Bot 5 nutzt bisherige Buchungen als Kontext — konsistente Kontierung ohne Regelpflege.</p></div></div></div>
+      <div class="col-md-4"><div class="highlight"><div class="ico ico-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><h5>Debitoren &amp; Kreditoren</h5><p>Personenkonten statt Sammelbuchungen — OP-fähig und auswertbar.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INFRASTRUKTUR & SICHERHEIT -->
+<section id="infra" class="block alt">
+  <div class="container">
+    <div class="eyebrow mb-2">Infrastruktur &amp; Sicherheit</div>
+    <h2 class="section-title">Europäisch gehostet. Prüfbar verankert.</h2>
+    <p class="section-sub">Keine US-Clouds im Daten-Pfad. Jede Komponente ist austauschbar, jede Verarbeitung nachvollziehbar.</p>
+
+    <div class="row g-3">
+      <div class="col-md-6 col-lg-4">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="ico mb-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+            <h4 class="h6 fw-bold">Hosting</h4>
+            <p class="smallmuted small mb-2">IONOS Cloud (Deutschland), PostgreSQL auf Managed Database, PM2-Prozesse pro Tenant, nginx als Reverse Proxy mit Let's-Encrypt-SSL.</p>
+            <div class="d-flex flex-wrap gap-1"><span class="chip">IONOS</span><span class="chip">DE</span><span class="chip">PM2</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="ico mb-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></div>
+            <h4 class="h6 fw-bold">Datenhaltung</h4>
+            <p class="smallmuted small mb-2">PostgreSQL, Multi-Tenant mit <code>tenant_id</code> auf jeder Tabelle. Strikte Trennung zwischen Mandanten, Backups verschlüsselt.</p>
+            <div class="d-flex flex-wrap gap-1"><span class="chip">PostgreSQL</span><span class="chip">Multi-Tenant</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="ico mb-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-6 4 2 8-6-5-6 5 2-8-6-4h7z"/></svg></div>
+            <h4 class="h6 fw-bold">KI-Modelle</h4>
+            <p class="smallmuted small mb-2">Mammouth.ai (EU-gehostet), OpenAI-kompatibel. Modell: mistral-large-3. Keine Daten verlassen den EU-Raum, jeder AI-Call wird geloggt und bepreist.</p>
+            <div class="d-flex flex-wrap gap-1"><span class="chip">Mammouth</span><span class="chip">EU</span><span class="chip">Mistral Large 3</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="ico mb-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></div>
+            <h4 class="h6 fw-bold">Authentifizierung</h4>
+            <p class="smallmuted small mb-2">NextAuth mit Azure AD OAuth. Single Sign-On über den bestehenden Microsoft-Tenant, keine separaten Passwörter.</p>
+            <div class="d-flex flex-wrap gap-1"><span class="chip">Azure AD</span><span class="chip">SSO</span><span class="chip">OAuth</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="ico mb-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            <h4 class="h6 fw-bold">OCR &amp; Dokumente</h4>
+            <p class="smallmuted small mb-2">Encodian OCR in Azure Germany West Central. PDFs werden lokal auf dem Server gespeichert, keine externen Zwischenablagen.</p>
+            <div class="d-flex flex-wrap gap-1"><span class="chip">Encodian</span><span class="chip">Azure DE</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="ico mb-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg></div>
+            <h4 class="h6 fw-bold">Observability</h4>
+            <p class="smallmuted small mb-2">Strukturiertes Error-Log pro Tenant, Process-Tracking pro Dokument, HTTP-Log pro externen Call, AI-Usage-Log mit Kostenstelle.</p>
+            <div class="d-flex flex-wrap gap-1"><span class="chip">Error-Log</span><span class="chip">Process-Tracking</span><span class="chip">AI-Usage</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="ico mb-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <h4 class="h6 fw-bold">GoBD &amp; Revisionssicherheit</h4>
+            <p class="smallmuted small mb-2">Event-Sourcing für jeden Workflow, unveränderliche Dokument-Versionen, vollständiger Audit-Trail pro Step und Freigabe.</p>
+            <div class="d-flex flex-wrap gap-1"><span class="chip">GoBD</span><span class="chip">Audit-Trail</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="ico mb-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+            <h4 class="h6 fw-bold">Deployment</h4>
+            <p class="smallmuted small mb-2">GitHub Actions Pipeline, Next.js Standalone, Zero-Downtime Restart via PM2, Rollback per Commit.</p>
+            <div class="d-flex flex-wrap gap-1"><span class="chip">GitHub Actions</span><span class="chip">Next.js 14</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="ico mb-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+            <h4 class="h6 fw-bold">Bot-Instructions</h4>
+            <p class="smallmuted small mb-2">Alle Bot-Prompts in der Datenbank, editierbar über Admin-UI. Kein Code-Deploy für fachliche Anpassungen.</p>
+            <div class="d-flex flex-wrap gap-1"><span class="chip">Editierbar</span><span class="chip">Versioniert</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATUS -->
+<section id="status" class="block">
+  <div class="container">
+    <div class="eyebrow mb-2">Standortbestimmung</div>
+    <h2 class="section-title">Was wir erreicht haben — und was als nächstes kommt</h2>
+    <p class="section-sub">Ehrlicher Blick auf den aktuellen Stand: fertig ist, was fertig ist, der Rest steht auf der Liste.</p>
+
+    <div class="mb-4">
+      <div class="poc-stamp">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        Proof of Concept erfolgreich
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- ERREICHT -->
+      <div class="col-lg-6">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div>
+                <div class="eyebrow">Erreicht</div>
+                <h4 class="h6 fw-bold m-0">Was heute schon läuft</h4>
+              </div>
+            </div>
+            <div class="d-flex flex-column gap-2">
+              <div class="d-flex gap-2 align-items-start p-2 rounded" style="background:#f8fafc;">
+                <div class="ico ico-sm" style="background:#f0fdf4; color:#16a34a;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div>
+                  <div class="fw-semibold small">Durchgängiger Prozess vom Postfach bis zur SuSa</div>
+                  <div class="smallmuted small">Email-Import, OCR, Klassifikation, Dispatch, Folgeworkflows</div>
+                </div>
+              </div>
+              <div class="d-flex gap-2 align-items-start p-2 rounded" style="background:#f8fafc;">
+                <div class="ico ico-sm" style="background:#f0fdf4; color:#16a34a;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div>
+                  <div class="fw-semibold small">6-Bot-Kontierung für Eingangs- &amp; Ausgangsrechnungen</div>
+                  <div class="smallmuted small">Positionsgenau, mit GWG/Anlage/Bewirtung-Logik</div>
+                </div>
+              </div>
+              <div class="d-flex gap-2 align-items-start p-2 rounded" style="background:#f8fafc;">
+                <div class="ico ico-sm" style="background:#f0fdf4; color:#16a34a;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div>
+                  <div class="fw-semibold small">DATEV-Upload via Graph API</div>
+                  <div class="smallmuted small">Pro Workflow konfigurierbar, Brutto-Format mit BU-Schlüssel</div>
+                </div>
+              </div>
+              <div class="d-flex gap-2 align-items-start p-2 rounded" style="background:#f8fafc;">
+                <div class="ico ico-sm" style="background:#f0fdf4; color:#16a34a;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div>
+                  <div class="fw-semibold small">Journal- und SuSa-Sicht</div>
+                  <div class="smallmuted small">Vorläufige Buchungen kombiniert mit DATEV-Ist-Zahlen</div>
+                </div>
+              </div>
+              <div class="d-flex gap-2 align-items-start p-2 rounded" style="background:#f8fafc;">
+                <div class="ico ico-sm" style="background:#f0fdf4; color:#16a34a;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div>
+                  <div class="fw-semibold small">Multi-Tenant mit eigenen Kontenrahmen</div>
+                  <div class="smallmuted small">SKR03 / SKR04 / SKR49 / IKR, pro Mandant wählbar</div>
+                </div>
+              </div>
+              <div class="d-flex gap-2 align-items-start p-2 rounded" style="background:#f8fafc;">
+                <div class="ico ico-sm" style="background:#f0fdf4; color:#16a34a;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div>
+                  <div class="fw-semibold small">Admin-Config ohne Code-Deploy</div>
+                  <div class="smallmuted small">Workflows, Bots, Preise, Postfächer editierbar in der UI</div>
+                </div>
+              </div>
+              <div class="d-flex gap-2 align-items-start p-2 rounded" style="background:#f8fafc;">
+                <div class="ico ico-sm" style="background:#f0fdf4; color:#16a34a;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div>
+                  <div class="fw-semibold small">Observability in jedem Step</div>
+                  <div class="smallmuted small">Debug-Panel, HTTP-Log, strukturierte Outputs</div>
+                </div>
+              </div>
+              <div class="d-flex gap-2 align-items-start p-2 rounded" style="background:#f8fafc;">
+                <div class="ico ico-sm" style="background:#f0fdf4; color:#16a34a;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div>
+                  <div class="fw-semibold small">Azure AD SSO &amp; EU-Hosting</div>
+                  <div class="smallmuted small">Authentifizierung und Datenhaltung vollständig in der EU</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NÄCHSTE SCHRITTE -->
+      <div class="col-lg-6">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+              <div>
+                <div class="eyebrow">Nächste Schritte</div>
+                <h4 class="h6 fw-bold m-0">Was als nächstes kommt</h4>
+              </div>
+            </div>
+            <p class="smallmuted small mb-3">
+              Der Proof of Concept hat gezeigt, dass der Ansatz funktioniert. Jetzt geht es darum, den Weg in Richtung echtem Produkt freizumachen — technisch, fachlich und vom Geschäftsmodell her.
+            </p>
+
+            <div class="d-flex flex-column gap-2">
+              <div class="next-step">
+                <div class="n">1</div>
+                <div>
+                  <div class="t">Klärung Datenupload in DATEV</div>
+                  <div class="d">Wie werden Belege nach DATEV hochgeladen und dort mit den Buchungen verknüpft? Welcher Weg ist der stabilste — Unternehmen Online per Email, DATEV-API, DATEVconnect?</div>
+                  <span class="owner">Verantwortlich: ACP</span>
+                </div>
+              </div>
+
+              <div class="next-step">
+                <div class="n">2</div>
+                <div>
+                  <div class="t">Business Model Canvas</div>
+                  <div class="d">Gemeinsame Sicht auf Zielgruppen, Value Proposition, Kanäle, Kostenstruktur und Einnahmequellen. Grundlage für Preismodell und Vertrieb.</div>
+                </div>
+              </div>
+
+              <div class="next-step">
+                <div class="n">3</div>
+                <div>
+                  <div class="t">MVP-Scope definieren</div>
+                  <div class="d">Vom funktionierenden PoC zum marktreifen Minimum Viable Product. Welche Features sind für den ersten echten Kunden zwingend — und welche können warten?</div>
+                </div>
+              </div>
+
+              <div class="next-step">
+                <div class="n">4</div>
+                <div>
+                  <div class="t">Testen mit größeren Datenmengen</div>
+                  <div class="d">Lasttest und Stabilitätsnachweis: Hunderte Dokumente parallel, Edge-Cases, Performance unter realen Bedingungen. Erst danach ist der Weg zum echten Kundenbetrieb frei.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+      <div>
+        <div class="brand">sort<span>werk</span></div>
+        <div class="smallmuted small">Ein p2cx-Produkt · Rechnungsverarbeitung für Unternehmen</div>
+      </div>
+      <div class="smallmuted small">
+        Produktpräsentation · April 2026
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

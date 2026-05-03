@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <title>HELP Center – Azure Voraussetzungen (Flows Betrieb & Releases)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap (wichtig für Layout/Utilities) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- p2cx Styles -->
+  <link rel="stylesheet" href="../../css/p2cx.css">
+
+  <meta name="theme-color" content="#c9a44c" />
+  <link rel="icon" type="image/svg+xml" href="../../logo/p2cx-icon.svg" />
+  <link rel="alternate icon" type="image/png" href="../../logo/p2cx-icon.png" />
+</head>
+
+<body>
+
+  <!-- Header -->
+  <div class="container py-2">
+    <div class="p2cx-card p2cx-card-quiet">
+      <div class="p2cx-body d-flex align-items-center justify-content-between py-2">
+        <div class="d-flex align-items-center gap-2">
+          <img src="../../logo/p2cx-icon.svg" alt="p2cx Icon" height="28"/>
+          <h6 class="mb-1">p2cx</h6>
+          <span class="ms-2 small text-muted">HELP Center</span>
+        </div>
+
+        <!-- optional -->
+        <nav class="d-flex gap-3 align-items-center">
+          <a class="small" href="../index.html" aria-current="page" title="Deutsch">DE</a>
+          <a class="small" href="../../en/helpcenter/index.html" title="English">EN</a>
+          <a class="small" href="../../dk/helpcenter/index.html" title="Dansk">DK</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="py-3">
+      <div class="container">
+        <div class="p2cx-card p-4 p-md-5">
+          <div class="row g-4 align-items-center">
+            <div class="col-lg-8">
+              <h1 class="mb-2 h3">Azure Voraussetzungen für Flows (Upload · Releases · Betrieb)</h1>
+              <p class="text-muted mb-0">
+                Diese Seite beschreibt die minimale Azure-Grundlage, damit Flows/Logic Apps von <strong> 			p2cx</strong> in <strong>deinem eigenen Mandanten</strong> bereitgestellt, weiterentwickelt  			(Release-Updates) und stabil betrieben werden können.
+              </p>
+            </div>
+            <div class="col-lg-4">
+              <aside class="p2cx-card p2cx-card-quiet h-100">
+                <div class="p2cx-body">
+                  <div class="chip">Fokus</div>
+                  <ul class="mb-0 text-muted mt-2">
+                    <li>Ressourcengruppe (Azure)</li>
+                    <li>App-Registrierung + Rechtekonzept</li>
+                    <li>Client Credentials (sicher)</li>
+                    <li>Checkliste für Go-Live</li>
+                  </ul>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WARUM WICHTIG -->
+    <section class="py-3">
+      <div class="container">
+        <div class="p2cx-card">
+          <div class="p2cx-body">
+            <h2 class="mb-3">Warum ist das für mich wichtig?</h2>
+
+            <div class="p2cx-card p2cx-card-quiet">
+              <div class="p2cx-body">
+                <p class="mb-2">
+                  Damit wir deine Prozesse schnell und sauber automatisieren können, brauchen wir in Azure einen
+                  definierten „Arbeitsbereich“. Das sorgt für <strong>Kontrolle</strong>, <strong>Nachvollziehbarkeit</strong>
+                  und <strong>stabilen Betrieb</strong>.
+                </p>
+                <ul class="mb-0 text-muted">
+                  <li><strong>Du behältst die Hoheit:</strong> Alles läuft in deinem Mandanten – keine Datenschutz-Themen mit fremden Mandanten.</li>
+                  <li><strong>Release-fähig:</strong> Updates können sauber eingespielt werden (z. B. Bugfixes, Verbesserungen, neue Schritte).</li>
+                  <li><strong>Betriebssicher:</strong> Rollen, Rechte und Zugangsdaten sind klar geregelt – weniger Risiko im Tagesbetrieb.</li>
+                  <li><strong>Weiterentwicklung möglich:</strong> Admins/geschulte Mitarbeitende können später selbst erweitern oder übernehmen.</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AZURE -->
+    <section class="py-3">
+      <div class="container">
+        <div class="p2cx-card">
+          <div class="p2cx-body">
+
+            <h2 class="mb-3">Azure – Technische Grundlage</h2>
+
+            <div class="p2cx-card p2cx-card-quiet mb-3">
+              <div class="p2cx-body">
+                <strong>Ziel</strong><br>
+                <span class="text-muted">
+                  Ressourcengruppe + Berechtigungen schaffen die Basis, um Flows/Logic Apps
+                  hochzuladen, als Releases zu aktualisieren und den Betrieb sicherzustellen.
+                </span>
+              </div>
+            </div>
+
+            <div class="row g-3">
+
+              <!-- 2.1 -->
+              <div class="col-lg-6">
+                <div class="p2cx-card h-100">
+                  <div class="p2cx-body">
+                    <strong>2.1 Ressourcengruppe – zur eigenen Umgebung</strong>
+                    <p class="text-muted mt-2 mb-2">
+                      In Azure wird eine Ressourcengruppe angelegt. Sie ist der „Container“ für alles,
+                      was zu deinen Prozessen gehört (z.&nbsp;B. Logic Apps, Monitoring-Bausteine, Verbindungen).
+                    </p>
+                    <ul class="text-muted mb-0">
+                      <li><strong>Name:</strong> processes_p2cx</li>
+                      <li><strong>Region:</strong> passend zur Umgebung wählen</li>
+                      <li><strong>Inhalt:</strong> Logic Apps / Flows + zugehörige Ressourcen</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- App Registrierung -->
+              <div class="col-lg-6">
+                <div class="p2cx-card h-100">
+                  <div class="p2cx-body">
+                    <strong>2.2 App-Registrierung – getrennt &amp; eingeschränkt</strong>
+                    <p class="text-muted mt-2 mb-2">
+                      Wir nutzen eine eigene App-Registrierung, damit Zugriff und Änderungen klar kontrolliert
+                      werden können. Das ist besonders wichtig, weil in Automations-Artefakten
+                      (z.&nbsp;B. Templates/Strukturen) <strong>Know-how / Intellectual Property</strong> sichtbar sein kann.
+                      Gleichzeitig bleibt es transparent: <strong>Alles liegt in deinem Mandanten</strong>.
+                    </p>
+                    <ul class="text-muted mb-0">
+                      <li><strong>Name:</strong> processes_p2cx</li>
+                      <li><strong>API:</strong> Azure Service Management</li>
+                      <li><strong>Berechtigung:</strong> user_impersonation</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- IAM -->
+              <div class="col-lg-6">
+                <div class="p2cx-card h-100">
+                  <div class="p2cx-body">
+                    <strong>2.3 Zugriff auf die Ressourcengruppe (IAM)</strong>
+                    <p class="text-muted mt-2 mb-2">
+                      In der Ressourcengruppe <strong>processes_p2cx</strong> wird die App-Registrierung per Rolle
+                      berechtigt. Ziel: Releases/Updates ausrollen und Betrieb sicherstellen – ohne zu breite Rechte.
+                    </p>
+                    <ul class="text-muted mb-0">
+                      <li>Zugriffssteuerung (IAM) → Rollenzuweisung</li>
+                      <li>Rolle: <strong>Mitwirkender (Logic Apps)</strong> (oder minimal erforderliche Rolle)</li>
+                      <li>Nur wenn nötig höher: z.&nbsp;B. <strong>Mitwirkender</strong> / <strong>Owner</strong> nach Freigabe</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Credentials -->
+              <div class="col-lg-6">
+                <div class="p2cx-card h-100">
+                  <div class="p2cx-body">
+                    <strong>2.4 Zugangsdaten (Client Credentials) – sicher bereitstellen</strong>
+                    <p class="text-muted mt-2 mb-2">
+                      In der App-Registrierung wird ein Client-Secret erstellt (oder alternativ Zertifikat).
+                      Die Werte werden nur für die technische Authentifizierung genutzt.
+                    </p>
+                    <ul class="text-muted mb-2">
+                      <li>Zertifikate &amp; Geheimnisse → neues Client-Geheimnis</li>
+                      <li>Ablaufdatum setzen (z.&nbsp;B. 24 Monate) + Termin zur Erneuerung notieren</li>
+                      <li>Sichern: <strong>Client ID</strong> + <strong>Client Secret</strong></li>
+                    </ul>
+                    <div class="p2cx-card p2cx-card-quiet">
+                      <div class="p2cx-body">
+                        <strong>⚠️ Wichtig:</strong>
+                        <span class="text-muted">
+                          Client Secret nur über <strong>verschlüsselten Weg</strong> bereitstellen
+                          (z.&nbsp;B. Passwort-Manager, verschlüsselter Tresor, O365 Sensitivity/Encrypted Mail – je nach eurem Standard).
+                          Nicht im Ticket-Text, nicht per Klartext-Mail.
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- CHECKLISTE -->
+            <div class="p2cx-card mt-3 p2cx-card-quiet">
+              <div class="p2cx-body">
+                <strong>Abschluss – Checkliste (Azure)</strong>
+                <ul class="mb-0 text-muted mt-2">
+                  <li>✅ Ressourcengruppe <strong>processes_p2cx</strong> in richtiger Region vorhanden</li>
+                  <li>✅ App-Registrierung <strong>processes_p2cx</strong> angelegt</li>
+                  <li>✅ Rollen-Zuweisung (IAM) auf Ressourcengruppe gesetzt (Least Privilege)</li>
+                  <li>✅ Client ID verfügbar</li>
+                  <li>✅ Client Secret erstellt und <strong>verschlüsselt</strong> bereitgestellt</li>
+                  <li>✅ Zuständigkeit geklärt: Admin/geschulte Mitarbeitende für spätere Weiterentwicklung</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <div class="container mt-3 pb-2">
+    <div class="p2cx-card p2cx-card-quiet">
+      <div class="p2cx-body py-2 text-center small text-muted">
+        © 2025 p2cx · <a href="../impressum.html">Impressum</a> · <a href="../datenschutz.html">Datenschutz</a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

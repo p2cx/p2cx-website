@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Tabelle</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 300px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 5px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Aktualisierte Tabelle</h1>
+  <table>
+    <thead>
+      <tr><th>Name</th><th>Wert</th></tr>
+    </thead>
+    <tbody id="table-body">
+      <tr><td colspan="2">Lade Daten...</td></tr>
+    </tbody>
+  </table>
+
+  <script>
+    async function loadTable() {
+      try {
+        // Beispiel: API liefert JSON
+        const response = await fetch("daten.json");
+        const data = await response.json();
+
+        // Tabelle neu aufbauen
+        const tbody = document.getElementById("table-body");
+        tbody.innerHTML = ""; // leeren
+        data.forEach(item => {
+          const row = `<tr><td>${item.name}</td><td>${item.value}</td></tr>`;
+          tbody.innerHTML += row;
+        });
+      } catch (error) {
+        console.error("Fehler:", error);
+      }
+    }
+
+    // sofort laden
+    loadTable();
+
+    // alle 30 Sekunden neu laden
+    setInterval(loadTable, 5000);
+  </script>
+</body>
+</html>

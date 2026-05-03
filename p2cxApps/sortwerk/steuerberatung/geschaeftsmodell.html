@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>p2cx — Steuerberatung neu gedacht</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --p2cx-gold:#c9a44c;
+    --p2cx-gold-dark:#b8923f;
+    --p2cx-gold-soft:#faf5eb;
+    --p2cx-text:#1f2937;
+    --p2cx-muted:#6b7280;
+    --p2cx-border:#e5e7eb;
+    --p2cx-shadow:0 4px 12px rgba(2,6,23,.08);
+    --p2cx-shadow-hover:0 8px 24px rgba(2,6,23,.12);
+    --p2cx-radius:12px;
+    --p2cx-bg:#f8fafc;
+  }
+  html, body{ background:var(--p2cx-bg); color:var(--p2cx-text); font-family:'Inter',-apple-system,system-ui,sans-serif; }
+  h1,h2,h3,h4,h5{ letter-spacing:-0.02em; }
+
+  /* Navigation */
+  .nav-p2cx{ position:sticky; top:0; z-index:50; background:rgba(248,250,252,.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--p2cx-border); }
+  .nav-p2cx .brand{ font-weight:800; font-size:1.15rem; letter-spacing:-0.02em; }
+  .nav-p2cx .brand span{ color:var(--p2cx-gold); }
+  .nav-p2cx a.nav-link{ color:var(--p2cx-muted); font-size:.85rem; padding:.35rem .75rem; border-radius:999px; }
+  .nav-p2cx a.nav-link:hover{ color:var(--p2cx-text); background:#fff; text-decoration:none; }
+
+  /* Cards */
+  .p2cx-card{
+    background:#fff;
+    border:1px solid var(--p2cx-border);
+    border-radius:var(--p2cx-radius);
+    box-shadow:var(--p2cx-shadow);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .p2cx-card:hover{ transform:translateY(-2px); box-shadow:var(--p2cx-shadow-hover); }
+  .p2cx-body{ padding:1.5rem; }
+
+  /* Buttons / Links */
+  a{ color:var(--p2cx-gold); text-decoration:none; }
+  a:hover{ text-decoration:underline; }
+  .btn-p2cx{ background:var(--p2cx-gold); border-color:var(--p2cx-gold); color:#fff; font-weight:600; }
+  .btn-p2cx:hover{ background:var(--p2cx-gold-dark); border-color:var(--p2cx-gold-dark); color:#fff; }
+  .btn-outline-p2cx{ color:var(--p2cx-gold); border:1px solid var(--p2cx-gold); background:#fff; font-weight:600; }
+  .btn-outline-p2cx:hover{ background:var(--p2cx-gold); color:#fff; }
+
+  /* Helpers */
+  .text-gold{ color:var(--p2cx-gold); }
+  .bg-gold-soft{ background:var(--p2cx-gold-soft); }
+  .eyebrow{ letter-spacing:.12em; font-size:.75rem; text-transform:uppercase; color:var(--p2cx-gold); font-weight:700; }
+  .smallmuted{ color:var(--p2cx-muted); }
+
+  /* Chips */
+  .chip{ display:inline-block; padding:.3rem .65rem; border-radius:999px; font-size:.75rem; background:#f3f4f6; color:#374151; border:1px solid var(--p2cx-border); font-weight:500; }
+  .chip-gold{ background:var(--p2cx-gold-soft); color:var(--p2cx-gold-dark); border-color:#e8d5a3; }
+  .chip-green{ background:#f0fdf4; color:#166534; border-color:#bbf7d0; }
+  .chip-red{ background:#fef2f2; color:#b91c1c; border-color:#fecaca; }
+
+  /* Icons */
+  .ico{ display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:12px; background:var(--p2cx-gold-soft); color:var(--p2cx-gold); }
+  .ico svg{ width:22px; height:22px; }
+  .ico-sm{ width:32px; height:32px; border-radius:9px; }
+  .ico-sm svg{ width:16px; height:16px; }
+  .ico-red{ background:#fef2f2; color:#b91c1c; }
+  .ico-green{ background:#f0fdf4; color:#15803d; }
+
+  /* Hero */
+  .hero{ padding:5rem 0 3rem; position:relative; overflow:hidden; }
+  .hero::before{ content:''; position:absolute; top:-100px; right:-100px; width:500px; height:500px; background:radial-gradient(circle, rgba(201,164,76,.14) 0%, transparent 70%); border-radius:50%; pointer-events:none; }
+  .hero h1{ font-size:clamp(2.2rem,4.8vw,3.8rem); font-weight:800; line-height:1.1; }
+  .hero h1 span{ color:var(--p2cx-gold); }
+  .hero .lead{ font-size:1.15rem; color:var(--p2cx-muted); max-width:720px; }
+  .hero-stats{ display:flex; gap:2.5rem; margin-top:2.2rem; flex-wrap:wrap; }
+  .hero-stat .val{ font-size:2rem; font-weight:800; color:var(--p2cx-gold); line-height:1; }
+  .hero-stat .lbl{ font-size:.8rem; color:var(--p2cx-muted); text-transform:uppercase; letter-spacing:.08em; margin-top:.35rem; }
+
+  /* Sections */
+  section.block{ padding:4rem 0; }
+  section.block.alt{ background:#fff; border-top:1px solid var(--p2cx-border); border-bottom:1px solid var(--p2cx-border); }
+  .section-title{ font-size:clamp(1.6rem,2.8vw,2.2rem); font-weight:800; margin-bottom:.4rem; }
+  .section-sub{ color:var(--p2cx-muted); font-size:1.05rem; margin-bottom:2.5rem; max-width:740px; }
+
+  /* Split: Mandant vs. Steuerberater */
+  .split-card{ background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); padding:1.75rem; height:100%; box-shadow:var(--p2cx-shadow); }
+  .split-card .head{ display:flex; align-items:center; gap:.85rem; margin-bottom:1rem; }
+  .split-card h3{ font-size:1.2rem; font-weight:800; margin:0; }
+  .split-card .sub{ font-size:.8rem; color:var(--p2cx-muted); text-transform:uppercase; letter-spacing:.08em; font-weight:700; }
+  .pain-list{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.6rem; }
+  .pain-list li{ display:flex; gap:.7rem; align-items:flex-start; padding:.65rem .85rem; background:#fef2f2; border:1px solid #fecaca; border-radius:8px; font-size:.9rem; color:#7f1d1d; }
+  .pain-list li svg{ flex-shrink:0; width:16px; height:16px; color:#b91c1c; margin-top:.2rem; }
+  .gain-list{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.6rem; }
+  .gain-list li{ display:flex; gap:.7rem; align-items:flex-start; padding:.65rem .85rem; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; font-size:.9rem; color:#14532d; }
+  .gain-list li svg{ flex-shrink:0; width:16px; height:16px; color:#16a34a; margin-top:.2rem; }
+
+  /* Mandanten-Journey */
+  .journey{ display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; }
+  @media(max-width:900px){ .journey{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:600px){ .journey{ grid-template-columns:1fr; } }
+  .journey-step{ background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); padding:1.25rem; box-shadow:var(--p2cx-shadow); position:relative; }
+  .journey-step .n{ display:inline-flex; width:28px; height:28px; align-items:center; justify-content:center; border-radius:50%; background:var(--p2cx-gold); color:#fff; font-weight:800; font-size:.8rem; margin-bottom:.7rem; }
+  .journey-step h5{ font-size:1rem; font-weight:700; margin:0 0 .35rem; }
+  .journey-step p{ font-size:.82rem; color:var(--p2cx-muted); margin:0; line-height:1.5; }
+
+  /* Portal Mockup */
+  .portal-mock{ background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); padding:1.5rem; box-shadow:var(--p2cx-shadow); }
+  .portal-mock .bar{ display:flex; align-items:center; gap:.5rem; padding-bottom:1rem; border-bottom:1px solid var(--p2cx-border); margin-bottom:1.25rem; }
+  .portal-mock .dot{ width:10px; height:10px; border-radius:50%; background:#e5e7eb; }
+  .portal-mock .dot:first-child{ background:#ef4444; }
+  .portal-mock .dot:nth-child(2){ background:#c9a44c; }
+  .portal-mock .dot:nth-child(3){ background:#16a34a; }
+  .portal-mock .url{ margin-left:.75rem; font-size:.78rem; color:var(--p2cx-muted); font-family:ui-monospace,Menlo,Consolas,monospace; }
+  .portal-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:.85rem; }
+  @media(max-width:700px){ .portal-grid{ grid-template-columns:1fr; } }
+  .portal-tile{ background:#f8fafc; border:1px solid var(--p2cx-border); border-radius:10px; padding:1rem; }
+  .portal-tile .lbl{ font-size:.7rem; color:var(--p2cx-muted); text-transform:uppercase; letter-spacing:.06em; font-weight:700; margin-bottom:.35rem; }
+  .portal-tile .val{ font-size:1.25rem; font-weight:800; color:var(--p2cx-text); line-height:1.1; }
+  .portal-tile .trend{ font-size:.72rem; color:#16a34a; margin-top:.35rem; font-weight:600; }
+  .portal-tile .trend.neg{ color:#b91c1c; }
+  .portal-tile.gold{ background:var(--p2cx-gold-soft); border-color:#e8d5a3; }
+  .portal-tile.gold .val{ color:var(--p2cx-gold-dark); }
+
+  /* Feature-List (Portal-Features) */
+  .feature-row{ display:grid; grid-template-columns:40px 1fr auto; gap:.9rem; align-items:center; padding:.85rem 1rem; background:#fff; border:1px solid var(--p2cx-border); border-radius:10px; transition:all .15s ease; }
+  .feature-row:hover{ border-color:#e8d5a3; transform:translateX(2px); }
+  .feature-row .ic{ display:flex; width:32px; height:32px; border-radius:8px; background:var(--p2cx-gold-soft); color:var(--p2cx-gold); align-items:center; justify-content:center; }
+  .feature-row .ic svg{ width:16px; height:16px; }
+  .feature-row .t{ font-size:.92rem; font-weight:600; }
+  .feature-row .d{ font-size:.78rem; color:var(--p2cx-muted); margin-top:.1rem; }
+
+  /* Produkt-Kombi */
+  .combo{ display:grid; grid-template-columns:1fr 80px 1fr; gap:1.5rem; align-items:stretch; }
+  @media(max-width:900px){ .combo{ grid-template-columns:1fr; gap:1rem; } }
+  .combo .plus{ display:flex; align-items:center; justify-content:center; font-size:2.5rem; font-weight:800; color:var(--p2cx-gold); }
+  .product-card{ background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); padding:1.5rem; box-shadow:var(--p2cx-shadow); height:100%; display:flex; flex-direction:column; }
+  .product-card .brand-title{ font-size:1.35rem; font-weight:800; margin-bottom:.2rem; }
+  .product-card .brand-title span{ color:var(--p2cx-gold); }
+  .product-card .role{ font-size:.72rem; color:var(--p2cx-muted); text-transform:uppercase; letter-spacing:.08em; font-weight:700; margin-bottom:1rem; }
+  .product-card p{ font-size:.88rem; color:var(--p2cx-muted); line-height:1.55; }
+  .product-card ul{ list-style:none; padding:0; margin:1rem 0 0; display:flex; flex-direction:column; gap:.4rem; }
+  .product-card ul li{ font-size:.83rem; display:flex; gap:.5rem; align-items:flex-start; }
+  .product-card ul li::before{ content:''; width:6px; height:6px; border-radius:50%; background:var(--p2cx-gold); margin-top:.5rem; flex-shrink:0; }
+
+  /* Platform-Diagramm */
+  .platform{ background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); padding:2rem; box-shadow:var(--p2cx-shadow); }
+  .platform-layer{ display:grid; grid-template-columns:180px 1fr; gap:1rem; padding:1rem 0; border-bottom:1px dashed var(--p2cx-border); align-items:center; }
+  .platform-layer:last-child{ border-bottom:none; }
+  .platform-layer .lbl{ font-size:.78rem; text-transform:uppercase; letter-spacing:.08em; color:var(--p2cx-gold); font-weight:700; }
+  .platform-layer .items{ display:flex; flex-wrap:wrap; gap:.5rem; }
+  .platform-layer .items .chip{ background:var(--p2cx-gold-soft); border-color:#e8d5a3; color:var(--p2cx-gold-dark); font-weight:600; }
+
+  /* Value-Karten */
+  .value-card{ background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); padding:1.4rem; box-shadow:var(--p2cx-shadow); height:100%; }
+  .value-card .big{ font-size:2.2rem; font-weight:800; color:var(--p2cx-gold); line-height:1; margin-bottom:.35rem; }
+  .value-card .t{ font-size:1rem; font-weight:700; margin-bottom:.25rem; }
+  .value-card p{ font-size:.85rem; color:var(--p2cx-muted); margin:0; line-height:1.5; }
+
+  /* Open Questions */
+  .question{ display:flex; gap:.9rem; align-items:flex-start; padding:1rem; background:#fff; border:1px solid var(--p2cx-border); border-radius:10px; }
+  .question .q-ico{ display:flex; width:36px; height:36px; border-radius:8px; background:var(--p2cx-gold-soft); color:var(--p2cx-gold); align-items:center; justify-content:center; flex-shrink:0; }
+  .question .q-ico svg{ width:18px; height:18px; }
+  .question .t{ font-size:.95rem; font-weight:700; margin-bottom:.2rem; }
+  .question .d{ font-size:.82rem; color:var(--p2cx-muted); line-height:1.5; }
+
+  /* Next-Step-Card */
+  .next-step{ display:flex; gap:.9rem; align-items:flex-start; padding:1rem; background:#fff; border:1px solid var(--p2cx-border); border-radius:10px; transition:all .15s ease; }
+  .next-step:hover{ border-color:var(--p2cx-gold); box-shadow:var(--p2cx-shadow); }
+  .next-step .n{ display:flex; width:32px; height:32px; border-radius:8px; background:var(--p2cx-gold); color:#fff; font-weight:800; font-size:.9rem; align-items:center; justify-content:center; flex-shrink:0; }
+  .next-step .t{ font-size:.92rem; font-weight:700; margin-bottom:.2rem; }
+  .next-step .d{ font-size:.8rem; color:var(--p2cx-muted); line-height:1.5; }
+
+  /* Footer */
+  footer{ padding:3rem 0 2rem; border-top:1px solid var(--p2cx-border); background:#fff; }
+  footer .brand{ font-weight:800; font-size:1.2rem; }
+  footer .brand span{ color:var(--p2cx-gold); }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav-p2cx">
+  <div class="container d-flex align-items-center justify-content-between py-3">
+    <div class="brand">p2<span>cx</span></div>
+    <div class="d-none d-md-flex gap-1">
+      <a class="nav-link" href="#idee">Idee</a>
+      <a class="nav-link" href="#problem">Problem</a>
+      <a class="nav-link" href="#vision">Vision</a>
+      <a class="nav-link" href="#portal">Portal</a>
+      <a class="nav-link" href="#produkt">Produkt</a>
+      <a class="nav-link" href="#plattform">Plattform</a>
+      <a class="nav-link" href="#value">Value</a>
+      <a class="nav-link" href="#offen">Offen</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div class="eyebrow mb-3">Geschäftsmodell · Steuerberatung</div>
+    <h1>Steuerberatung,<br>die der Mandant <span>liebt</span>.<br>Prozesse, die der Berater skaliert.</h1>
+    <p class="lead mt-3">
+      Ein einheitliches Mandantenportal und eine durchgängig automatisierte Kanzlei-Plattform. Der Mandant bekommt Transparenz, der Steuerberater spart Prozesskosten — und beide wissen jederzeit, wo sie stehen.
+    </p>
+    <div class="d-flex gap-2 mt-4">
+      <a href="#idee" class="btn btn-p2cx px-4 py-2">Die Idee im Überblick</a>
+      <a href="#portal" class="btn btn-outline-p2cx px-4 py-2">Mandantenportal ansehen</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="val">2</div><div class="lbl">Perspektiven</div></div>
+      <div class="hero-stat"><div class="val">1</div><div class="lbl">Plattform</div></div>
+      <div class="hero-stat"><div class="val">DE</div><div class="lbl">EU-gehostet</div></div>
+      <div class="hero-stat"><div class="val">MS + DATEV</div><div class="lbl">Integriert</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- DIE IDEE -->
+<section id="idee" class="block alt">
+  <div class="container">
+    <div class="eyebrow mb-2">Wie wir drauf kamen</div>
+    <h2 class="section-title">Aus Eigenerfahrung wird ein Produkt</h2>
+    <p class="section-sub">Zwei Beobachtungen treffen sich — und beides zeigt in dieselbe Richtung.</p>
+
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg></div>
+              <h4 class="h6 fw-bold m-0">Bei loyos bi läuft es längst so</h4>
+            </div>
+            <p class="smallmuted mb-2">Setup und User-Management sind dort seit Jahren durchautomatisiert — auf der Microsoft-Plattform. Über das Monitoring dieser digitalen Prozesse werden Kunden automatisch informiert, wo sie stehen und was als nächstes kommt.</p>
+            <p class="smallmuted mb-0">Das ist kein Theorie-Modell. Es funktioniert. Und genau dieses Muster lässt sich auf eine Steuerberatung übertragen.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+              <h4 class="h6 fw-bold m-0">Als Mandant fehlt die Transparenz</h4>
+            </div>
+            <p class="smallmuted mb-2">„Ich war immer unzufrieden mit der Transparenz zu meinem Steuerberater — in der Selbständigkeit genauso wie bei loyos bi. DATEV Unternehmen Online macht es ein bisschen besser, aber sobald man mehrere Mandanten verwaltet, wird es unübersichtlich."</p>
+            <p class="smallmuted mb-0">Jeder Ansprechpartner schreibt andere Emails mit anderen Infos. Individuell getippt. Mal mit Liste fehlender Rechnungen, mal ohne. Verschwendung auf beiden Seiten.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4 p-4 rounded" style="background:var(--p2cx-gold-soft); border:1px solid #e8d5a3;">
+      <div class="d-flex align-items-center gap-3">
+        <div class="ico" style="background:#fff;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <div>
+          <div class="fw-bold">Und: DATEV öffnet seine Schnittstellen immer weiter.</div>
+          <div class="smallmuted small">Der technische Zeitpunkt war nie besser als jetzt — gerade im Zeitalter der E-Rechnung.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem" class="block">
+  <div class="container">
+    <div class="eyebrow mb-2">Status Quo</div>
+    <h2 class="section-title">Zwei Seiten, derselbe Schmerz</h2>
+    <p class="section-sub">Der Mandant wartet auf Infos, die Kanzlei produziert sie individuell. Beide Seiten sind unzufrieden — aber aus unterschiedlichen Gründen.</p>
+
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="split-card">
+          <div class="head">
+            <div class="ico ico-red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div>
+              <div class="sub">Perspektive Mandant</div>
+              <h3>Ich weiß nie wirklich, wo wir stehen</h3>
+            </div>
+          </div>
+          <ul class="pain-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Keine zentrale Sicht auf den Status meiner Abschlüsse und Erklärungen.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Emails mit unterschiedlichem Detailgrad, je nach Sachbearbeiter.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Mehrere Mandanten verwalten? Wird ein Vollzeitjob.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Offene Posten, Kontostand, BWA — alles verteilt über Tools und Menschen.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Nächste Schritte im Onboarding? Ich muss selbst nachfragen.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>DATEV Unternehmen Online ist ein Anfang — aber kein modernes Kundenerlebnis.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="split-card">
+          <div class="head">
+            <div class="ico ico-red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div>
+              <div class="sub">Perspektive Kanzlei</div>
+              <h3>Jeder macht sein Ding — teuer und uneinheitlich</h3>
+            </div>
+          </div>
+          <ul class="pain-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Individuell getippte Emails für Standard-Rückfragen — jeden Tag aufs Neue.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Kein einheitliches Bild über alle Mandanten und deren Status.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Fehlende Belege? Jeder Sachbearbeiter recherchiert, listet, schreibt neu.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Hohe Prozesskosten, weil fast jeder Standardfall manuell läuft.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Fachkräftemangel trifft auf manuelle Buchungsarbeit — ein Dauerproblem.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Qualität schwankt je nach Person — schwer zu skalieren und zu positionieren.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section id="vision" class="block alt">
+  <div class="container">
+    <div class="eyebrow mb-2">Die Vision</div>
+    <h2 class="section-title">So stellen wir uns das vor</h2>
+    <p class="section-sub">Ein neuer Mandant meldet sich online an — und erlebt Schritt für Schritt, wie Steuerberatung sein könnte.</p>
+
+    <div class="journey">
+      <div class="journey-step">
+        <span class="n">1</span>
+        <h5>Online anmelden</h5>
+        <p>Direkt auf der Website der Kanzlei. Keine Pflicht zum Erstgespräch, kein PDF-Formular per Email.</p>
+      </div>
+      <div class="journey-step">
+        <span class="n">2</span>
+        <h5>Portal-Link</h5>
+        <p>Sofort nach der Anmeldung: persönlicher Link zu einer Webapp mit allen nächsten Schritten.</p>
+      </div>
+      <div class="journey-step">
+        <span class="n">3</span>
+        <h5>Geführtes Onboarding</h5>
+        <p>Alle nötigen Eingaben in der richtigen Reihenfolge. Nachvollziehbar, jederzeit unterbrechbar.</p>
+      </div>
+      <div class="journey-step">
+        <span class="n">4</span>
+        <h5>Aus Onboarding wird Alltag</h5>
+        <p>Derselbe Link wird zum dauerhaften Mandantenportal. Kein Wechsel, kein neues Passwort.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTAL-MOCKUP -->
+<section id="portal" class="block">
+  <div class="container">
+    <div class="eyebrow mb-2">Das Mandantenportal</div>
+    <h2 class="section-title">Alles, was der Mandant wissen will — an einem Ort</h2>
+    <p class="section-sub">BWA, offene Posten, Termine, Status von Abschlüssen und Betriebsprüfungen. Kein Email-Pingpong mehr.</p>
+
+    <div class="portal-mock mb-4">
+      <div class="bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="url">portal.kanzlei-mueller.de/mandanten/ecker-gmbh</span>
+      </div>
+      <div class="portal-grid">
+        <div class="portal-tile gold">
+          <div class="lbl">BWA · März 2026</div>
+          <div class="val">+ 18.400 €</div>
+          <div class="trend">↑ 12,3 % vs. Vormonat</div>
+        </div>
+        <div class="portal-tile">
+          <div class="lbl">Offene Posten</div>
+          <div class="val">7.820 €</div>
+          <div class="trend neg">3 überfällig</div>
+        </div>
+        <div class="portal-tile">
+          <div class="lbl">Kontostand</div>
+          <div class="val">42.110 €</div>
+          <div class="trend">Live via Finanz-API</div>
+        </div>
+        <div class="portal-tile">
+          <div class="lbl">Jahresabschluss 2025</div>
+          <div class="val">Schritt 7 / 12</div>
+          <div class="trend">Wartet auf Ihre Freigabe</div>
+        </div>
+        <div class="portal-tile">
+          <div class="lbl">Nächster Termin</div>
+          <div class="val">UStVA Q1</div>
+          <div class="trend">in 9 Tagen</div>
+        </div>
+        <div class="portal-tile">
+          <div class="lbl">Letzte Rechnungen</div>
+          <div class="val">23 neu</div>
+          <div class="trend">Alle automatisch kontiert</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="feature-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div>
+            <div class="t">Steuerrechtliche Termine</div>
+            <div class="d">UStVA, ESt, KSt, LSt — automatisch gepflegt und erklärt.</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="feature-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg></div>
+          <div>
+            <div class="t">BWA digital &amp; verständlich</div>
+            <div class="d">Mit AI-Zusammenfassung: Was ist passiert, was sollte man wissen.</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="feature-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <div>
+            <div class="t">Rechnungen &amp; Belege</div>
+            <div class="d">Letzte Rechnungen einsehen, fehlende gezielt nachliefern.</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="feature-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div>
+            <div class="t">Mehrere Mandanten</div>
+            <div class="d">Hinzufügen, löschen, wechseln — ohne Support-Email.</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="feature-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div>
+            <div class="t">Offene Posten &amp; Kontostände</div>
+            <div class="d">Live aus den angeschlossenen Quellen — keine Excel-Listen mehr.</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="feature-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <div>
+            <div class="t">Status von Abschluss &amp; BP</div>
+            <div class="d">Jahresabschluss, Betriebsprüfung, Monatsabschluss — mit nächsten Schritten.</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="feature-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg></div>
+          <div>
+            <div class="t">AI-Zusammenfassungen</div>
+            <div class="d">Kleine Reports zu Entwicklungen, optional vom Berater freigegeben.</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="feature-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <div>
+            <div class="t">Nachrichten mit Kontext</div>
+            <div class="d">Jede Nachricht direkt am Vorgang — kein loses Email-Chaos.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUKT-KOMBI -->
+<section id="produkt" class="block alt">
+  <div class="container">
+    <div class="eyebrow mb-2">Die Produkt-Kombination</div>
+    <h2 class="section-title">Zwei Produkte, ein Prozess</h2>
+    <p class="section-sub">sortwerk automatisiert das Back-Office der Kanzlei. steuerportal ist das, was der Mandant sieht. Gemeinsam schließen sie den Kreis vom Beleg bis zum Gespräch.</p>
+
+    <div class="combo">
+      <div class="product-card">
+        <div class="brand-title">sort<span>werk</span></div>
+        <div class="role">Back-Office der Kanzlei</div>
+        <p>Automatisierte Dokumentenverarbeitung — vom Email-Eingang über OCR und KI-Klassifikation bis zur fertigen Buchung in DATEV. Einheitlicher Prozess, prüfbar in jedem Schritt.</p>
+        <ul>
+          <li>Email-Import, OCR, KI-Klassifikation</li>
+          <li>6-Bot-Kontierung mit SKR03/04/49/IKR</li>
+          <li>DATEV-Upload &amp; Journal automatisch</li>
+          <li>Multi-Tenant, GoBD-tauglich</li>
+          <li>Observability in jedem Step</li>
+        </ul>
+      </div>
+      <div class="plus">+</div>
+      <div class="product-card">
+        <div class="brand-title">steuer<span>portal</span></div>
+        <div class="role">Mandanten-Experience</div>
+        <p>Das Fenster des Mandanten in die Kanzlei. Onboarding, Status, BWA, offene Posten, Termine — und die strukturierte Kommunikation mit der Kanzlei. Ein Link für alles.</p>
+        <ul>
+          <li>Onboarding als geführter Prozess</li>
+          <li>Live-Dashboard (BWA, OP, Kontostand)</li>
+          <li>Status von Abschluss, UStVA, BP</li>
+          <li>AI-Zusammenfassungen (STB-freigegeben)</li>
+          <li>Multi-Mandant fähig</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="text-center mt-5">
+      <div class="eyebrow mb-2">Zusammen entsteht</div>
+      <h3 class="section-title" style="font-size:1.6rem;">Eine digitale Steuerberatung — innen effizient, außen begeisternd.</h3>
+    </div>
+  </div>
+</section>
+
+<!-- PLATTFORM -->
+<section id="plattform" class="block">
+  <div class="container">
+    <div class="eyebrow mb-2">Die technische Basis</div>
+    <h2 class="section-title">Microsoft-Plattform trifft DATEV-Schnittstellen</h2>
+    <p class="section-sub">Keine exotische Cloud, keine Insellösung. Die Basis ist das, was Steuerberater ohnehin schon nutzen — nur endlich sinnvoll zusammengesteckt.</p>
+
+    <div class="platform">
+      <div class="platform-layer">
+        <div class="lbl">Frontend</div>
+        <div class="items">
+          <span class="chip">Webapp · Mobile Ready</span>
+          <span class="chip">Mandantenportal</span>
+          <span class="chip">Kanzlei-Dashboard</span>
+        </div>
+      </div>
+      <div class="platform-layer">
+        <div class="lbl">Identität &amp; SSO</div>
+        <div class="items">
+          <span class="chip">Azure AD</span>
+          <span class="chip">OAuth / NextAuth</span>
+          <span class="chip">Single Sign-On</span>
+        </div>
+      </div>
+      <div class="platform-layer">
+        <div class="lbl">Prozesse &amp; Automatisierung</div>
+        <div class="items">
+          <span class="chip">Workflow-Engine</span>
+          <span class="chip">Status-Monitoring</span>
+          <span class="chip">Automatische Benachrichtigungen</span>
+        </div>
+      </div>
+      <div class="platform-layer">
+        <div class="lbl">KI (EU-gehostet)</div>
+        <div class="items">
+          <span class="chip">Mammouth · Mistral Large</span>
+          <span class="chip">Klassifikation</span>
+          <span class="chip">Kontierungs-Bots</span>
+          <span class="chip">Zusammenfassungen</span>
+        </div>
+      </div>
+      <div class="platform-layer">
+        <div class="lbl">Integration</div>
+        <div class="items">
+          <span class="chip">Microsoft Graph (Mail, Files)</span>
+          <span class="chip">DATEV Unternehmen Online</span>
+          <span class="chip">DATEV-APIs (wachsen)</span>
+          <span class="chip">E-Rechnung</span>
+        </div>
+      </div>
+      <div class="platform-layer">
+        <div class="lbl">Datenhaltung</div>
+        <div class="items">
+          <span class="chip">PostgreSQL · Multi-Tenant</span>
+          <span class="chip">IONOS Cloud (DE)</span>
+          <span class="chip">GoBD-Archivierung</span>
+          <span class="chip">Audit-Trail</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mt-4">
+      <div class="col-md-4">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="ico mb-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18"/></svg></div>
+            <h4 class="h6 fw-bold">Bewährter Stack</h4>
+            <p class="smallmuted small mb-0">Microsoft ist in fast jeder Kanzlei sowieso im Haus. Wir nutzen was da ist — statt eine neue Welt daneben zu bauen.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="ico mb-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <h4 class="h6 fw-bold">EU-konform</h4>
+            <p class="smallmuted small mb-0">IONOS Deutschland, Mammouth-KI in Europa, Azure Germany West Central für OCR. Keine US-Clouds im Datenpfad.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p2cx-card h-100">
+          <div class="p2cx-body">
+            <div class="ico mb-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+            <h4 class="h6 fw-bold">DATEV-nativ</h4>
+            <p class="smallmuted small mb-0">DATEV ist keine Blackbox mehr — die Schnittstellen öffnen sich. Wir sind bereit, sobald der nächste API-Baustein kommt.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE / BUSINESS CASE -->
+<section id="value" class="block alt">
+  <div class="container">
+    <div class="eyebrow mb-2">Der Wert für beide Seiten</div>
+    <h2 class="section-title">Weniger Kosten innen, mehr Zufriedenheit außen</h2>
+    <p class="section-sub">Die Rechnung geht auf: Der Steuerberater spart Prozesskosten und liefert gleichzeitig ein besseres Produkt.</p>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-3 col-6">
+        <div class="value-card">
+          <div class="big">↓</div>
+          <div class="t">Prozesskosten</div>
+          <p>Standardfälle laufen automatisch durch. Mitarbeiter kümmern sich nur noch um Ausnahmen.</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="value-card">
+          <div class="big">↑</div>
+          <div class="t">Qualität</div>
+          <p>Einheitliche Kommunikation, einheitliche Prozesse — unabhängig davon, wer intern dran sitzt.</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="value-card">
+          <div class="big">↑</div>
+          <div class="t">Mandanten-NPS</div>
+          <p>Transparenz schafft Vertrauen. Zufriedene Mandanten empfehlen weiter — ohne Akquisekosten.</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="value-card">
+          <div class="big">↓</div>
+          <div class="t">Personalbedarf</div>
+          <p>Fachkräftemangel entschärfen: gleiche Mandantenzahl mit weniger Mitarbeitern betreuen.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="split-card">
+          <div class="head">
+            <div class="ico ico-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div>
+              <div class="sub">Für den Mandanten</div>
+              <h3>Transparenz, Geschwindigkeit, Kontrolle</h3>
+            </div>
+          </div>
+          <ul class="gain-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Ein Link, ein Passwort, alles drin.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Jederzeit wissen, wo der Abschluss steht — ohne nachfragen.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Nächste Schritte sind immer klar und angeleitet.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Mehrere Mandanten? Eine Oberfläche für alle.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>BWA und Entwicklung verstehen — mit AI-Zusammenfassung.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="split-card">
+          <div class="head">
+            <div class="ico ico-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18"/></svg></div>
+            <div>
+              <div class="sub">Für die Kanzlei</div>
+              <h3>Skalierbar, einheitlich, differenzierend</h3>
+            </div>
+          </div>
+          <ul class="gain-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Standardprozesse laufen ohne Mitarbeiterzutun.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Überblick über alle Mandanten in einer Oberfläche.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Einheitliche Qualität, unabhängig vom Sachbearbeiter.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Deutlich differenzierbares Produkt im Markt — moderner als DATEV UO.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Begeisterte Mandanten empfehlen weiter — organisches Wachstum.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFENE FRAGEN -->
+<section id="offen" class="block">
+  <div class="container">
+    <div class="eyebrow mb-2">Ehrlich gesagt</div>
+    <h2 class="section-title">Das wissen wir noch nicht</h2>
+    <p class="section-sub">Die Idee ist klar, die technische Basis steht. Was fehlt, ist der Reality-Check mit echten Kanzleien und echten Mandanten.</p>
+
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="question">
+          <div class="q-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div>
+            <div class="t">Wie tickt der Markt wirklich?</div>
+            <div class="d">Wieviel ist ein Mandant bereit, für echte Transparenz zu zahlen? Was würde eine Kanzlei als Mehrwert weiterverrechnen können?</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="question">
+          <div class="q-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div>
+            <div class="t">Wie laufen Prozesse in der Kanzlei wirklich?</div>
+            <div class="d">Was sind die echten Engpässe? Wo klebt die Arbeit? Welche Tools sind gesetzt, welche austauschbar?</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="question">
+          <div class="q-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div>
+            <div class="t">Microsoft-Plattform als Basis — akzeptiert?</div>
+            <div class="d">Nutzen Steuerberater Microsoft heute wirklich als Plattform, oder nur als Email-Client? Ist Azure AD SSO für sie selbstverständlich?</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="question">
+          <div class="q-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div>
+            <div class="t">Welche DATEV-Tiefe brauchen wir wirklich?</div>
+            <div class="d">Unternehmen Online per Email reicht für den Einstieg. Aber wo müssen wir tiefer rein — DATEVconnect, DATEV-Cloud, nativer API-Zugriff?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nächste Schritte -->
+    <div class="mt-5 pt-3">
+      <div class="eyebrow mb-2">Wie es weitergeht</div>
+      <h3 class="section-title" style="font-size:1.5rem;">Nächste Schritte</h3>
+      <p class="section-sub">Drei konkrete Dinge, mit denen wir den Reality-Check angehen.</p>
+
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="next-step h-100">
+            <div class="n">1</div>
+            <div>
+              <div class="t">Kanzlei-Interviews</div>
+              <div class="d">Drei bis fünf Gespräche mit digital-affinen Steuerberatern: Prozesse verstehen, Pain Points priorisieren, Zahlungsbereitschaft abklopfen.</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="next-step h-100">
+            <div class="n">2</div>
+            <div>
+              <div class="t">Mandanten-Interviews</div>
+              <div class="d">Unternehmer aus dem eigenen Netzwerk: Was würden sie zahlen für wirkliche Transparenz? Welche Features sind „must", welche „nice"?</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="next-step h-100">
+            <div class="n">3</div>
+            <div>
+              <div class="t">MVP mit einer Pilot-Kanzlei</div>
+              <div class="d">Kleine Kanzlei, 5-10 Mandanten, realer Durchlauf. Alles andere ist Spekulation — echte Nutzung ist die einzige Wahrheit.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+      <div>
+        <div class="brand">p2<span>cx</span></div>
+        <div class="smallmuted small">Steuerberatung neu gedacht · sortwerk + steuerportal</div>
+      </div>
+      <div class="smallmuted small">
+        Geschäftsmodell-Skizze · April 2026
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

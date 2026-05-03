@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>p2cx — Kooperations- und Beteiligungsmodelle</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --p2cx-gold:#c9a44c;
+    --p2cx-gold-dark:#b8923f;
+    --p2cx-gold-soft:#faf5eb;
+    --p2cx-text:#1f2937;
+    --p2cx-muted:#6b7280;
+    --p2cx-border:#e5e7eb;
+    --p2cx-shadow:0 4px 12px rgba(2,6,23,.08);
+    --p2cx-shadow-hover:0 8px 24px rgba(2,6,23,.12);
+    --p2cx-radius:12px;
+    --p2cx-bg:#f8fafc;
+  }
+  html, body{ background:var(--p2cx-bg); color:var(--p2cx-text); font-family:'Inter',-apple-system,system-ui,sans-serif; }
+  h1,h2,h3,h4,h5{ letter-spacing:-0.02em; }
+
+  .nav-p2cx{ position:sticky; top:0; z-index:50; background:rgba(248,250,252,.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--p2cx-border); }
+  .nav-p2cx .brand{ font-weight:800; font-size:1.15rem; letter-spacing:-0.02em; }
+  .nav-p2cx .brand span{ color:var(--p2cx-gold); }
+  .nav-p2cx a.nav-link{ color:var(--p2cx-muted); font-size:.85rem; padding:.35rem .75rem; border-radius:999px; }
+  .nav-p2cx a.nav-link:hover{ color:var(--p2cx-text); background:#fff; text-decoration:none; }
+
+  .p2cx-card{ background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); box-shadow:var(--p2cx-shadow); transition:transform .2s ease, box-shadow .2s ease; }
+  .p2cx-card:hover{ transform:translateY(-2px); box-shadow:var(--p2cx-shadow-hover); }
+  .p2cx-body{ padding:1.5rem; }
+
+  a{ color:var(--p2cx-gold); text-decoration:none; }
+  a:hover{ text-decoration:underline; }
+  .btn-p2cx{ background:var(--p2cx-gold); border-color:var(--p2cx-gold); color:#fff; font-weight:600; }
+  .btn-p2cx:hover{ background:var(--p2cx-gold-dark); border-color:var(--p2cx-gold-dark); color:#fff; }
+  .btn-outline-p2cx{ color:var(--p2cx-gold); border:1px solid var(--p2cx-gold); background:#fff; font-weight:600; }
+  .btn-outline-p2cx:hover{ background:var(--p2cx-gold); color:#fff; }
+
+  .text-gold{ color:var(--p2cx-gold); }
+  .bg-gold-soft{ background:var(--p2cx-gold-soft); }
+  .eyebrow{ letter-spacing:.12em; font-size:.75rem; text-transform:uppercase; color:var(--p2cx-gold); font-weight:700; }
+  .smallmuted{ color:var(--p2cx-muted); }
+
+  .chip{ display:inline-block; padding:.3rem .65rem; border-radius:999px; font-size:.75rem; background:#f3f4f6; color:#374151; border:1px solid var(--p2cx-border); font-weight:500; }
+  .chip-gold{ background:var(--p2cx-gold-soft); color:var(--p2cx-gold-dark); border-color:#e8d5a3; }
+  .chip-green{ background:#f0fdf4; color:#166534; border-color:#bbf7d0; }
+  .chip-red{ background:#fef2f2; color:#b91c1c; border-color:#fecaca; }
+  .chip-gray{ background:#f1f5f9; color:#475569; border-color:#e2e8f0; }
+
+  .ico{ display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:12px; background:var(--p2cx-gold-soft); color:var(--p2cx-gold); }
+  .ico svg{ width:22px; height:22px; }
+  .ico-sm{ width:32px; height:32px; border-radius:9px; }
+  .ico-sm svg{ width:16px; height:16px; }
+
+  .hero{ padding:5rem 0 3rem; position:relative; overflow:hidden; }
+  .hero::before{ content:''; position:absolute; top:-100px; right:-100px; width:500px; height:500px; background:radial-gradient(circle, rgba(201,164,76,.14) 0%, transparent 70%); border-radius:50%; pointer-events:none; }
+  .hero h1{ font-size:clamp(2rem,4.5vw,3.4rem); font-weight:800; line-height:1.1; }
+  .hero h1 span{ color:var(--p2cx-gold); }
+  .hero .lead{ font-size:1.1rem; color:var(--p2cx-muted); max-width:720px; }
+  .hero-stats{ display:flex; gap:2.5rem; margin-top:2rem; flex-wrap:wrap; }
+  .hero-stat .val{ font-size:2rem; font-weight:800; color:var(--p2cx-gold); line-height:1; }
+  .hero-stat .lbl{ font-size:.8rem; color:var(--p2cx-muted); text-transform:uppercase; letter-spacing:.08em; margin-top:.35rem; }
+
+  section.block{ padding:4rem 0; }
+  section.block.alt{ background:#fff; border-top:1px solid var(--p2cx-border); border-bottom:1px solid var(--p2cx-border); }
+  .section-title{ font-size:clamp(1.6rem,2.8vw,2.2rem); font-weight:800; margin-bottom:.4rem; }
+  .section-sub{ color:var(--p2cx-muted); font-size:1.05rem; margin-bottom:2.5rem; max-width:740px; }
+
+  /* INTERNAL WARNING */
+  .internal-banner{ background:#fef2f2; border:1px solid #fecaca; border-radius:var(--p2cx-radius); padding:.9rem 1.25rem; display:flex; gap:.85rem; align-items:center; margin-bottom:2rem; }
+  .internal-banner svg{ width:22px; height:22px; color:#b91c1c; flex-shrink:0; }
+  .internal-banner .t{ font-weight:700; color:#7f1d1d; font-size:.92rem; }
+  .internal-banner .d{ font-size:.82rem; color:#991b1b; margin-top:.1rem; }
+
+  /* Dilemma-Box */
+  .dilemma{ background:var(--p2cx-gold-soft); border:1px solid #e8d5a3; border-radius:var(--p2cx-radius); padding:1.75rem; }
+  .dilemma h3{ font-size:1.15rem; font-weight:800; margin-bottom:.75rem; color:var(--p2cx-gold-dark); }
+  .dilemma .tension{ display:grid; grid-template-columns:1fr 60px 1fr; gap:1rem; align-items:center; margin-top:1rem; }
+  @media(max-width:700px){ .dilemma .tension{ grid-template-columns:1fr; } }
+  .dilemma .side{ background:#fff; border:1px solid var(--p2cx-border); border-radius:10px; padding:1rem; }
+  .dilemma .side h5{ font-size:.85rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--p2cx-gold); margin-bottom:.4rem; }
+  .dilemma .side p{ font-size:.85rem; color:var(--p2cx-text); margin:0; line-height:1.5; }
+  .dilemma .vs{ text-align:center; font-weight:800; color:var(--p2cx-gold-dark); font-size:1.2rem; }
+
+  /* Model-Card */
+  .model-card{ background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); padding:1.6rem; box-shadow:var(--p2cx-shadow); height:100%; display:flex; flex-direction:column; position:relative; transition:all .2s ease; }
+  .model-card:hover{ border-color:var(--p2cx-gold); box-shadow:var(--p2cx-shadow-hover); transform:translateY(-2px); }
+  .model-card .num{ position:absolute; top:-12px; left:1.6rem; background:var(--p2cx-gold); color:#fff; font-size:.72rem; font-weight:800; padding:.25rem .6rem; border-radius:999px; letter-spacing:.05em; }
+  .model-card h4{ font-size:1.1rem; font-weight:800; margin:.5rem 0 .4rem; }
+  .model-card .tagline{ font-size:.82rem; color:var(--p2cx-muted); margin-bottom:1rem; line-height:1.5; }
+  .model-card .meta{ display:grid; grid-template-columns:90px 1fr; gap:.4rem .75rem; font-size:.78rem; margin-bottom:1rem; }
+  .model-card .meta .k{ color:var(--p2cx-muted); text-transform:uppercase; letter-spacing:.06em; font-weight:700; font-size:.68rem; padding-top:.1rem; }
+  .model-card .meta .v{ color:var(--p2cx-text); }
+  .model-card .pros{ font-size:.78rem; color:#166534; margin-bottom:.4rem; display:flex; gap:.4rem; align-items:flex-start; line-height:1.45; }
+  .model-card .cons{ font-size:.78rem; color:#b91c1c; display:flex; gap:.4rem; align-items:flex-start; line-height:1.45; }
+  .model-card .pros svg, .model-card .cons svg{ width:14px; height:14px; flex-shrink:0; margin-top:.15rem; }
+  .model-card .fit{ margin-top:auto; padding-top:1rem; border-top:1px dashed var(--p2cx-border); font-size:.75rem; color:var(--p2cx-muted); }
+  .model-card .fit strong{ color:var(--p2cx-gold-dark); }
+
+  /* Vergleichs-Matrix */
+  .matrix{ width:100%; border-collapse:collapse; font-size:.85rem; background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); overflow:hidden; }
+  .matrix th{ text-align:left; padding:.85rem 1rem; background:#f8fafc; font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--p2cx-muted); font-weight:700; border-bottom:1px solid var(--p2cx-border); }
+  .matrix td{ padding:.8rem 1rem; border-bottom:1px solid #f1f5f9; vertical-align:middle; }
+  .matrix tr:last-child td{ border-bottom:none; }
+  .matrix .model-name{ font-weight:700; color:var(--p2cx-text); }
+  .matrix .rating{ display:inline-flex; gap:2px; }
+  .matrix .rating span{ width:10px; height:10px; border-radius:50%; background:#e5e7eb; }
+  .matrix .rating span.on{ background:var(--p2cx-gold); }
+
+  /* Phase-Card */
+  .phase{ display:grid; grid-template-columns:80px 1fr auto; gap:1.2rem; align-items:center; background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); padding:1.3rem 1.5rem; box-shadow:var(--p2cx-shadow); transition:all .2s ease; }
+  .phase:hover{ border-color:var(--p2cx-gold); transform:translateX(4px); }
+  .phase .num{ font-size:2rem; font-weight:800; color:var(--p2cx-gold); line-height:1; text-align:center; }
+  .phase .num .sub{ display:block; font-size:.65rem; color:var(--p2cx-muted); font-weight:600; text-transform:uppercase; letter-spacing:.08em; margin-top:.25rem; }
+  .phase h5{ font-size:1rem; font-weight:800; margin:0 0 .3rem; }
+  .phase p{ font-size:.83rem; color:var(--p2cx-muted); margin:0; line-height:1.5; }
+  .phase .time{ text-align:right; font-size:.75rem; color:var(--p2cx-muted); text-transform:uppercase; letter-spacing:.06em; font-weight:700; }
+  @media(max-width:700px){ .phase{ grid-template-columns:1fr; text-align:left; } .phase .time{ text-align:left; } }
+
+  /* IP-Schutz Grid */
+  .protect-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+  @media(max-width:900px){ .protect-grid{ grid-template-columns:1fr; } }
+  .protect{ background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); padding:1.3rem; box-shadow:var(--p2cx-shadow); }
+  .protect h5{ font-size:.95rem; font-weight:800; margin:.75rem 0 .3rem; }
+  .protect p{ font-size:.82rem; color:var(--p2cx-muted); margin:0; line-height:1.5; }
+
+  /* Decision Questions */
+  .decision{ display:flex; gap:.9rem; align-items:flex-start; padding:1.1rem 1.25rem; background:#fff; border:1px solid var(--p2cx-border); border-radius:10px; }
+  .decision .q-ico{ display:flex; width:36px; height:36px; border-radius:8px; background:var(--p2cx-gold-soft); color:var(--p2cx-gold); align-items:center; justify-content:center; flex-shrink:0; }
+  .decision .q-ico svg{ width:18px; height:18px; }
+  .decision .t{ font-size:.92rem; font-weight:700; margin-bottom:.2rem; }
+  .decision .d{ font-size:.82rem; color:var(--p2cx-muted); line-height:1.5; }
+
+  /* Recommendation Box */
+  .rec-box{ background:linear-gradient(135deg, var(--p2cx-gold-soft) 0%, #fff 100%); border:2px solid var(--p2cx-gold); border-radius:var(--p2cx-radius); padding:2rem; box-shadow:var(--p2cx-shadow); }
+  .rec-box .label{ display:inline-block; background:var(--p2cx-gold); color:#fff; font-size:.7rem; font-weight:800; padding:.3rem .75rem; border-radius:999px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:1rem; }
+  .rec-box h3{ font-size:1.4rem; font-weight:800; margin-bottom:.75rem; }
+  .rec-box p{ font-size:.95rem; color:var(--p2cx-text); line-height:1.6; margin-bottom:0; }
+
+  footer{ padding:3rem 0 2rem; border-top:1px solid var(--p2cx-border); background:#fff; }
+  footer .brand{ font-weight:800; font-size:1.2rem; }
+  footer .brand span{ color:var(--p2cx-gold); }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav-p2cx">
+  <div class="container d-flex align-items-center justify-content-between py-3">
+    <div class="brand">p2<span>cx</span></div>
+    <div class="d-none d-md-flex gap-1">
+      <a class="nav-link" href="#dilemma">Dilemma</a>
+      <a class="nav-link" href="#modelle">Modelle</a>
+      <a class="nav-link" href="#vergleich">Vergleich</a>
+      <a class="nav-link" href="#empfehlung">Empfehlung</a>
+      <a class="nav-link" href="#ipschutz">IP-Schutz</a>
+      <a class="nav-link" href="#entscheidung">Entscheidung</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div class="eyebrow mb-3">Interne Strategiefrage · Kooperation mit Partner</div>
+    <h1>Wie strukturieren wir<br>die <span>Zusammenarbeit</span>?</h1>
+    <p class="lead mt-3">
+      Fünf Kooperationsmodelle, ehrlich abgewogen. Wie bekommen wir einen starken Partner ins Boot, ohne unsere IP zu verschenken — und wie werden beide Seiten fair an dem belohnt, was sie einbringen?
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="val">5</div><div class="lbl">Modelle</div></div>
+      <div class="hero-stat"><div class="val">3</div><div class="lbl">Phasen</div></div>
+      <div class="hero-stat"><div class="val">1</div><div class="lbl">Empfehlung</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- DILEMMA -->
+<section id="dilemma" class="block alt">
+  <div class="container">
+    <div class="internal-banner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L1 21h22L12 2z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <div>
+        <div class="t">Interne Arbeitsunterlage</div>
+        <div class="d">Diese Übersicht ist für die interne Entscheidungsfindung. Nicht für den Partner bestimmt — der Ton wäre dort ein anderer.</div>
+      </div>
+    </div>
+
+    <div class="eyebrow mb-2">Die Ausgangslage</div>
+    <h2 class="section-title">Das Spannungsfeld</h2>
+    <p class="section-sub">Ein starker Partner will investieren und nutzen. Wir wollen Kontrolle und faire Belohnung für die IP. Die Frage ist: Wie bringt man beides unter einen Hut?</p>
+
+    <div class="dilemma">
+      <h3>Drei Fragen, die alles entscheiden</h3>
+      <div class="tension">
+        <div class="side">
+          <h5>Partner-Seite</h5>
+          <p>„Wenn ich mitbezahle und das Produkt prägt, will ich es exklusiv — am besten auf meinem Server, ohne dass Wettbewerber es auch kriegen."</p>
+        </div>
+        <div class="vs">vs.</div>
+        <div class="side">
+          <h5>p2cx-Seite</h5>
+          <p>„Unsere IP ist das Asset. Wir wollen nicht in einer Nische hängen bleiben — der freie Markt ist der eigentliche Hebel."</p>
+        </div>
+      </div>
+      <p class="smallmuted small mb-0 mt-3" style="font-style:italic;">→ Ziel: Ein Modell finden, in dem beide Seiten gewinnen — kurzfristig der Partner, langfristig p2cx.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MODELLE -->
+<section id="modelle" class="block">
+  <div class="container">
+    <div class="eyebrow mb-2">Die Optionen</div>
+    <h2 class="section-title">Fünf Kooperationsmodelle</h2>
+    <p class="section-sub">Vom loser Lizenz bis zum gemeinsamen Unternehmen — jedes Modell hat eigene Trade-offs bei Kontrolle, Risiko und Hebel.</p>
+
+    <div class="row g-4 pt-2">
+      <!-- Modell 1: Joint Venture -->
+      <div class="col-lg-6 col-xl-4">
+        <div class="model-card">
+          <span class="num">MODELL 1</span>
+          <h4>Joint Venture</h4>
+          <div class="tagline">Gemeinsame GmbH, beide als Gesellschafter. IP geht als Einlage in die JV.</div>
+          <div class="meta">
+            <div class="k">Bindung</div><div class="v"><span class="chip chip-gold">sehr hoch</span></div>
+            <div class="k">Kontrolle</div><div class="v"><span class="chip chip-gray">geteilt</span></div>
+            <div class="k">Belohnung</div><div class="v">über Anteile &amp; Dividende</div>
+            <div class="k">Markt</div><div class="v">freier Verkauf zwingend</div>
+          </div>
+          <div class="pros"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Klarer Cap Table, beide mit „Skin in the Game", saubere Governance.</span></div>
+          <div class="cons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span>Partner wird zum Wettbewerber seiner Kunden. Verwässerung der IP-Kontrolle.</span></div>
+          <div class="fit"><strong>Fit:</strong> Wenn der Partner strategisch wird und das Volumen dauerhaft stimmt.</div>
+        </div>
+      </div>
+
+      <!-- Modell 2: Lizenz / OEM -->
+      <div class="col-lg-6 col-xl-4">
+        <div class="model-card">
+          <span class="num">MODELL 2</span>
+          <h4>Lizenzmodell (OEM / White-Label)</h4>
+          <div class="tagline">p2cx bleibt IP-Eigentümer. Partner lizenziert das Produkt — auf seinem oder unserem Server.</div>
+          <div class="meta">
+            <div class="k">Bindung</div><div class="v"><span class="chip chip-gray">mittel</span></div>
+            <div class="k">Kontrolle</div><div class="v"><span class="chip chip-green">voll bei p2cx</span></div>
+            <div class="k">Belohnung</div><div class="v">pro Mandant/Monat + Wartung</div>
+            <div class="k">Markt</div><div class="v">frei verkaufbar</div>
+          </div>
+          <div class="pros"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Kein Wettbewerb, p2cx skaliert an weitere Kunden, Partner bleibt Kunde.</span></div>
+          <div class="cons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span>Partner will oft Exklusivität. Keine starke emotionale Bindung.</span></div>
+          <div class="fit"><strong>Fit:</strong> Wenn der Partner primär Nutzer ist und keine strategische Mitgestaltung will.</div>
+        </div>
+      </div>
+
+      <!-- Modell 3: Co-Development -->
+      <div class="col-lg-6 col-xl-4">
+        <div class="model-card">
+          <span class="num">MODELL 3</span>
+          <h4>Co-Development Partnership</h4>
+          <div class="tagline">Partner zahlt die MVP-Entwicklung mit. Dafür: Vorzugspreis, Roadmap-Mitsprache, befristete Exklusivität.</div>
+          <div class="meta">
+            <div class="k">Bindung</div><div class="v"><span class="chip chip-gold">hoch (befristet)</span></div>
+            <div class="k">Kontrolle</div><div class="v"><span class="chip chip-green">bei p2cx</span></div>
+            <div class="k">Belohnung</div><div class="v">Kostenbeteiligung + Lizenz</div>
+            <div class="k">Markt</div><div class="v">nach Ablauf frei</div>
+          </div>
+          <div class="pros"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Partner fühlt sich ernst genommen, p2cx behält IP, Entwicklungs-Cash vom Partner.</span></div>
+          <div class="cons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span>Vertrag muss exakt sein (Roadmap, Exklusivitäts-Ende, was „mitbezahlt" bedeutet).</span></div>
+          <div class="fit"><strong>Fit:</strong> Pilot-Phase, wenn ein Leitkunde gleichzeitig Investor und Referenz sein soll.</div>
+        </div>
+      </div>
+
+      <!-- Modell 4: Equity gegen IP -->
+      <div class="col-lg-6 col-xl-4">
+        <div class="model-card">
+          <span class="num">MODELL 4</span>
+          <h4>Equity gegen Investment</h4>
+          <div class="tagline">Partner bekommt kleine Beteiligung an p2cx (oder einer Tochter) im Tausch gegen Kapital &amp; Leitkunden-Rolle.</div>
+          <div class="meta">
+            <div class="k">Bindung</div><div class="v"><span class="chip chip-gold">langfristig</span></div>
+            <div class="k">Kontrolle</div><div class="v"><span class="chip chip-green">mehrheitlich p2cx</span></div>
+            <div class="k">Belohnung</div><div class="v">Anteile (meist 5-15 %)</div>
+            <div class="k">Markt</div><div class="v">freier Verkauf</div>
+          </div>
+          <div class="pros"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Starke Bindung, Partner hat Anreiz zum Weiterempfehlen, zusätzliches Kapital.</span></div>
+          <div class="cons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span>Anteile weggeben ist endgültig. Komplizierte Verträge, Notar, Vesting.</span></div>
+          <div class="fit"><strong>Fit:</strong> Wenn der Partner ein strategischer Multiplikator ist (Netzwerk, Branche, Kapital).</div>
+        </div>
+      </div>
+
+      <!-- Modell 5: Revenue Share -->
+      <div class="col-lg-6 col-xl-4">
+        <div class="model-card">
+          <span class="num">MODELL 5</span>
+          <h4>Revenue Share</h4>
+          <div class="tagline">Läuft auf Partner-Server. p2cx bekommt X € pro verwaltetem Mandant/Monat. Skaliert mit Erfolg.</div>
+          <div class="meta">
+            <div class="k">Bindung</div><div class="v"><span class="chip chip-gray">mittel</span></div>
+            <div class="k">Kontrolle</div><div class="v"><span class="chip chip-green">IP bei p2cx</span></div>
+            <div class="k">Belohnung</div><div class="v">% pro Transaktion</div>
+            <div class="k">Markt</div><div class="v">frei verkaufbar</div>
+          </div>
+          <div class="pros"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Keine Lizenz-Diskussion, skaliert mit Partner-Erfolg, einfach kommunizierbar.</span></div>
+          <div class="cons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span>Messbarkeit ist technisch anspruchsvoll — Telemetrie, Audit, Vertrauen.</span></div>
+          <div class="fit"><strong>Fit:</strong> Wenn der Partner lieber „pay as you grow" bezahlt und kein Fix-Commitment will.</div>
+        </div>
+      </div>
+
+      <!-- Platzhalter / Hinweis -->
+      <div class="col-lg-6 col-xl-4">
+        <div class="model-card" style="background:var(--p2cx-gold-soft); border-color:#e8d5a3;">
+          <h4 style="color:var(--p2cx-gold-dark); margin-top:0;">Kombinierbar!</h4>
+          <div class="tagline">Die Modelle schließen sich nicht gegenseitig aus. In der Praxis bewährt sich oft eine Phasen-Kombination.</div>
+          <div class="smallmuted small mb-0">
+            <strong>Beispiel:</strong> Start mit <span class="chip chip-gold">Co-Development</span>, nach MVP-Abschluss Umstellung auf <span class="chip chip-gold">Lizenzmodell</span> — ggf. flankiert von einer kleinen <span class="chip chip-gold">Equity-Position</span> für die Bindung.
+          </div>
+          <div class="fit mt-3 pt-3">→ Siehe Empfehlung unten.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VERGLEICHS-MATRIX -->
+<section id="vergleich" class="block alt">
+  <div class="container">
+    <div class="eyebrow mb-2">Im direkten Vergleich</div>
+    <h2 class="section-title">Auf einen Blick</h2>
+    <p class="section-sub">Fünf Kriterien, fünf Modelle, ehrliche Bewertung — je mehr Goldkreise, desto stärker ausgeprägt.</p>
+
+    <div style="overflow-x:auto;">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>Modell</th>
+            <th>IP-Kontrolle</th>
+            <th>Partner-Bindung</th>
+            <th>Skalierbarkeit</th>
+            <th>Cash-Zufluss früh</th>
+            <th>Vertrags-Aufwand</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="model-name">1 · Joint Venture</td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span></span><span></span><span></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></td>
+          </tr>
+          <tr>
+            <td class="model-name">2 · Lizenz / OEM</td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span></span><span></span><span></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span></span><span></span><span></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span></span><span></span><span></span></div></td>
+          </tr>
+          <tr>
+            <td class="model-name">3 · Co-Development</td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div></td>
+          </tr>
+          <tr>
+            <td class="model-name">4 · Equity</td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></td>
+          </tr>
+          <tr>
+            <td class="model-name">5 · Revenue Share</td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></td>
+            <td><div class="rating"><span class="on"></span><span></span><span></span><span></span><span></span></div></td>
+            <td><div class="rating"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- EMPFEHLUNG -->
+<section id="empfehlung" class="block">
+  <div class="container">
+    <div class="eyebrow mb-2">Unser Vorschlag</div>
+    <h2 class="section-title">Phased Approach</h2>
+    <p class="section-sub">Statt sich auf ein Modell festzulegen: in Phasen vorgehen. Jede Phase passt zum aktuellen Reifegrad von Produkt und Partnerschaft.</p>
+
+    <div class="d-flex flex-column gap-3 mb-5">
+      <div class="phase">
+        <div class="num">1<span class="sub">Pilot</span></div>
+        <div>
+          <h5>Co-Development mit Fixpreis + befristeter Exklusivität</h5>
+          <p>Der Partner zahlt einen Teil der MVP-Entwicklung (50-70 % der Kosten). Dafür bekommt er 12 Monate Exklusivität in seiner Kette und Vorzugspreise auf Lebenszeit. IP bleibt bei p2cx. Risiko: niedrig, Commitment: klar.</p>
+        </div>
+        <div class="time">0 – 6 Monate</div>
+      </div>
+
+      <div class="phase">
+        <div class="num">2<span class="sub">Skalierung</span></div>
+        <div>
+          <h5>Lizenzmodell pro Mandant — bei uns oder beim Partner</h5>
+          <p>Nach der Exklusivitäts-Phase: Umstellung auf wiederkehrende Lizenzgebühr (z.B. 15-30 € pro Mandant/Monat + Setup). Parallel: Vertrieb an weitere Kanzleien. Der Pilot-Partner bleibt Referenz und Lead-Kunde.</p>
+        </div>
+        <div class="time">6 – 18 Monate</div>
+      </div>
+
+      <div class="phase">
+        <div class="num">3<span class="sub">Reife</span></div>
+        <div>
+          <h5>Optional: Equity oder JV — nur wenn das Volumen es rechtfertigt</h5>
+          <p>Wenn das Produkt läuft und der Partner strategisch wichtig ist: kleine Beteiligung oder Joint Venture für eine Produktlinie. Diese Entscheidung lässt sich erst treffen, wenn es echte Zahlen gibt — nicht davor.</p>
+        </div>
+        <div class="time">18 + Monate</div>
+      </div>
+    </div>
+
+    <div class="rec-box">
+      <span class="label">Kernaussage</span>
+      <h3>„Läuft auf seinem Server" ist kein Problem — es ist ein Verkaufsargument.</h3>
+      <p>Datenhoheit ist für viele Partner ein wichtiger Punkt, gerade bei Steuerberatern. Der Schlüssel ist nicht der Standort der Installation, sondern die <strong>Lizenz-Mechanik</strong>: Mandanten-basiertes Pricing, Lizenzkey mit Heartbeat, kein offener Source Code, Updates nur bei gültigem Vertrag. So werden wir für unsere IP dauerhaft belohnt — egal wo der Server steht.</p>
+    </div>
+  </div>
+</section>
+
+<!-- IP-SCHUTZ -->
+<section id="ipschutz" class="block alt">
+  <div class="container">
+    <div class="eyebrow mb-2">Die technische Seite</div>
+    <h2 class="section-title">Wie schützen wir unsere IP in der Praxis?</h2>
+    <p class="section-sub">Sechs Hebel, mit denen wir dafür sorgen, dass unsere Arbeit auch dann noch Wert hat, wenn das Produkt bei jemand anderem läuft.</p>
+
+    <div class="protect-grid">
+      <div class="protect">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <h5>Lizenzkey mit Heartbeat</h5>
+        <p>Installation prüft regelmäßig einen zentralen Lizenzserver. Kein gültiger Key → keine Funktion. Manipulationssicher signiert.</p>
+      </div>
+      <div class="protect">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10"/><path d="M12 2a15.3 15.3 0 0 0-4 10 15.3 15.3 0 0 0 4 10"/></svg></div>
+        <h5>Kein offener Source Code</h5>
+        <p>Die Auslieferung erfolgt als kompilierte, produktionsfertige Installation. Source bleibt bei p2cx — kein Git-Zugang, kein Fork möglich.</p>
+      </div>
+      <div class="protect">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h5>Source-Code-Escrow beim Notar</h5>
+        <p>Partner bekommt Sicherheit: Sollte p2cx wegfallen, liegt der Code beim Notar hinterlegt. Nur bei Insolvenz freigegeben — nie während des Betriebs.</p>
+      </div>
+      <div class="protect">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
+        <h5>Mandanten-basiertes Pricing</h5>
+        <p>Lizenz skaliert mit Nutzung — pro verwaltetem Mandant. Wer mehr nutzt, zahlt mehr. Faires, transparentes Modell ohne Diskussion.</p>
+      </div>
+      <div class="protect">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div>
+        <h5>Updates nur bei gültigem Vertrag</h5>
+        <p>Keine Wartung, keine Sicherheitsupdates, keine neuen Features ohne aktiven Lizenzvertrag. Natürlicher Anreiz, die Partnerschaft fortzuführen.</p>
+      </div>
+      <div class="protect">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <h5>Vertragliche Nutzungsbeschränkung</h5>
+        <p>Zweckbindung auf die eigene Kette, keine Weitervermietung, keine Unterlizenzierung. Vertragsstrafen bei Verstoß. Jährliches Audit-Recht.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENTSCHEIDUNGSFRAGEN -->
+<section id="entscheidung" class="block">
+  <div class="container">
+    <div class="eyebrow mb-2">Bevor wir zusagen</div>
+    <h2 class="section-title">Fragen, die wir intern klären müssen</h2>
+    <p class="section-sub">Bevor wir mit dem Partner in konkrete Verhandlungen gehen, brauchen wir auf diese Fragen eine klare Antwort.</p>
+
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="decision">
+          <div class="q-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div>
+            <div class="t">Ist der Partner strategisch — oder nur groß?</div>
+            <div class="d">Großer Kunde ≠ strategischer Partner. Nur wer echten Multiplikator-Effekt hat (Netzwerk, Branche, Referenz), rechtfertigt Equity oder JV.</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="decision">
+          <div class="q-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div>
+            <div class="t">Wie wichtig ist uns der freie Markt?</div>
+            <div class="d">Wenn das Produkt in fünf Jahren bei 50+ Kanzleien laufen soll, darf keine Kooperation das blockieren. Exklusivität immer befristen.</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="decision">
+          <div class="q-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div>
+            <div class="t">Welches Pricing-Level peilen wir an?</div>
+            <div class="d">Pro Mandant/Monat → welche Range? 10 €, 25 €, 50 €? Davon hängt ab, ob Lizenz oder Revenue Share wirtschaftlich Sinn ergibt.</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="decision">
+          <div class="q-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div>
+            <div class="t">Brauchen wir das Cash vom Partner wirklich?</div>
+            <div class="d">Wenn ja → Co-Development oder Equity macht Sinn. Wenn nein → Lizenzmodell ist sauberer und behält mehr Optionalität.</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="decision">
+          <div class="q-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div>
+            <div class="t">Wer treibt die Roadmap — wir oder der Partner?</div>
+            <div class="d">Bei Co-Dev will der Partner mitreden. Das muss sauber begrenzt sein (Beirat ohne Vetorecht, fester Feature-Katalog im Vertrag).</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="decision">
+          <div class="q-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div>
+            <div class="t">Was ist unser Exit-Szenario?</div>
+            <div class="d">Jede Kooperation endet irgendwann. Vertrag muss regeln: Was passiert mit Daten, Lizenz, Anteilen, Quellcode bei Kündigung?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+      <div>
+        <div class="brand">p2<span>cx</span></div>
+        <div class="smallmuted small">Interne Strategie-Unterlage · Kooperations- und Beteiligungsmodelle</div>
+      </div>
+      <div class="smallmuted small">
+        Entwurf · April 2026
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sortwerk — Architektur</title>
+<style>
+  :root {
+    --gold: #c9a44c;
+    --gold-light: #e8d5a3;
+    --gold-bg: #faf5eb;
+    --dark: #1a1a2e;
+    --darker: #12121f;
+    --gray: #94a3b8;
+    --white: #f8fafc;
+    --red: #ef4444;
+    --green: #22c55e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--darker); color: var(--white); overflow-x: hidden; }
+
+  /* Navigation */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(18,18,31,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(201,164,76,0.15); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+  nav .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
+  nav .logo span { color: var(--gold); }
+  nav .nav-links { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  nav .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.8rem; padding: 0.4rem 0.8rem; border-radius: 2rem; transition: all 0.2s; }
+  nav .nav-links a:hover, nav .nav-links a.active { color: var(--dark); background: var(--gold); }
+
+  /* Sections */
+  section { min-height: 100vh; padding: 8rem 2rem 4rem; max-width: 1400px; margin: 0 auto; }
+  h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.03em; }
+  h2 span { color: var(--gold); }
+  .subtitle { color: var(--gray); font-size: 1.1rem; margin-bottom: 3rem; }
+  h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; color: var(--gold-light); }
+
+  /* Hero */
+  .hero { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 100vh; }
+  .hero h1 { font-size: 4.5rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 1.5rem; }
+  .hero h1 span { color: var(--gold); }
+  .hero p { font-size: 1.3rem; color: var(--gray); max-width: 600px; line-height: 1.6; }
+  .hero .stats { display: flex; gap: 3rem; margin-top: 3rem; }
+  .hero .stat { text-align: center; }
+  .hero .stat-value { font-size: 2.5rem; font-weight: 800; color: var(--gold); }
+  .hero .stat-label { font-size: 0.85rem; color: var(--gray); margin-top: 0.25rem; }
+
+  /* Cards */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 1.25rem; padding: 1.75rem; transition: all 0.3s; position: relative; overflow: hidden; }
+  .card:hover { border-color: rgba(201,164,76,0.3); transform: translateY(-2px); }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), transparent); opacity: 0; transition: opacity 0.3s; }
+  .card:hover::before { opacity: 1; }
+  .card .icon { font-size: 2rem; margin-bottom: 1rem; }
+  .card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .card p { font-size: 0.9rem; color: var(--gray); line-height: 1.5; }
+  .card .badge { display: inline-block; font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 1rem; background: rgba(201,164,76,0.15); color: var(--gold); margin-top: 0.75rem; }
+
+  /* Flow Diagram */
+  .flow { display: flex; gap: 0; align-items: stretch; overflow-x: auto; padding: 1rem 0; }
+  .flow-step { flex: 1; min-width: 180px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 1rem; padding: 1.25rem; text-align: center; position: relative; }
+  .flow-step:not(:last-child)::after { content: '→'; position: absolute; right: -0.9rem; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 1.5rem; z-index: 1; }
+  .flow-step .step-num { display: inline-flex; align-items: center; justify-content: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--gold); color: var(--dark); font-weight: 800; font-size: 0.85rem; margin-bottom: 0.75rem; }
+  .flow-step h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .flow-step p { font-size: 0.78rem; color: var(--gray); }
+  .flow-step.auto { border-color: rgba(34,197,94,0.3); }
+  .flow-step.ai { border-color: rgba(201,164,76,0.3); }
+  .flow-step.manual { border-color: rgba(148,163,184,0.3); }
+  .flow-step .type-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.15rem 0.5rem; border-radius: 0.5rem; margin-top: 0.5rem; display: inline-block; }
+  .flow-step.auto .type-badge { background: rgba(34,197,94,0.15); color: var(--green); }
+  .flow-step.ai .type-badge { background: rgba(201,164,76,0.15); color: var(--gold); }
+  .flow-step.manual .type-badge { background: rgba(148,163,184,0.15); color: var(--gray); }
+
+  /* Bot Pipeline */
+  .bot-pipeline { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+  .bot-card { background: rgba(201,164,76,0.05); border: 1px solid rgba(201,164,76,0.15); border-radius: 1rem; padding: 1.25rem; position: relative; }
+  .bot-card .bot-num { position: absolute; top: -0.5rem; right: 1rem; background: var(--gold); color: var(--dark); font-size: 0.7rem; font-weight: 800; padding: 0.15rem 0.5rem; border-radius: 0.5rem; }
+  .bot-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .bot-card p { font-size: 0.78rem; color: var(--gray); line-height: 1.4; }
+  .bot-card .output { font-size: 0.7rem; color: var(--gold-light); margin-top: 0.5rem; font-family: monospace; }
+
+  /* OCR Timeline */
+  .ocr-phases { display: flex; gap: 0; position: relative; }
+  .ocr-phases::before { content: ''; position: absolute; top: 2rem; left: 2rem; right: 2rem; height: 2px; background: linear-gradient(90deg, var(--green), var(--gold), var(--gold), var(--gray)); }
+  .ocr-phase { flex: 1; text-align: center; position: relative; padding-top: 3.5rem; }
+  .ocr-phase .phase-dot { width: 1rem; height: 1rem; border-radius: 50%; position: absolute; top: 1.5rem; left: 50%; transform: translateX(-50%); }
+  .ocr-phase:nth-child(1) .phase-dot { background: var(--green); }
+  .ocr-phase:nth-child(2) .phase-dot { background: var(--gold); }
+  .ocr-phase:nth-child(3) .phase-dot { background: var(--gold); }
+  .ocr-phase:nth-child(4) .phase-dot { background: var(--gray); }
+  .ocr-phase h4 { font-size: 0.95rem; font-weight: 700; }
+  .ocr-phase .cost { font-size: 0.8rem; color: var(--gold); margin-top: 0.25rem; }
+  .ocr-phase p { font-size: 0.78rem; color: var(--gray); margin-top: 0.3rem; }
+
+  /* Tenant Grid */
+  .tenant-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .tenant-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 1rem; padding: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+  .tenant-dot { width: 3rem; height: 3rem; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; color: var(--dark); flex-shrink: 0; }
+  .tenant-info h4 { font-size: 1rem; font-weight: 700; }
+  .tenant-info p { font-size: 0.8rem; color: var(--gray); }
+  .tenant-info code { font-size: 0.75rem; background: rgba(201,164,76,0.1); color: var(--gold-light); padding: 0.1rem 0.4rem; border-radius: 0.3rem; }
+
+  /* Monitoring */
+  .monitoring-flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 0; align-items: center; margin: 2rem 0; }
+  .monitoring-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 1rem; padding: 1.5rem; text-align: center; }
+  .monitoring-arrow { color: var(--gold); font-size: 2rem; text-align: center; padding: 0 0.5rem; }
+  .monitoring-box h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .monitoring-box ul { list-style: none; font-size: 0.8rem; color: var(--gray); }
+  .monitoring-box ul li { padding: 0.2rem 0; }
+  .monitoring-box ul li::before { content: '•'; color: var(--gold); margin-right: 0.5rem; }
+
+  /* Kontierung Pipeline Detail */
+  .kontierung-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
+  .kontierung-step { background: linear-gradient(135deg, rgba(201,164,76,0.08), rgba(201,164,76,0.02)); border: 1px solid rgba(201,164,76,0.15); border-radius: 1rem; padding: 1.25rem; }
+  .kontierung-step .k-num { font-size: 2rem; font-weight: 900; color: var(--gold); opacity: 0.3; line-height: 1; }
+  .kontierung-step h4 { font-size: 0.9rem; font-weight: 700; margin: 0.25rem 0 0.4rem; }
+  .kontierung-step p { font-size: 0.78rem; color: var(--gray); line-height: 1.4; }
+  .kontierung-step .k-output { margin-top: 0.5rem; font-size: 0.7rem; font-family: monospace; color: var(--gold-light); background: rgba(0,0,0,0.2); padding: 0.4rem 0.6rem; border-radius: 0.5rem; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+  th { text-align: left; font-size: 0.75rem; font-weight: 600; color: var(--gold); text-transform: uppercase; letter-spacing: 0.05em; padding: 0.75rem 1rem; border-bottom: 1px solid rgba(201,164,76,0.2); }
+  td { font-size: 0.85rem; padding: 0.6rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--gray); }
+  tr:hover td { color: var(--white); }
+
+  /* Footer */
+  footer { text-align: center; padding: 3rem 2rem; color: var(--gray); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.04); }
+  footer span { color: var(--gold); }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2.5rem; }
+    .hero .stats { flex-direction: column; gap: 1.5rem; }
+    .flow { flex-direction: column; }
+    .flow-step:not(:last-child)::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -1rem; transform: translateX(-50%); }
+    .kontierung-grid { grid-template-columns: 1fr; }
+    .ocr-phases { flex-direction: column; gap: 1.5rem; }
+    .ocr-phases::before { display: none; }
+    .ocr-phase { padding-top: 0; padding-left: 2rem; text-align: left; }
+    .ocr-phase .phase-dot { left: 0; top: 0.25rem; transform: none; }
+    .monitoring-flow { grid-template-columns: 1fr; gap: 1rem; }
+    .monitoring-arrow { transform: rotate(90deg); }
+    nav .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">sort<span>werk</span></div>
+  <div class="nav-links">
+    <a href="#input">Input</a>
+    <a href="#intake">Intake</a>
+    <a href="#ocr">OCR</a>
+    <a href="#bots">AI Bots</a>
+    <a href="#kontierung">Kontierung</a>
+    <a href="#workflows">Workflows</a>
+    <a href="#tenants">Tenants</a>
+    <a href="#monitoring">Monitoring</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="poc-stamp">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+    Proof of Concept erfolgreich
+  </div>
+  <h1>Dokumente rein.<br><span>Buchungen raus.</span></h1>
+  <p>KI-gestützte Dokumentenverarbeitung mit automatischer Klassifikation, OCR, DATEV-konformer Kontierung und Multi-Tenant-Isolation.</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-value">5</div><div class="stat-label">Input-Kanäle</div></div>
+    <div class="stat"><div class="stat-value">13</div><div class="stat-label">AI Bots</div></div>
+    <div class="stat"><div class="stat-value">6</div><div class="stat-label">Kontierungs-Stufen</div></div>
+    <div class="stat"><div class="stat-value">4</div><div class="stat-label">OCR Engines</div></div>
+  </div>
+</section>
+
+<!-- INPUT CHANNELS -->
+<section id="input">
+  <h2>Input<span>kanäle</span></h2>
+  <p class="subtitle">5 Wege, Dokumente ins System zu bringen — automatisch oder manuell</p>
+  <div class="card-grid">
+    <div class="card">
+      <div class="icon">📧</div>
+      <h4>Email</h4>
+      <p>Microsoft Graph API pollt Postfächer alle 3–5 Minuten. Body + bis zu 5 PDF-Attachments, automatischer PDF-Merge, Deduplizierung via Message-ID.</p>
+      <div class="badge">Automatisch</div>
+    </div>
+    <div class="card">
+      <div class="icon">☁️</div>
+      <h4>OneDrive</h4>
+      <p>Business & Personal Accounts. Polling überwacht konfigurierte Ordner, verarbeitete Dateien werden ins Archiv verschoben.</p>
+      <div class="badge">Automatisch</div>
+    </div>
+    <div class="card">
+      <div class="icon">📂</div>
+      <h4>SharePoint</h4>
+      <p>Delegated Auth via NextAuth. Benutzer wählt Dateien aus SharePoint-Bibliotheken und importiert sie direkt.</p>
+      <div class="badge">On-Demand</div>
+    </div>
+    <div class="card">
+      <div class="icon">⬆️</div>
+      <h4>Upload</h4>
+      <p>Drag & Drop im Browser. PDF, DOCX, XLSX, Bilder. Sofortige Verarbeitung nach Upload.</p>
+      <div class="badge">Manuell</div>
+    </div>
+    <div class="card">
+      <div class="icon">🔌</div>
+      <h4>REST API</h4>
+      <p>PDF als Base64 an <code>/api/documents</code>. Für Integrationen mit externen Systemen.</p>
+      <div class="badge">Programmatisch</div>
+    </div>
+  </div>
+</section>
+
+<!-- INTAKE WORKFLOW -->
+<section id="intake">
+  <h2>Dokumenten<span>eingang</span></h2>
+  <p class="subtitle">Jedes Dokument durchläuft denselben 3-Stufen-Intake — dann wird geroutet</p>
+  <div class="flow">
+    <div class="flow-step auto">
+      <div class="step-num">1</div>
+      <h4>Datei speichern</h4>
+      <p>Auf Disk, in DB registrieren, Metadaten extrahieren</p>
+      <span class="type-badge">Auto</span>
+    </div>
+    <div class="flow-step auto">
+      <div class="step-num">2</div>
+      <h4>OCR</h4>
+      <p>4-Phasen-Fallback: pdf-parse → Encodian → AI Vision → Tesseract</p>
+      <span class="type-badge">Auto</span>
+    </div>
+    <div class="flow-step ai">
+      <div class="step-num">3</div>
+      <h4>Klassifikation</h4>
+      <p>QuickClassifier bestimmt Kategorie, Absender, Zusammenfassung</p>
+      <span class="type-badge">AI Bot</span>
+    </div>
+    <div class="flow-step auto">
+      <div class="step-num">4</div>
+      <h4>Routing</h4>
+      <p>Kategorie → passendes Workflow-Template → Folgeprozess starten</p>
+      <span class="type-badge">Auto</span>
+    </div>
+    <div class="flow-step ai">
+      <div class="step-num">5</div>
+      <h4>Folgeworkflow</h4>
+      <p>Kontierung, Vertragsanalyse, Freigabe — je nach Dokumenttyp</p>
+      <span class="type-badge">AI + Mensch</span>
+    </div>
+  </div>
+</section>
+
+<!-- OCR -->
+<section id="ocr">
+  <h2>OCR <span>Pipeline</span></h2>
+  <p class="subtitle">4 Engines, intelligent verkettet — von kostenlos bis KI-gestützt</p>
+  <div class="ocr-phases">
+    <div class="ocr-phase">
+      <div class="phase-dot"></div>
+      <h4>pdf-parse</h4>
+      <div class="cost">Kostenlos</div>
+      <p>Extrahiert vorhandene Textlayer direkt aus PDF. Funktioniert bei digital erzeugten PDFs sofort. &lt;1 Sekunde.</p>
+    </div>
+    <div class="ocr-phase">
+      <div class="phase-dot"></div>
+      <h4>Encodian</h4>
+      <div class="cost">€0.09 / Credit</div>
+      <p>EU-hosted OCR (Azure Germany). Erst TextLayer-Versuch (1 Credit), bei gescannten PDFs AI-OCR (2 Credits). 2–5 Sekunden.</p>
+    </div>
+    <div class="ocr-phase">
+      <div class="phase-dot"></div>
+      <h4>AI Vision</h4>
+      <div class="cost">Token-basiert</div>
+      <p>GPT-5.2 Vision via Mammouth.ai. Seiten als Bilder senden, Text per AI extrahieren. 5–10 Sekunden.</p>
+    </div>
+    <div class="ocr-phase">
+      <div class="phase-dot"></div>
+      <h4>Tesseract</h4>
+      <div class="cost">Kostenlos</div>
+      <p>Letzter Fallback. Lokal, langsam (30–60s), geringere Qualität. Läuft immer, auch ohne API-Keys.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AI BOTS -->
+<section id="bots">
+  <h2>AI <span>Bots</span></h2>
+  <p class="subtitle">Spezialisierte Bots — jeder hat genau eine Aufgabe</p>
+
+  <h3>Intake: Schnelle Erstklassifikation</h3>
+  <div class="bot-pipeline" style="margin-bottom: 2.5rem;">
+    <div class="bot-card">
+      <div class="bot-num">00</div>
+      <h4>QuickClassifier</h4>
+      <p>Routing-Entscheidung in Sekunden: Kategorie, Konfidenz, Kurzzusammenfassung</p>
+      <div class="output">→ category, confidence, summary</div>
+    </div>
+  </div>
+
+  <h3>Workflow: 6-Bot-Klassifikations-Pipeline</h3>
+  <div class="bot-pipeline" style="margin-bottom: 2.5rem;">
+    <div class="bot-card">
+      <div class="bot-num">01</div>
+      <h4>SenderClassifier</h4>
+      <p>Absender identifizieren: Name, Typ (Behörde/Firma/Person), Kontaktdaten</p>
+      <div class="output">→ Sender, SenderType, Contact</div>
+    </div>
+    <div class="bot-card">
+      <div class="bot-num">02</div>
+      <h4>SummaryDateExtractor</h4>
+      <p>5–8 Bullet-Zusammenfassung, Briefdatum, Betreff, Dateiname-Vorschlag</p>
+      <div class="output">→ Summary, LetterDate, Subject</div>
+    </div>
+    <div class="bot-card">
+      <div class="bot-num">03</div>
+      <h4>ObjectClassifier</h4>
+      <p>Worum geht es? Auto, Haus, Beruf, Person, Kindergarten</p>
+      <div class="output">→ Object</div>
+    </div>
+    <div class="bot-card">
+      <div class="bot-num">04</div>
+      <h4>RecipientAddressing</h4>
+      <p>An wen richtet sich das Dokument? Formelle oder informelle Ansprache?</p>
+      <div class="output">→ Recipients[], Addressing</div>
+    </div>
+    <div class="bot-card">
+      <div class="bot-num">05</div>
+      <h4>TopicActionClassifier</h4>
+      <p>Thema, empfohlene Handlung, Follow-Up-Aktion</p>
+      <div class="output">→ Topic, FollowUpAction</div>
+    </div>
+    <div class="bot-card">
+      <div class="bot-num">06</div>
+      <h4>TaxRelevanceClassifier</h4>
+      <p>Steuerlich relevant? Wenn ja, welches Steuerthema?</p>
+      <div class="output">→ TaxRelevant, TaxTopic</div>
+    </div>
+  </div>
+
+  <h3>Spezial-Bots</h3>
+  <div class="bot-pipeline">
+    <div class="bot-card">
+      <div class="bot-num">08</div>
+      <h4>ContractMatcher</h4>
+      <p>Vertragsnummer, Typ, Kosten, Kündigungsfristen, Dokumentrolle</p>
+      <div class="output">→ ContractNumber, CancellationDate</div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTIERUNG -->
+<section id="kontierung">
+  <h2>DATEV <span>Kontierung</span></h2>
+  <p class="subtitle">6 spezialisierte AI-Stufen — vom Beleg bis zur fertigen Buchungszeile</p>
+  <div class="kontierung-grid">
+    <div class="kontierung-step">
+      <div class="k-num">1</div>
+      <h4>Beleg-Extraktion</h4>
+      <p>Rechnungs-Header: Beträge, Datum, Steuersatz, Rechnungsnummer, Zahlungsstatus</p>
+      <div class="k-output">netAmount, taxRate, invoiceNumber</div>
+    </div>
+    <div class="kontierung-step">
+      <div class="k-num">2</div>
+      <h4>Quellen-Konsistenz</h4>
+      <p>Plausibilitätsprüfung: Netto + USt = Brutto? Datums-Logik? Konflikte?</p>
+      <div class="k-output">validated, corrections, conflicts</div>
+    </div>
+    <div class="kontierung-step">
+      <div class="k-num">3</div>
+      <h4>Kontenrahmen</h4>
+      <p>SKR03/SKR04 erkennen, Kostenart bestimmen (Bürobedarf, Telekom, Software, ...)</p>
+      <div class="k-output">kontenrahmen, kostenart</div>
+    </div>
+    <div class="kontierung-step">
+      <div class="k-num">4</div>
+      <h4>Konten-Matching</h4>
+      <p>Mapping zu konkreten Kontonummern. Top-5-Kandidaten mit Konfidenz.</p>
+      <div class="k-output">hauptkonto, steuerkonto, gegenkonto</div>
+    </div>
+    <div class="kontierung-step">
+      <div class="k-num">5</div>
+      <h4>Steuer-Buchungslogik</h4>
+      <p>Vorsteuer abziehbar? §13b? DATEV-Steuerschlüssel bestimmen.</p>
+      <div class="k-output">taxTreatment, datevSteuerschluessel</div>
+    </div>
+    <div class="kontierung-step">
+      <div class="k-num">6</div>
+      <h4>Buchungsvorschlag</h4>
+      <p>DATEV-kompatible Buchungszeilen (Soll/Haben) im EXTF-Format. Export-ready.</p>
+      <div class="k-output">buchungszeilen[], datevExport</div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOWS -->
+<section id="workflows">
+  <h2>Folge<span>prozesse</span></h2>
+  <p class="subtitle">Je nach Dokumenttyp wird automatisch der passende Workflow gestartet</p>
+  <table>
+    <thead>
+      <tr><th>Template</th><th>Scope</th><th>Steps</th><th>Beschreibung</th></tr>
+    </thead>
+    <tbody>
+      <tr><td style="color:var(--white);font-weight:600">Rechnung (Business)</td><td>Business</td><td>11</td><td>6-stufige Kontierung → Manuelle Prüfung → Zahlungsfreigabe → DATEV-Export</td></tr>
+      <tr><td style="color:var(--white);font-weight:600">Rechnung (Privat)</td><td>Privat</td><td>7</td><td>Kategorisierung → Prüfung → Steuerrelevanz → Freigabe</td></tr>
+      <tr><td style="color:var(--white);font-weight:600">Rechnungsausgang</td><td>Business</td><td>10</td><td>Erlöskonten + Forderungen, DATEV-Steuerschlüssel Ausgang</td></tr>
+      <tr><td style="color:var(--white);font-weight:600">Vertragsanalyse</td><td>Business</td><td>6</td><td>Typ → Schema wählen → Daten extrahieren → Risiko → Entscheidung → Wiedervorlage</td></tr>
+      <tr><td style="color:var(--white);font-weight:600">Dokumenteneingang</td><td>Alle</td><td>3</td><td>OCR → QuickClassifier → Routing zu Folgeworkflow</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top: 3rem">Beispiel: Rechnung (Business) — 11 Steps</h3>
+  <div class="flow" style="flex-wrap: wrap; gap: 0.75rem;">
+    <div class="flow-step ai" style="min-width:140px;flex:0 0 auto"><div class="step-num">1</div><h4>Beleg-Extraktion</h4><span class="type-badge">AI</span></div>
+    <div class="flow-step ai" style="min-width:140px;flex:0 0 auto"><div class="step-num">2</div><h4>Konsistenz</h4><span class="type-badge">AI</span></div>
+    <div class="flow-step ai" style="min-width:140px;flex:0 0 auto"><div class="step-num">3</div><h4>Kontenrahmen</h4><span class="type-badge">AI</span></div>
+    <div class="flow-step ai" style="min-width:140px;flex:0 0 auto"><div class="step-num">4</div><h4>Konten-Match</h4><span class="type-badge">AI</span></div>
+    <div class="flow-step ai" style="min-width:140px;flex:0 0 auto"><div class="step-num">5</div><h4>Steuerlogik</h4><span class="type-badge">AI</span></div>
+    <div class="flow-step ai" style="min-width:140px;flex:0 0 auto"><div class="step-num">6</div><h4>Buchungsvorschlag</h4><span class="type-badge">AI</span></div>
+    <div class="flow-step manual" style="min-width:140px;flex:0 0 auto"><div class="step-num">7</div><h4>Prüfung</h4><span class="type-badge">Manuell</span></div>
+    <div class="flow-step manual" style="min-width:140px;flex:0 0 auto"><div class="step-num">8</div><h4>Korrektur</h4><span class="type-badge">Manuell</span></div>
+    <div class="flow-step manual" style="min-width:140px;flex:0 0 auto"><div class="step-num">9</div><h4>Freigabe</h4><span class="type-badge">Manuell</span></div>
+    <div class="flow-step auto" style="min-width:140px;flex:0 0 auto"><div class="step-num">10</div><h4>DATEV-Export</h4><span class="type-badge">Auto</span></div>
+    <div class="flow-step auto" style="min-width:140px;flex:0 0 auto"><div class="step-num">11</div><h4>Archivierung</h4><span class="type-badge">Auto</span></div>
+  </div>
+</section>
+
+<!-- TENANTS -->
+<section id="tenants">
+  <h2>Multi<span>-Tenant</span></h2>
+  <p class="subtitle">Shared Database, isoliert über tenant_id — jeder Tenant eigene PM2-Instanz, eigene Domain</p>
+  <div class="tenant-grid">
+    <div class="tenant-card">
+      <div class="tenant-dot" style="background: #c9a44c">1</div>
+      <div class="tenant-info">
+        <h4>p2cx GmbH</h4>
+        <p>Business · Port 7201</p>
+        <code>sortwerk.p2cx.de</code>
+      </div>
+    </div>
+    <div class="tenant-card">
+      <div class="tenant-dot" style="background: #c9a44c">22</div>
+      <div class="tenant-info">
+        <h4>Familie Gessi</h4>
+        <p>Privat · Port 7202</p>
+        <code>sortwerk.gessis.p2cx.de</code>
+      </div>
+    </div>
+    <div class="tenant-card">
+      <div class="tenant-dot" style="background: #5a6e8c">29</div>
+      <div class="tenant-info">
+        <h4>Lanthan Safe Sky GmbH</h4>
+        <p>Business · Port 7203</p>
+        <code>sortwerk.lss.p2cx.de</code>
+      </div>
+    </div>
+    <div class="tenant-card">
+      <div class="tenant-dot" style="background: #7c6d5e">687</div>
+      <div class="tenant-info">
+        <h4>Datenpassage</h4>
+        <p>Business · Port 7300</p>
+        <code>sortwerk.datenpassage.p2cx.de</code>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 3rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 1rem; padding: 2rem;">
+    <h3>Isolation</h3>
+    <div class="card-grid" style="margin-top: 1rem;">
+      <div style="font-size:0.9rem"><strong style="color:var(--gold)">Datenbank</strong><br><span style="color:var(--gray)">Shared PostgreSQL, tenant_id auf allen Tabellen</span></div>
+      <div style="font-size:0.9rem"><strong style="color:var(--gold)">Runtime</strong><br><span style="color:var(--gray)">Eigene PM2-Instanz pro Tenant mit APP_TENANT_ID</span></div>
+      <div style="font-size:0.9rem"><strong style="color:var(--gold)">Domain</strong><br><span style="color:var(--gray)">Eigene Subdomain + SSL via nginx + certbot</span></div>
+      <div style="font-size:0.9rem"><strong style="color:var(--gold)">Bot-Instructions</strong><br><span style="color:var(--gray)">Pro Tenant kopiert, unabhängig editierbar</span></div>
+      <div style="font-size:0.9rem"><strong style="color:var(--gold)">Email</strong><br><span style="color:var(--gray)">Eigenes Postfach pro Tenant, Scope-basiert</span></div>
+      <div style="font-size:0.9rem"><strong style="color:var(--gold)">Monitoring</strong><br><span style="color:var(--gray)">Runs, AI-Kosten, Errors — alles per Tenant gefiltert</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MONITORING -->
+<section id="monitoring">
+  <h2>Monitoring <span>& Tracking</span></h2>
+  <p class="subtitle">Dual-Write: Lokale DB für Features + zentrale myp2cx-DB für übergreifendes Monitoring</p>
+
+  <div class="monitoring-flow">
+    <div class="monitoring-box">
+      <h4>sortwerk App</h4>
+      <ul>
+        <li>orchestration_runs</li>
+        <li>orchestration_steps</li>
+        <li>ai_usage_log</li>
+        <li>bot_responses</li>
+        <li>error_log (lokal)</li>
+      </ul>
+    </div>
+    <div class="monitoring-arrow">→</div>
+    <div class="monitoring-box" style="border-color: rgba(201,164,76,0.3);">
+      <h4 style="color:var(--gold)">Dual-Write</h4>
+      <ul>
+        <li>ProcessRun.start()</li>
+        <li>logAiUsage()</li>
+        <li>logError()</li>
+        <li>ProcessRun.complete()</li>
+      </ul>
+    </div>
+    <div class="monitoring-arrow">→</div>
+    <div class="monitoring-box">
+      <h4>myp2cx (zentral)</h4>
+      <ul>
+        <li>process_runs</li>
+        <li>process_events</li>
+        <li>error_log (zentral)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-grid" style="margin-top: 2rem;">
+    <div class="card">
+      <div class="icon">📊</div>
+      <h4>ProcessRun Lifecycle</h4>
+      <p>Jeder Vorgang: start() → Events → complete()/fail(). Runs dürfen nicht ewig auf "running" stehen. 5-Min-Timeout als Absicherung.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🤖</div>
+      <h4>AI-Cost Tracking</h4>
+      <p>Jeder AI-Call wird getrackt: Modell, Provider, Tokens, Kosten in EUR. 30+ Modelle + Encodian-Credits bepreist.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🔍</div>
+      <h4>Debug-Log</h4>
+      <p>Strukturiertes Log pro Bot-Run: Input-Preview, Response-Preview, Parsing-Result, Fehler mit Stack-Trace — im Step-Output.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🛡️</div>
+      <h4>Error-Tracking</h4>
+      <p>Alle Fehler mit tenant_id, Severity, Source, Context. Resolution-Tracking für behobene Issues.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="stack">
+  <h2>Tech <span>Stack</span></h2>
+  <p class="subtitle">EU-first, Open-Source-Kern, managed Infrastructure</p>
+  <div class="card-grid">
+    <div class="card">
+      <h4>Runtime</h4>
+      <p>Next.js 14 · React 18 · TypeScript · Node.js 20</p>
+    </div>
+    <div class="card">
+      <h4>Datenbank</h4>
+      <p>PostgreSQL (IONOS Cloud) · Shared Multi-Tenant</p>
+    </div>
+    <div class="card">
+      <h4>AI Provider</h4>
+      <p>Mammouth.ai (EU-hosted) · OpenAI Fallback · 30+ Modelle</p>
+    </div>
+    <div class="card">
+      <h4>OCR</h4>
+      <p>Encodian (Azure Germany) · AI Vision · Tesseract</p>
+    </div>
+    <div class="card">
+      <h4>Email</h4>
+      <p>Microsoft Graph API · OAuth App Credentials</p>
+    </div>
+    <div class="card">
+      <h4>Deployment</h4>
+      <p>GitHub Actions → IONOS Linux · PM2 · nginx + SSL</p>
+    </div>
+    <div class="card">
+      <h4>Export</h4>
+      <p>DATEV EXTF-Format · Version 700 · Semicolon-separated</p>
+    </div>
+    <div class="card">
+      <h4>Datenhaltung</h4>
+      <p>EU-only · IONOS Deutschland · DSGVO-konform</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>sortwerk</span> — p2cx GmbH · Dokumentenverarbeitung mit KI
+</footer>
+
+<script>
+// Smooth scroll for nav links
+document.querySelectorAll('nav a').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// Highlight active nav link on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav .nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 200) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+
+// Fade-in animation on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.card, .flow-step, .bot-card, .kontierung-step, .tenant-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.6s, transform 0.6s';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
