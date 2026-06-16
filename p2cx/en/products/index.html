@@ -19,6 +19,8 @@
     .pill-intern{background:#dbeafe;color:#1e40af}
     .prod-title{display:block;margin:.5rem 0 .35rem;color:var(--p2cx-text)}
     .p2cx-card{position:relative}
+    .p2cx-card:has(.stretched-link) .p2cx-body::after{content:"Details →";display:block;margin-top:.6rem;color:var(--p2cx-gold);font-weight:600;font-size:.8rem}
+    .p2cx-card:not(:has(.stretched-link)):hover{transform:none;box-shadow:var(--p2cx-shadow)}
     .bereich-label{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--p2cx-muted)}
     .legend .pill{margin-right:.25rem}
   </style>
