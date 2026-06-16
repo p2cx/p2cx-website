@@ -1,0 +1,30 @@
+name: Deploy to IONOS
+
+# Deployt die statische Website nach jedem Push auf main automatisch
+# auf den IONOS-Server (p2cx.de). Manuell startbar über "Run workflow".
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'p2cx/**'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: SSH-Key einrichten
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.IONOS_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H 87.106.190.113 >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Deploy p2cx/ via rsync (ohne --delete, also nicht-destruktiv)
+        run: |
+          rsync -avz \
+            -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
+            ./p2cx/ root@87.106.190.113:/var/www/p2cx-landing/p2cx/
