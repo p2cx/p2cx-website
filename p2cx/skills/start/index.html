@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<!-- p2cx · App-Factory Skills · Start für Stephan -->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start &amp; Einrichtung — p2cx App-Factory Skills</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --p2cx-gold:#c9a44c; --p2cx-gold-dark:#b8923f; --p2cx-gold-soft:#faf5eb;
+    --p2cx-text:#1f2937; --p2cx-muted:#6b7280; --p2cx-border:#e5e7eb;
+    --p2cx-shadow:0 4px 12px rgba(2,6,23,.08); --p2cx-shadow-hover:0 8px 24px rgba(2,6,23,.12);
+    --p2cx-radius:12px; --p2cx-bg:#f8fafc;
+    --green:#16a34a; --green-soft:#f0fdf4; --red:#ef4444; --red-soft:#fef2f2;
+  }
+  html,body{ background:var(--p2cx-bg); color:var(--p2cx-text); font-family:'Inter',-apple-system,system-ui,sans-serif; }
+  h1,h2,h3,h4,h5{ letter-spacing:-0.02em; }
+  .nav-p2cx{ position:sticky; top:0; z-index:50; background:rgba(248,250,252,.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--p2cx-border); }
+  .nav-p2cx .brand{ font-weight:800; font-size:1.15rem; } .nav-p2cx .brand span{ color:var(--p2cx-gold); }
+  .nav-p2cx a.nav-link{ color:var(--p2cx-muted); font-size:.85rem; padding:.35rem .75rem; border-radius:999px; }
+  .nav-p2cx a.nav-link:hover{ color:var(--p2cx-text); background:#fff; }
+  .p2cx-card{ background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); box-shadow:var(--p2cx-shadow); height:100%; transition:all .2s ease; }
+  .p2cx-card:hover{ transform:translateY(-2px); box-shadow:var(--p2cx-shadow-hover); }
+  .p2cx-body{ padding:1.5rem; }
+  a{ color:var(--p2cx-gold); text-decoration:none; } a:hover{ text-decoration:underline; }
+  .text-gold{ color:var(--p2cx-gold); }
+  .eyebrow{ letter-spacing:.12em; font-size:.75rem; text-transform:uppercase; color:var(--p2cx-gold); font-weight:700; }
+  .smallmuted{ color:var(--p2cx-muted); }
+  .chip{ display:inline-block; padding:.3rem .65rem; border-radius:999px; font-size:.75rem; background:#f3f4f6; color:#374151; border:1px solid var(--p2cx-border); font-weight:500; }
+  .chip-gold{ background:var(--p2cx-gold-soft); color:var(--p2cx-gold-dark); border-color:#e8d5a3; }
+  .chip-done{ background:var(--green-soft); color:#166534; border-color:#bbf7d0; }
+  .chip-later{ background:var(--red-soft); color:#991b1b; border-color:#fecaca; }
+  .ico{ display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:12px; background:var(--p2cx-gold-soft); color:var(--p2cx-gold); flex:0 0 auto; }
+  .ico svg{ width:22px; height:22px; }
+  .hero{ padding:4.5rem 0 2.5rem; position:relative; overflow:hidden; }
+  .hero::before{ content:''; position:absolute; top:-100px; right:-100px; width:400px; height:400px; background:radial-gradient(circle, rgba(201,164,76,.12) 0%, transparent 70%); border-radius:50%; pointer-events:none; }
+  .hero h1{ font-size:clamp(2rem,4vw,3.2rem); font-weight:800; line-height:1.12; }
+  .hero h1 span{ color:var(--p2cx-gold); }
+  .hero .lead{ font-size:1.15rem; color:var(--p2cx-muted); max-width:720px; }
+  section.block{ padding:3.5rem 0; }
+  section.block.alt{ background:#fff; border-top:1px solid var(--p2cx-border); border-bottom:1px solid var(--p2cx-border); }
+  .section-title{ font-size:clamp(1.5rem,2.6vw,2rem); font-weight:800; margin-bottom:.4rem; }
+  .section-sub{ color:var(--p2cx-muted); font-size:1.05rem; margin-bottom:2.2rem; max-width:800px; }
+  .codebox{ background:#1f2937; color:#e5e7eb; border-radius:var(--p2cx-radius); padding:1.1rem 1.3rem; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.88rem; line-height:1.7; overflow-x:auto; }
+  .codebox .c{ color:#9ca3af; } .codebox .g{ color:var(--p2cx-gold); }
+  .setup-step{ display:flex; gap:1rem; padding:1.4rem 0; border-bottom:1px solid var(--p2cx-border); }
+  .setup-step:last-child{ border-bottom:0; }
+  .stepnum{ width:38px; height:38px; border-radius:50%; background:var(--p2cx-gold); color:#fff; font-weight:800; display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto; }
+  .os{ font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--p2cx-muted); }
+  .check{ color:var(--green); flex:0 0 auto; }
+  .note{ background:var(--p2cx-gold-soft); border:1px solid #e8d5a3; border-radius:var(--p2cx-radius); padding:1rem 1.2rem; }
+  footer{ padding:2.5rem 0; border-top:1px solid var(--p2cx-border); color:var(--p2cx-muted); font-size:.85rem; }
+</style>
+</head>
+<body>
+
+<nav class="nav-p2cx">
+  <div class="container d-flex align-items-center justify-content-between py-2">
+    <div class="brand">p2cx <span>· Start &amp; Einrichtung</span></div>
+    <div><a class="nav-link d-inline" href="/skills">← Zur Übersicht</a></div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="eyebrow mb-3">Onboarding · in ~20 Minuten startklar</div>
+    <h1>Willkommen, Stephan.<br>So richtest du <span>alles ein</span> — Schritt für Schritt.</h1>
+    <p class="lead mt-3">Hier steht genau, welche Programme du installierst, wie du dich bei GitHub und Claude anmeldest, und wie du die Skills holst. Kopier die Befehle einfach der Reihe nach. Danach baust du deine erste App per Gespräch.</p>
+    <a class="btn btn-lg mt-3" style="background:var(--p2cx-gold);color:#fff;font-weight:600;" href="#setup">Zur Einrichtung ↓</a>
+  </div>
+</header>
+
+<!-- WAS DU BRAUCHST (Überblick) -->
+<section class="block alt">
+  <div class="container">
+    <div class="section-title">Was du brauchst — im Überblick</div>
+    <p class="section-sub">Vier Programme auf deinem Rechner, zwei Anmeldungen, zwei Zugänge von Hauke. Die Details mit Befehlen kommen direkt darunter.</p>
+    <div class="row g-3">
+      <div class="col-md-6 col-lg-3"><div class="p2cx-card"><div class="p2cx-body">
+        <div class="ico mb-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10M3 20h18"/></svg></div>
+        <h6 class="fw-bold mb-1">Node.js + Git</h6>
+        <p class="smallmuted mb-0" style="font-size:.85rem">Die Basis-Werkzeuge.</p>
+      </div></div></div>
+      <div class="col-md-6 col-lg-3"><div class="p2cx-card"><div class="p2cx-body">
+        <div class="ico mb-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6A4.6 4.6 0 0 0 19 4.8 4.3 4.3 0 0 0 18.9 1S17.7.7 15 2.5a13 13 0 0 0-7 0C5.3.7 4.1 1 4.1 1A4.3 4.3 0 0 0 4 4.8 4.6 4.6 0 0 0 3 8c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V19"/></svg></div>
+        <h6 class="fw-bold mb-1">GitHub-CLI (gh)</h6>
+        <p class="smallmuted mb-0" style="font-size:.85rem">Login erledigt den Token automatisch.</p>
+      </div></div></div>
+      <div class="col-md-6 col-lg-3"><div class="p2cx-card"><div class="p2cx-body">
+        <div class="ico mb-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 9l3 3-3 3M13 15h3"/></svg></div>
+        <h6 class="fw-bold mb-1">Claude Code</h6>
+        <p class="smallmuted mb-0" style="font-size:.85rem">Mit Anthropic-Account anmelden.</p>
+      </div></div></div>
+      <div class="col-md-6 col-lg-3"><div class="p2cx-card"><div class="p2cx-body">
+        <div class="ico mb-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <h6 class="fw-bold mb-1">Die Skills</h6>
+        <p class="smallmuted mb-0" style="font-size:.85rem">Einmal klonen, überall da.</p>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EINRICHTUNG SCHRITT FÜR SCHRITT -->
+<section class="block" id="setup">
+  <div class="container">
+    <div class="section-title">Einrichtung — Schritt für Schritt</div>
+    <p class="section-sub">Befehle gibst du im Terminal ein (Windows: <em>PowerShell</em> oder <em>Eingabeaufforderung</em> · Mac: <em>Terminal</em>).</p>
+
+    <div class="row g-4">
+      <div class="col-lg-7">
+
+        <div class="setup-step">
+          <div class="stepnum">1</div>
+          <div>
+            <h5 class="fw-bold mb-1">Node.js &amp; Git installieren</h5>
+            <p class="smallmuted mb-2">Node.js (Version 20 oder neuer, „LTS") von <a href="https://nodejs.org" target="_blank" rel="noopener">nodejs.org</a> — bringt <code>npm</code> mit. Git von <a href="https://git-scm.com/downloads" target="_blank" rel="noopener">git-scm.com</a>. Beide einfach mit dem Installer durchklicken.</p>
+            <p class="smallmuted mb-0">Prüfen, ob es klappt: <code>node -v</code> und <code>git --version</code> sollten je eine Version anzeigen.</p>
+          </div>
+        </div>
+
+        <div class="setup-step">
+          <div class="stepnum">2</div>
+          <div>
+            <h5 class="fw-bold mb-1">GitHub-CLI installieren &amp; anmelden</h5>
+            <p class="smallmuted mb-2">Die <code>gh</code>-CLI von <a href="https://cli.github.com" target="_blank" rel="noopener">cli.github.com</a>. Danach anmelden — <strong>dabei wird dein GitHub-Token automatisch erzeugt</strong>, du musst keinen von Hand anlegen:</p>
+            <div class="codebox mb-2"><span class="g">gh auth login</span><br><span class="c"># → „GitHub.com" → „HTTPS" → „Login with a web browser"</span><br><span class="c"># → den angezeigten Code im Browser eingeben, fertig</span></div>
+            <p class="smallmuted mb-0">Die Skills nutzen <code>gh</code>, um Issues und Repos anzulegen. Mit dieser Anmeldung ist alles abgedeckt — <strong>kein separater Token nötig</strong>.</p>
+          </div>
+        </div>
+
+        <div class="setup-step">
+          <div class="stepnum">3</div>
+          <div>
+            <h5 class="fw-bold mb-1">Claude Code installieren &amp; anmelden</h5>
+            <div class="codebox mb-2"><span class="c"># installieren</span><br>npm install -g @anthropic-ai/claude-code<br><br><span class="c"># starten (meldet dich beim ersten Mal mit deinem Anthropic-Account an)</span><br><span class="g">claude</span></div>
+            <div class="note"><p class="smallmuted mb-0"><strong>Windows-Stolperstein:</strong> Falls <code>claude</code> „nicht gefunden" wird, muss der npm-Pfad in die PATH-Variable. Pfad anzeigen mit <code>npm config get prefix</code> (z.&nbsp;B. <code>%APPDATA%\npm</code>), diesen zu PATH hinzufügen, neues Terminal öffnen.</p></div>
+          </div>
+        </div>
+
+        <div class="setup-step">
+          <div class="stepnum">4</div>
+          <div>
+            <h5 class="fw-bold mb-1">Zugang von Hauke annehmen</h5>
+            <p class="smallmuted mb-0">Schick Hauke deinen <strong>GitHub-Usernamen</strong>. Er lädt dich beim Skills-Repo ein — du bekommst eine E-Mail bzw. siehst die Einladung auf GitHub und klickst „Accept".</p>
+          </div>
+        </div>
+
+        <div class="setup-step">
+          <div class="stepnum">5</div>
+          <div>
+            <h5 class="fw-bold mb-1">Die Skills holen</h5>
+            <p class="smallmuted mb-2">Einmalig in deinen globalen Claude-Ordner klonen:</p>
+            <div class="codebox"><span class="g">git clone</span> https://github.com/Hauke1979/<wbr>p2cx-app-factory-skills.git <span class="g">~/.claude/skills</span></div>
+          </div>
+        </div>
+
+        <div class="setup-step">
+          <div class="stepnum">6</div>
+          <div>
+            <h5 class="fw-bold mb-1">Claude Code neu starten &amp; loslegen</h5>
+            <p class="smallmuted mb-2">Damit die neuen Befehle erkannt werden. Dann in einem leeren Ordner:</p>
+            <div class="codebox"><span class="c"># neuen App-Ordner anlegen und Claude öffnen</span><br>mkdir meine-erste-app<br>cd meine-erste-app<br>claude<br><br><span class="c"># dann einfach beschreiben, was du bauen willst:</span><br><span class="g">/init</span> Ich will ein kleines Tool bauen, mit dem …</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-lg-5">
+        <div class="p2cx-card mb-3"><div class="p2cx-body">
+          <span class="chip chip-gold mb-3">Gut zu wissen</span>
+          <ul class="smallmuted mb-0" style="line-height:1.8">
+            <li><strong>GitHub-Token?</strong> Brauchst du nicht extra — <code>gh auth login</code> regelt das.</li>
+            <li><strong>Wo liegen die Skills?</strong> In <code>~/.claude/skills</code> — global, also in jedem Projekt verfügbar.</li>
+            <li><strong>Updates?</strong> <code>cd ~/.claude/skills &amp;&amp; git pull</code></li>
+            <li><strong>Verirrt?</strong> Tippe <code>/help</code> — sagt dir, wo du stehst und was als Nächstes kommt.</li>
+            <li><strong>KI in der App?</strong> Dann gibt Hauke dir einen Langdock-Key. Wir nutzen nur Langdock (EU, DSGVO) — nie OpenAI direkt.</li>
+            <li><strong>Live schalten?</strong> Machen wir gemeinsam, wenn die App so weit ist. Am Anfang läuft alles lokal.</li>
+          </ul>
+        </div></div>
+        <div class="p2cx-card"><div class="p2cx-body d-flex gap-3 align-items-start">
+          <svg class="check" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+          <p class="smallmuted mb-0">Das war's an Setup. Ab hier ist Entwickeln vor allem ein Gespräch — die Skills führen dich durch Idee, Spec, Bau, Test und Deploy.</p>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLISTE / TODOS -->
+<section class="block alt">
+  <div class="container">
+    <div class="section-title">Checkliste zum Abhaken</div>
+    <p class="section-sub">Wer macht was, damit Stephan loslegen kann.</p>
+    <div class="row g-4">
+      <div class="col-lg-6"><div class="p2cx-card"><div class="p2cx-body">
+        <span class="chip chip-gold mb-3">Hauke schaltet frei</span>
+        <ul class="list-unstyled mb-0 smallmuted">
+          <li class="d-flex gap-2 mb-2"><span>☐</span><span>Stephans GitHub-User als Collaborator bei <code>Hauke1979/p2cx-app-factory-skills</code> (Read)</span></li>
+          <li class="d-flex gap-2 mb-2"><span>☐</span><span>Entscheiden: entstehen Stephans Apps in der <strong>p2cx-Org</strong>? → ihn in die Org einladen</span></li>
+          <li class="d-flex gap-2 mb-2"><span>☐</span><span><span class="smallmuted">(später)</span> Starter-Repo freigeben, sobald gebaut</span></li>
+          <li class="d-flex gap-2 mb-2"><span>☐</span><span><span class="smallmuted">(nur bei KI)</span> Langdock-API-Key bereitstellen</span></li>
+          <li class="d-flex gap-2"><span>☐</span><span><span class="smallmuted">(später)</span> Deploy-Zugang gemeinsam einrichten</span></li>
+        </ul>
+      </div></div></div>
+      <div class="col-lg-6"><div class="p2cx-card"><div class="p2cx-body">
+        <span class="chip chip-done mb-3">Stephan hakt ab</span>
+        <ul class="list-unstyled mb-0 smallmuted">
+          <li class="d-flex gap-2 mb-2"><span>☐</span><span>Node.js + Git installiert (<code>node -v</code>, <code>git --version</code>)</span></li>
+          <li class="d-flex gap-2 mb-2"><span>☐</span><span><code>gh</code> installiert und <code>gh auth login</code> gemacht</span></li>
+          <li class="d-flex gap-2 mb-2"><span>☐</span><span>Claude Code installiert und gestartet (Anthropic-Login)</span></li>
+          <li class="d-flex gap-2 mb-2"><span>☐</span><span>GitHub-Einladung angenommen</span></li>
+          <li class="d-flex gap-2 mb-2"><span>☐</span><span>Skills geklont nach <code>~/.claude/skills</code></span></li>
+          <li class="d-flex gap-2"><span>☐</span><span>Claude Code neu gestartet, erstes <code>/init</code> ausprobiert</span></li>
+        </ul>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container d-flex flex-wrap justify-content-between gap-2">
+    <div>p2cx · Start für Stephan · Fragen? → Hauke</div>
+    <div class="smallmuted"><a href="/skills">Zur Übersicht</a></div>
+  </div>
+</footer>
+
+</body>
+</html>

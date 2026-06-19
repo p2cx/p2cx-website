@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<!--
+  p2cx · App-Factory Skills · Präsentation
+  Design: p2cx-playbook Präsentations-Style (Gold/Grau/Grün/Rot)
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>p2cx App-Factory Skills — Vom Gespräch zur fertigen App</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --p2cx-gold:#c9a44c; --p2cx-gold-dark:#b8923f; --p2cx-gold-soft:#faf5eb;
+    --p2cx-text:#1f2937; --p2cx-muted:#6b7280; --p2cx-border:#e5e7eb;
+    --p2cx-shadow:0 4px 12px rgba(2,6,23,.08); --p2cx-shadow-hover:0 8px 24px rgba(2,6,23,.12);
+    --p2cx-radius:12px; --p2cx-bg:#f8fafc;
+    --green:#16a34a; --green-soft:#f0fdf4; --red:#ef4444; --red-soft:#fef2f2;
+  }
+  html,body{ background:var(--p2cx-bg); color:var(--p2cx-text); font-family:'Inter',-apple-system,system-ui,sans-serif; }
+  h1,h2,h3,h4,h5{ letter-spacing:-0.02em; }
+
+  .nav-p2cx{ position:sticky; top:0; z-index:50; background:rgba(248,250,252,.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--p2cx-border); }
+  .nav-p2cx .brand{ font-weight:800; font-size:1.15rem; }
+  .nav-p2cx .brand span{ color:var(--p2cx-gold); }
+  .nav-p2cx a.nav-link{ color:var(--p2cx-muted); font-size:.85rem; padding:.35rem .75rem; border-radius:999px; }
+  .nav-p2cx a.nav-link:hover{ color:var(--p2cx-text); background:#fff; }
+
+  .p2cx-card{ background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); box-shadow:var(--p2cx-shadow); transition:transform .2s ease, box-shadow .2s ease; height:100%; }
+  .p2cx-card:hover{ transform:translateY(-2px); box-shadow:var(--p2cx-shadow-hover); }
+  .p2cx-body{ padding:1.5rem; }
+
+  a{ color:var(--p2cx-gold); text-decoration:none; } a:hover{ text-decoration:underline; }
+  .btn-p2cx{ background:var(--p2cx-gold); border-color:var(--p2cx-gold); color:#fff; font-weight:600; }
+  .btn-p2cx:hover{ background:var(--p2cx-gold-dark); color:#fff; }
+
+  .text-gold{ color:var(--p2cx-gold); }
+  .eyebrow{ letter-spacing:.12em; font-size:.75rem; text-transform:uppercase; color:var(--p2cx-gold); font-weight:700; }
+  .smallmuted{ color:var(--p2cx-muted); }
+
+  .chip{ display:inline-block; padding:.3rem .65rem; border-radius:999px; font-size:.75rem; background:#f3f4f6; color:#374151; border:1px solid var(--p2cx-border); font-weight:500; }
+  .chip-gold{ background:var(--p2cx-gold-soft); color:var(--p2cx-gold-dark); border-color:#e8d5a3; }
+  .chip-done{ background:var(--green-soft); color:#166534; border-color:#bbf7d0; }
+
+  .ico{ display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:12px; background:var(--p2cx-gold-soft); color:var(--p2cx-gold); flex:0 0 auto; }
+  .ico svg{ width:22px; height:22px; }
+
+  .hero{ padding:5rem 0 3rem; position:relative; overflow:hidden; }
+  .hero::before{ content:''; position:absolute; top:-100px; right:-100px; width:400px; height:400px; background:radial-gradient(circle, rgba(201,164,76,.12) 0%, transparent 70%); border-radius:50%; pointer-events:none; }
+  .hero h1{ font-size:clamp(2.2rem,4.5vw,3.6rem); font-weight:800; line-height:1.12; }
+  .hero h1 span{ color:var(--p2cx-gold); }
+  .hero .lead{ font-size:1.18rem; color:var(--p2cx-muted); max-width:730px; }
+  .hero-stats{ display:flex; gap:2.5rem; margin-top:2rem; flex-wrap:wrap; }
+  .hero-stat .val{ font-size:2rem; font-weight:800; color:var(--p2cx-gold); line-height:1; }
+  .hero-stat .lbl{ font-size:.8rem; color:var(--p2cx-muted); text-transform:uppercase; letter-spacing:.08em; margin-top:.35rem; }
+
+  section.block{ padding:4rem 0; }
+  section.block.alt{ background:#fff; border-top:1px solid var(--p2cx-border); border-bottom:1px solid var(--p2cx-border); }
+  .section-title{ font-size:clamp(1.6rem,2.8vw,2.2rem); font-weight:800; margin-bottom:.4rem; }
+  .section-sub{ color:var(--p2cx-muted); font-size:1.05rem; margin-bottom:2.5rem; max-width:800px; }
+
+  .phases{ display:grid; grid-template-columns:repeat(3,1fr); gap:.9rem; }
+  @media(max-width:900px){ .phases{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:560px){ .phases{ grid-template-columns:1fr; } }
+  .phase{ background:#fff; border:1px solid var(--p2cx-border); border-radius:var(--p2cx-radius); padding:1.15rem; box-shadow:var(--p2cx-shadow); transition:all .2s ease; }
+  .phase:hover{ transform:translateY(-2px); box-shadow:var(--p2cx-shadow-hover); }
+  .phase .cmd{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-weight:700; color:var(--p2cx-gold-dark); font-size:.95rem; }
+  .phase .num{ font-size:.72rem; color:var(--p2cx-muted); font-weight:700; }
+  .phase p{ font-size:.88rem; color:var(--p2cx-muted); margin:.45rem 0 0; }
+
+  .pill-row{ display:flex; flex-wrap:wrap; gap:.5rem; }
+  .codebox{ background:#1f2937; color:#e5e7eb; border-radius:var(--p2cx-radius); padding:1.1rem 1.3rem; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.9rem; line-height:1.7; overflow-x:auto; }
+  .codebox .c{ color:#9ca3af; } .codebox .g{ color:var(--p2cx-gold); }
+
+  .stepnum{ width:34px; height:34px; border-radius:50%; background:var(--p2cx-gold); color:#fff; font-weight:800; display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto; }
+  .quote{ border-left:3px solid var(--p2cx-gold); padding:.4rem 0 .4rem 1.1rem; color:var(--p2cx-text); font-style:italic; }
+  footer{ padding:2.5rem 0; border-top:1px solid var(--p2cx-border); color:var(--p2cx-muted); font-size:.85rem; }
+</style>
+</head>
+<body>
+
+<nav class="nav-p2cx">
+  <div class="container d-flex align-items-center justify-content-between py-2">
+    <div class="brand">p2cx <span>· App-Factory Skills</span></div>
+    <div class="d-none d-md-flex">
+      <a class="nav-link" href="#problem">Problem</a>
+      <a class="nav-link" href="#flow">Workflow</a>
+      <a class="nav-link" href="#standard">p2cx-Standard</a>
+      <a class="nav-link" href="#start">Loslegen</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div class="eyebrow mb-3">Claude Code · 9 Skills · 1 Workflow</div>
+    <h1>Reden statt tippen.<br>Am Ende steht eine <span>echte App</span>.</h1>
+    <p class="lead mt-3">Du beschreibst, was du bauen willst — und wirst Schritt für Schritt durch Idee, Spec, Architektur, Bau, Test und Deploy geführt. Nicht „ein bisschen Code", sondern eine fertige p2cx-App mit Datenbank, Auth, Standards und Go-Live. Geführt, nicht zusammengefummelt.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="val">9</div><div class="lbl">Skills</div></div>
+      <div class="hero-stat"><div class="val">6</div><div class="lbl">Phasen bis Go-Live</div></div>
+      <div class="hero-stat"><div class="val">1</div><div class="lbl">Befehl zum Start</div></div>
+      <div class="hero-stat"><div class="val">100%</div><div class="lbl">p2cx-Standard ab Tag 1</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- PROBLEM -->
+<section class="block alt" id="problem">
+  <div class="container">
+    <div class="section-title">Ehrlich? Bisher haben wir jede App neu zusammengefummelt.</div>
+    <p class="section-sub">Wir bauen schon richtig viele Apps und sind gut darin. Aber jedes Mal das gleiche Spiel: Standards vergessen, der gleiche nginx-Login-Bug zum dritten Mal, „wo war nochmal der freie Port?". Das Wissen steckt in Köpfen, nicht im Prozess.</p>
+    <div class="row g-3">
+      <div class="col-md-4"><div class="p2cx-card"><div class="p2cx-body">
+        <div class="ico mb-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></div>
+        <h5 class="fw-bold">Standards rutschen durch</h5>
+        <p class="smallmuted mb-0">Tracking, Error-Log, Health, Monitoring — hinterher meckert Guard, was fehlt. Nachrüsten nervt mehr als gleich richtig machen.</p>
+      </div></div></div>
+      <div class="col-md-4"><div class="p2cx-card"><div class="p2cx-body">
+        <div class="ico mb-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.2-8.5"/><path d="M21 3v6h-6"/></svg></div>
+        <h5 class="fw-bold">Dasselbe Wissen, immer wieder</h5>
+        <p class="smallmuted mb-0">Der Azure-AD-Login bricht hinterm Proxy ab — weil der nginx-Header-Buffer zu klein ist. Jedes Mal aufs Neue gelernt.</p>
+      </div></div></div>
+      <div class="col-md-4"><div class="p2cx-card"><div class="p2cx-body">
+        <div class="ico mb-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6v6H9z"/></svg></div>
+        <h5 class="fw-bold">Kein roter Faden</h5>
+        <p class="smallmuted mb-0">Man sitzt im leeren Repo und fängt irgendwo an. Was kommt zuerst? Wo steht der Stand? Jeder macht es ein bisschen anders.</p>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- IDEE -->
+<section class="block">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-6">
+        <div class="eyebrow mb-2">Die Idee</div>
+        <div class="section-title">Skills sind geführte Befehle. Das Wissen steckt im Prozess.</div>
+        <p class="smallmuted">Jeder Skill ist ein kleiner, geführter Workflow in Claude Code. Du tippst einen Befehl wie <code>/init</code> oder <code>/frontend</code> — und wirst durch den Schritt geleitet, mit allem p2cx-Wissen schon eingebaut. Kein leeres Blatt, keine vergessenen Standards.</p>
+        <ul class="smallmuted">
+          <li><strong>Eine Frage nach der anderen</strong> — immer mit empfohlener Antwort. Du bestätigst oder korrigierst.</li>
+          <li><strong>Der Stand lebt in GitHub-Issues</strong>, nicht im Chat. Nichts geht verloren.</li>
+          <li><strong>Jeder Skill sagt, was als Nächstes kommt</strong> — du behältst die Kontrolle.</li>
+        </ul>
+      </div>
+      <div class="col-lg-6">
+        <div class="p2cx-card"><div class="p2cx-body">
+          <div class="chip chip-gold mb-3">So fühlt es sich an</div>
+          <p class="quote mb-3">„Soll der Login über Azure AD laufen? <span class="text-gold">Empfehlung: Ja — das ist p2cx-Standard.</span>"</p>
+          <p class="quote mb-3">„Braucht die App KI-Funktionen? <span class="text-gold">Wenn ja, läuft alles über Langdock EU — DSGVO-konform, kein US-Provider.</span>"</p>
+          <p class="quote mb-0">„Ich habe 5 Features identifiziert. Hier die Reihenfolge — passt das so?"</p>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+<section class="block alt" id="flow">
+  <div class="container">
+    <div class="section-title">Der Workflow — von der Idee bis Go-Live</div>
+    <p class="section-sub">Neun Skills, ein roter Faden. Jeder Schritt schreibt seinen Stand ins GitHub-Issue und übergibt auf Zuruf an den nächsten.</p>
+    <div class="phases">
+      <div class="phase"><div class="num">01 · Setup</div><div class="cmd">/init</div><p>Legt das private Repo an, grillt dich zur Idee, schreibt das PRD und die Features als GitHub-Issues (P0/P1/P2).</p></div>
+      <div class="phase"><div class="num">02 · Spec</div><div class="cmd">/write-spec</div><p>Spezifiziert ein Feature tief aus — User Stories, Edge Cases, Akzeptanzkriterien auf Deutsch. Direkt ins Issue.</p></div>
+      <div class="phase"><div class="num">03 · Design</div><div class="cmd">/architecture</div><p>Technisches Design ohne Code: Komponenten, Datenmodell, Entscheidungen — verständlich für den Produkt-Kopf.</p></div>
+      <div class="phase"><div class="num">04 · Bau UI</div><div class="cmd">/frontend</div><p>Baut die Oberfläche im p2cx-Design (Gold, eigene Komponenten, kein Fremd-Kit). Läuft isoliert als Sub-Agent.</p></div>
+      <div class="phase"><div class="num">05 · Bau API</div><div class="cmd">/backend</div><p>APIs + Datenbank (PostgreSQL), Validierung mit Zod, echte Fehlermeldungen, Tests. KI nur über Langdock.</p></div>
+      <div class="phase"><div class="num">06 · Test</div><div class="cmd">/qa</div><p>Testet gegen alle Kriterien und spielt Red-Team: Injection, DSGVO-Logging, „kein US-Provider". Urteil: reif oder nicht.</p></div>
+      <div class="phase"><div class="num">07 · Ship</div><div class="cmd">/deploy</div><p>Dev → PR → IONOS. Mit nginx-Buffer-Fix, DNS-Check, Guard-Gate und Prod-Schutz. Login funktioniert von Anfang an.</p></div>
+      <div class="phase"><div class="num">08 · Ändern</div><div class="cmd">/refine</div><p>Bestehende Spec überarbeiten, erweitern oder grundsätzlich in Frage stellen — sauber dokumentiert.</p></div>
+      <div class="phase"><div class="num">09 · Orientierung</div><div class="cmd">/help</div><p>„Wo stehe ich, was ist der nächste Schritt?" — liest den Stand aus den Issue-Labels und führt weiter.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- p2cx-STANDARD -->
+<section class="block" id="standard">
+  <div class="container">
+    <div class="section-title">Was automatisch p2cx ist</div>
+    <p class="section-sub">Das Beste: Du musst an nichts davon denken. Es ist in den Skills eingebaut — jede App wird so geboren.</p>
+    <div class="row g-3">
+      <div class="col-md-6 col-lg-4"><div class="p2cx-card"><div class="p2cx-body">
+        <span class="chip chip-done mb-2">Born compliant</span>
+        <h5 class="fw-bold">Guard-Score ab Tag 1</h5>
+        <p class="smallmuted mb-0">Alle 8 Standardmodule (Tracking, Error-Log, Health, Monitoring …) sind von Anfang an da. <code>/deploy</code> hat ein Guard-Gate: keine App geht unter Standard live.</p>
+      </div></div></div>
+      <div class="col-md-6 col-lg-4"><div class="p2cx-card"><div class="p2cx-body">
+        <span class="chip chip-gold mb-2">DSGVO</span>
+        <h5 class="fw-bold">Nur Langdock EU</h5>
+        <p class="smallmuted mb-0">Jeder KI-Aufruf läuft über Langdock (EU-gehostet). Kein OpenAI, kein Anthropic direkt, kein Fallback. QA prüft das sogar aktiv.</p>
+      </div></div></div>
+      <div class="col-md-6 col-lg-4"><div class="p2cx-card"><div class="p2cx-body">
+        <span class="chip chip-gold mb-2">Design</span>
+        <h5 class="fw-bold">p2cx-Look, deutsch</h5>
+        <p class="smallmuted mb-0">Gold/Grau/Grün/Rot, eigene Komponenten, SVG-Icons, keine Emojis, korrekte Umlaute. Kein fremdes UI-Kit.</p>
+      </div></div></div>
+      <div class="col-md-6 col-lg-4"><div class="p2cx-card"><div class="p2cx-body">
+        <span class="chip chip-gold mb-2">Infrastruktur</span>
+        <h5 class="fw-bold">PostgreSQL + Azure AD</h5>
+        <p class="smallmuted mb-0">Echte Datenbank auf IONOS, Login über NextAuth/Azure. Kein Prototyp-Modus — es entsteht eine richtige App.</p>
+      </div></div></div>
+      <div class="col-md-6 col-lg-4"><div class="p2cx-card"><div class="p2cx-body">
+        <span class="chip chip-done mb-2">Gelöst</span>
+        <h5 class="fw-bold">Der Login-Bug ist Geschichte</h5>
+        <p class="smallmuted mb-0">Der nginx-Buffer für die großen Azure-AD-Tokens ist fest in <code>/deploy</code>. Plus DNS-Check vor SSL und automatische Port-Vergabe.</p>
+      </div></div></div>
+      <div class="col-md-6 col-lg-4"><div class="p2cx-card"><div class="p2cx-body">
+        <span class="chip chip-gold mb-2">Nachvollziehbar</span>
+        <h5 class="fw-bold">Alles in GitHub-Issues</h5>
+        <p class="smallmuted mb-0">Features, Specs, Test-Ergebnisse, Status — alles im Issue, mit Labels. Eine Quelle der Wahrheit, teamsichtbar.</p>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOSLEGEN -->
+<section class="block alt" id="start">
+  <div class="container">
+    <div class="section-title">So fängst du an</div>
+    <p class="section-sub">Drei Schritte — und du kannst sofort deine erste App bauen. Die Skills liegen global, also in jedem Projekt verfügbar.</p>
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-6">
+        <div class="d-flex gap-3 mb-4"><div class="stepnum">1</div><div>
+          <h5 class="fw-bold mb-1">Skills holen</h5>
+          <p class="smallmuted mb-0">Einmalig das Skills-Repo in deinen globalen Claude-Ordner klonen.</p>
+        </div></div>
+        <div class="d-flex gap-3 mb-4"><div class="stepnum">2</div><div>
+          <h5 class="fw-bold mb-1">Claude Code neu starten</h5>
+          <p class="smallmuted mb-0">Damit die neuen Befehle erkannt werden. Danach sind sie überall da.</p>
+        </div></div>
+        <div class="d-flex gap-3"><div class="stepnum">3</div><div>
+          <h5 class="fw-bold mb-1">Loslegen mit <code>/init</code></h5>
+          <p class="smallmuted mb-0">Beschreib einfach, was du bauen willst — der Rest ist ein Gespräch.</p>
+        </div></div>
+      </div>
+      <div class="col-lg-6">
+        <div class="codebox mb-3">
+          <span class="c"># 1 · Skills einmalig holen</span><br>
+          git clone https://github.com/Hauke1979/<wbr>p2cx-app-factory-skills.git <span class="g">~/.claude/skills</span><br><br>
+          <span class="c"># 3 · Neue App starten (in einem leeren Ordner)</span><br>
+          <span class="g">/init</span> Ich will ein Tool bauen, mit dem das Team<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;Brandschutz-Bedarfspläne erfassen und prüfen kann.
+        </div>
+        <p class="smallmuted mb-0">Updates später einfach mit <code>git pull</code> im Ordner <code>~/.claude/skills</code>. Ein Repo, alle Rechner synchron.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EHRLICHER ABSCHLUSS -->
+<section class="block">
+  <div class="container">
+    <div class="row justify-content-center"><div class="col-lg-9 text-center">
+      <div class="ico mx-auto mb-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <div class="section-title">Kein Hexenwerk. Nur sauber aufgeschrieben, was funktioniert.</div>
+      <p class="smallmuted">Wir haben nicht das Rad neu erfunden — wir haben das Wissen aus echten p2cx-Apps in geführte Schritte gegossen. Die ersten Prototypen davon haben wir auch ein paarmal weggeworfen. Was bleibt, ist ein Weg, der dich von „Idee" bis „läuft auf my.p2cx.de" begleitet, ohne dass du jedes Mal bei null anfängst.</p>
+      <p class="mb-0"><span class="chip chip-gold">Probier es aus</span> &nbsp; <span class="smallmuted">Bau dein erstes Feature, schau wie es sich anfühlt — und gib Feedback, was noch fehlt.</span></p>
+    </div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container d-flex flex-wrap justify-content-between gap-2">
+    <div>p2cx · App-Factory Skills · Repo <code>Hauke1979/p2cx-app-factory-skills</code></div>
+    <div class="smallmuted">Gebaut mit Claude Code · Design im p2cx-Playbook-Style</div>
+  </div>
+</footer>
+
+</body>
+</html>
