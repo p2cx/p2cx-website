@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>p2cx — Equity erhöhen vor dem Exit. Für Private Equity & Beteiligungen</title>
+<meta name="description" content="p2cx hebt in Ihren Portfoliounternehmen den Wert: digitalisierte Prozesse, geringere IT-Kosten, bessere Customer Experience. Schrittweise, risikoarm, mit Ergebnis nach jeder Etappe.">
+<meta name="theme-color" content="#c9a44c">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/p2cx.css" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/logo/p2cx-icon.svg">
+<style>
+  /* p2cx-App-Look: warme Neutrale (Playbook design-system.md), Gold nur Akzent */
+  :root{ --p2cx-bg:#f6f5f1; --p2cx-text:#1f2328; --p2cx-muted:#6b7280; --p2cx-border:#e7e5e0; }
+  body{ background:var(--p2cx-bg); }
+  .form-control,.form-select{ background:#faf9f6; border-color:#e7e5e0; }
+  .chip{ background:#f5eeda; color:#b8923f; }
+  /* Header/Footer = warmer Weiß-Verlauf mit gold-getönter Haarlinie (App-Chrome) */
+  .p2cx-bar{ background:linear-gradient(180deg,#ffffff,#faf8f3); box-shadow:0 1px 2px rgba(31,35,40,.04),0 4px 16px rgba(31,35,40,.05); }
+  .p2cx-bar.top{ position:sticky; top:0; z-index:50; border-bottom:1px solid #ece7da; }
+  .p2cx-bar.bottom{ border-top:1px solid #ece7da; margin-top:1.5rem; }
+  .p2cx-bar a.foot{ color:#6b7280; } .p2cx-bar a.foot:hover{ color:#b8923f; }
+  /* Etappen */
+  .etappe .ziel{ display:inline-block;font-size:.72rem;font-weight:700;color:#b8923f;background:#f5eeda;border:1px solid var(--p2cx-gold);border-radius:20px;padding:.15rem .6rem;margin-top:.6rem; }
+  .etappe.paket{ border-color:var(--p2cx-gold); }
+  .paket-tag{ font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#fff;background:#b8923f;border-radius:20px;padding:.15rem .55rem; }
+  .step-num{ font-size:.72rem;font-weight:700;color:var(--p2cx-muted);text-transform:uppercase;letter-spacing:.08em; }
+  /* Wert-Etappen-Kurve */
+  .wertkurve{ width:100%;height:auto;display:block;color:var(--p2cx-text);margin:.75rem 0 .25rem; }
+  .wertkurve .cap{ fill:var(--p2cx-muted);font-size:12px; }
+  .wertkurve .lbl{ fill:var(--p2cx-text);font-weight:700;font-size:14px; }
+  /* Equity-Rechner */
+  .eq-result{ border:2px solid var(--p2cx-gold)!important;background:linear-gradient(135deg,#fff 0%,#faf5eb 100%); }
+  .eq-number{ font-size:2.1rem;font-weight:800;color:#b8923f;line-height:1.1; }
+</style>
+</head>
+<body>
+
+<!-- Header (warmer Weiß-Verlauf, App-Chrome) -->
+<header class="p2cx-bar top">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between" style="height:52px;">
+      <div class="d-flex align-items-center gap-2">
+        <img src="/logo/p2cx-icon.svg" alt="p2cx" height="28">
+        <span class="fw-semibold" style="color:#1f2328;">p2cx GmbH</span>
+        <span class="ms-2 small d-none d-sm-inline" style="color:#374151;">Digitalisierung als Werthebel — für Beteiligungen</span>
+      </div>
+      <a href="#kontakt" class="btn btn-primary btn-p2cx btn-sm">Gespräch anfragen</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Hero: Ziel zuerst -->
+  <section class="py-3 pt-4">
+    <div class="container">
+      <div class="p2cx-card p-4 p-md-5">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-7">
+            <div class="chip">Für Private Equity &amp; Beteiligungen</div>
+            <h1 class="mb-2 mt-3 display-5">Equity erhöhen. Vor dem Exit. Messbar.</h1>
+            <p class="text-muted mb-3 lead">p2cx hebt in Ihren Portfoliounternehmen den Wert — <strong>Etappe für Etappe</strong>. Wir digitalisieren die Prozesse; darüber sinken die IT-Kosten und steigt die Customer Experience. Risikoarm, mit einem greifbaren <strong>Ergebnis nach jeder Etappe</strong>.</p>
+            <div class="d-flex gap-2 flex-wrap">
+              <a href="#kontakt" class="btn btn-primary btn-p2cx">Gespräch anfragen</a>
+              <a href="#etappen" class="btn btn-outline-secondary">Der Weg in 4 Etappen</a>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <aside class="p2cx-card p2cx-card-quiet">
+              <div class="p2cx-body">
+                <div class="chip">Kein Big-Bang</div>
+                <p class="mt-2 mb-1"><strong>Warum wir klein starten</strong></p>
+                <p class="text-muted mb-0">Wir beginnen mit einer App, die sofort spart. So lernen wir Ihre Prozesse, Ihr Team und die Bereitschaft kennen, bevor der große Hebel gezogen wird — kein Beraterprojekt, das am Kern vorbei verpufft.</p>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Die vier Etappen (zuerst) -->
+  <section id="etappen" class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body">
+        <h2 class="mb-2">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M4 20h16"/><path d="M6 20V10"/><path d="M12 20V6"/><path d="M18 20v-8"/></svg></span>
+          Vier Etappen — jede mit einem Ergebnis, das zählt
+        </h2>
+        <p class="text-muted">Sie bestimmen das Tempo. Weitergehen nur, wenn die Voraussetzung steht — und selbst ein Stopp lässt Sie im Plus. Der große Wertsprung kommt in Etappe 3.</p>
+
+        <svg class="wertkurve" viewBox="0 0 820 312" role="img" aria-label="Unternehmenswert steigt über die vier Etappen, großer Sprung in Etappe 3">
+          <!-- Achsen -->
+          <line x1="55" y1="250" x2="790" y2="250" stroke="currentColor" opacity="0.18"/>
+          <line x1="55" y1="250" x2="55" y2="55" stroke="currentColor" opacity="0.18"/>
+          <!-- Gridlines je Etappe -->
+          <g stroke="currentColor" opacity="0.10" stroke-dasharray="3 4">
+            <line x1="150" y1="250" x2="150" y2="232"/>
+            <line x1="340" y1="250" x2="340" y2="214"/>
+            <line x1="560" y1="250" x2="560" y2="110"/>
+            <line x1="740" y1="250" x2="740" y2="84"/>
+          </g>
+          <!-- Fläche unter der Kurve -->
+          <path d="M60,247 C110,245 120,239 150,232 C240,226 270,220 340,214 C440,206 470,150 560,110 C620,96 690,90 740,84 L740,250 L60,250 Z" fill="#c9a44c" opacity="0.10"/>
+          <!-- Kurve -->
+          <path d="M60,247 C110,245 120,239 150,232 C240,226 270,220 340,214 C440,206 470,150 560,110 C620,96 690,90 740,84" fill="none" stroke="#c9a44c" stroke-width="3" stroke-linecap="round"/>
+          <!-- Punkte -->
+          <g fill="#c9a44c" stroke="#b8923f" stroke-width="2">
+            <circle cx="150" cy="232" r="7"/>
+            <circle cx="340" cy="214" r="7"/>
+            <circle cx="560" cy="110" r="7"/>
+            <circle cx="740" cy="84" r="7"/>
+          </g>
+          <!-- Wert-Stichwort über den Punkten -->
+          <g class="cap" text-anchor="middle">
+            <text x="150" y="220">spart sofort</text>
+            <text x="340" y="202">Hebel sichtbar</text>
+            <text x="560" y="96">Wert steigt stark</text>
+            <text x="740" y="70">gesichert</text>
+          </g>
+          <!-- Etappen-Labels -->
+          <g class="lbl" text-anchor="middle">
+            <text x="150" y="272">Funke</text>
+            <text x="340" y="272">Einzug</text>
+            <text x="560" y="272">Ausbau</text>
+            <text x="740" y="272">Bleiben</text>
+          </g>
+          <!-- Paket-Klammer unter Ausbau + Bleiben -->
+          <path d="M560,285 L560,291 L740,291 L740,285" fill="none" stroke="#c9a44c" stroke-width="1.5"/>
+          <text x="650" y="306" text-anchor="middle" class="cap" style="fill:#b8923f;font-weight:700;">Ausbau &amp; Bleiben: ein Paket</text>
+          <!-- Y-Achsen-Beschriftung -->
+          <text x="20" y="152" transform="rotate(-90 20 152)" text-anchor="middle" class="cap">Unternehmenswert</text>
+        </svg>
+
+        <div class="row g-3 mt-1">
+          <div class="col-md-3">
+            <div class="p2cx-card etappe h-100"><div class="p2cx-body">
+              <div class="step-num">Etappe 1</div>
+              <p class="mt-1 mb-1"><strong>Funke</strong></p>
+              <span class="text-muted">Eine App, die läuft und spart — sofort spürbar, in rund einer Woche.</span>
+              <div><span class="ziel">Ergebnis: sofortige Einsparung</span></div>
+            </div></div>
+          </div>
+          <div class="col-md-3">
+            <div class="p2cx-card etappe h-100"><div class="p2cx-body">
+              <div class="step-num">Etappe 2</div>
+              <p class="mt-1 mb-1"><strong>Einzug</strong></p>
+              <span class="text-muted">Zwei, drei Apps im Betrieb, Schlüsselpersonen an Bord — plus eine Einschätzung, wo Ihre größten Hebel liegen. Ohne eigene IT? Wir bauen und betreiben eine gemanagete Umgebung.</span>
+              <div><span class="ziel">Ergebnis: Handlungsfeld-Analyse</span></div>
+            </div></div>
+          </div>
+          <div class="col-md-3">
+            <div class="p2cx-card etappe paket h-100"><div class="p2cx-body">
+              <div class="d-flex justify-content-between align-items-center"><div class="step-num">Etappe 3</div><span class="paket-tag">Paket</span></div>
+              <p class="mt-1 mb-1"><strong>Ausbau</strong></p>
+              <span class="text-muted">Der große Wertsprung: Digitalisierung ganzheitlich getrieben, das Team baut selbst — messbare Effizienz und bessere CX.</span>
+              <div><span class="ziel">Ergebnis: der Equity-Hebel</span></div>
+            </div></div>
+          </div>
+          <div class="col-md-3">
+            <div class="p2cx-card etappe paket h-100"><div class="p2cx-body">
+              <div class="d-flex justify-content-between align-items-center"><div class="step-num">Etappe 4</div><span class="paket-tag">Paket</span></div>
+              <p class="mt-1 mb-1"><strong>Bleiben</strong></p>
+              <span class="text-muted">Verankert, läuft dauerhaft. Als aktiver Beirat halten wir den Verbesserungsprozess am Laufen — der Wert steigt ruhig weiter.</span>
+              <div><span class="ziel">Ergebnis: gesichert &amp; KVP</span></div>
+            </div></div>
+          </div>
+        </div>
+        <div class="p2cx-card mt-3 p2cx-card-quiet"><div class="p2cx-body">
+          <span class="text-muted"><strong>Ausbau &amp; Bleiben gehören zusammen:</strong> Wir treiben eine Firma nicht an und lassen sie dann fallen. Bleiben ist der eingebaute, sanfte Übergang — dort sichert sich der Wert, den Sie beim Exit brauchen.</span>
+        </div></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- Warum schrittweise (ehrlich) -->
+  <section class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body">
+        <h2 class="mb-3">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4"/><path d="M12 16h0"/></svg></span>
+          Warum wir nicht mit dem großen Wurf anfangen
+        </h2>
+        <p class="text-muted mb-3">Der Hebel wirkt nur, wenn die Grundlage stimmt. Oft fehlen API-Zugänge zum (in die Jahre gekommenen) ERP oder saubere Daten. Ohne die kein Automatisieren, kein Effizienzgewinn. Genau hier bringen wir unser <strong>IT- und KI-Know-how</strong> ein: fehlende Schnittstellen schaffen, Daten in Form bringen und mit KI automatisieren, wo es wirklich trägt. Deshalb starten wir mit kleinen, echten Mehrwerten — <strong>so lernen wir uns kennen</strong> und schaffen gemeinsam die Voraussetzungen. Ehrlich, statt teuer am Kern vorbei.</p>
+        <div class="p2cx-card p2cx-card-quiet"><div class="p2cx-body">
+          <strong>Kennenlernen schützt Ihr Budget:</strong> <span class="text-muted">Nicht jede Firma ist gleich bereit — die frühen Etappen zeigen schnell, ob die richtigen Leute da sind und wo echte Hebel liegen. So gehen Sie nur dort in die Tiefe, wo es sich wirklich lohnt.</span>
+        </div></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- Der Hebel -->
+  <section id="hebel" class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body">
+        <h2 class="mb-3">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg></span>
+          Drei Hebel, ein Ziel: mehr Equity
+        </h2>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="p2cx-card h-100"><div class="p2cx-body">
+              <strong>IT-Kosten runter</strong><br>
+              <span class="text-muted">Alt-Systeme, teure Lizenzen, manuelle Abläufe — wir digitalisieren mit schlankem, eigenem Stack. Weniger laufende Kosten, direkt auf die Marge.</span>
+            </div></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p2cx-card h-100"><div class="p2cx-body">
+              <strong>Prozesse &amp; Customer Experience</strong><br>
+              <span class="text-muted">Schnellere Abläufe, weniger Fehler, ein besseres Kundenerlebnis — operativer Wert, den ein Käufer im Due-Diligence sieht.</span>
+            </div></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p2cx-card h-100"><div class="p2cx-body">
+              <strong>Übers Portfolio multiplizierbar</strong><br>
+              <span class="text-muted">Ein bewährter Ansatz, viele Firmen. Was in einer wirkt, rollt in die nächste — ohne jedes Mal bei null zu starten.</span>
+            </div></div>
+          </div>
+        </div>
+        <div class="p2cx-card mt-3 p2cx-card-quiet"><div class="p2cx-body">
+          <strong>Unterm Strich:</strong> <span class="text-muted">Jeder Hebel zahlt auf EBITDA und Multiple — und damit direkt auf den Exit-Wert.</span>
+        </div></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- Equity-Hebel-Rechner -->
+  <section id="rechner" class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body">
+        <h2 class="mb-2">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="9"/><path d="M9 15l6-6"/><circle cx="9" cy="9" r="1"/><circle cx="15" cy="15" r="1"/></svg></span>
+          Was bewegt der Hebel bei Ihnen?
+        </h2>
+        <p class="text-muted">Grobe Illustration, wie aus digitalisierten Prozessen ein Bewertungshebel wird — nach <em>Ihrer</em> Bewertungsmethode. Echte Zahlen je Portfoliounternehmen im Gespräch.</p>
+
+        <div class="p2cx-card p2cx-card-quiet mb-3"><div class="p2cx-body">
+          <div class="row g-3 align-items-end">
+            <div class="col-sm-6 col-md-4">
+              <label class="form-label" id="eqKostenLabel" for="eqKosten">IT-/Prozesskosten pro Jahr (EUR)</label>
+              <input id="eqKosten" type="number" class="form-control" value="500000" min="0" step="10000" oninput="calcEquity()">
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <label class="form-label" id="eqSenkungLabel" for="eqSenkung">Erreichbare Senkung / Effizienz (%)</label>
+              <input id="eqSenkung" type="number" class="form-control" value="15" min="0" max="100" step="1" oninput="calcEquity()">
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <label class="form-label" for="eqMethod">Bewertungsmethode</label>
+              <select id="eqMethod" class="form-select" onchange="setMethod()">
+                <option value="ebitda">EBITDA-Multiple</option>
+                <option value="gewinn">Gewinn-Multiple (KGV)</option>
+                <option value="umsatz">Umsatz-Multiple (ARR)</option>
+              </select>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <label class="form-label" id="eqMultipleLabel" for="eqMultiple">EBITDA-Multiple (×)</label>
+              <input id="eqMultiple" type="number" class="form-control" value="8" min="1" max="30" step="0.5" oninput="calcEquity()">
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <label class="form-label" for="eqJahre">Haltedauer (Jahre)</label>
+              <input id="eqJahre" type="number" class="form-control" value="3" min="1" max="10" step="1" oninput="calcEquity()">
+            </div>
+          </div>
+          <small class="text-muted mt-2 d-block">Der jährliche Effekt wirkt auf Ihre Bewertungsgröße — und über das Multiple direkt auf den Unternehmenswert (Exit).</small>
+        </div></div>
+
+        <div class="p2cx-card eq-result"><div class="p2cx-body p-4">
+          <div class="row g-4 text-center">
+            <div class="col-md-4">
+              <div class="smallmuted" style="font-weight:600;" id="eqEffektLabel">Jährlicher EBITDA-Effekt</div>
+              <div class="eq-number" id="eqEbitda">0 EUR</div>
+              <div class="smallmuted" id="eqEffektHint">pro Jahr, laufend</div>
+            </div>
+            <div class="col-md-4">
+              <div class="smallmuted" style="font-weight:600;" id="eqWertTitle">Wertzuwachs beim Exit</div>
+              <div class="eq-number" id="eqWert">0 EUR</div>
+              <div class="smallmuted" id="eqFormel">einmalig · Jahres-Effekt × Multiple</div>
+            </div>
+            <div class="col-md-4">
+              <div class="smallmuted" style="font-weight:600;" id="eqGesamtTitle">Gesamtwirkung über 3 J.</div>
+              <div class="eq-number" id="eqGesamt">0 EUR</div>
+              <div class="smallmuted" id="eqGesamtHint">Exit-Hebel + laufender Cash</div>
+            </div>
+          </div>
+          <div class="mt-3 d-flex flex-wrap align-items-center justify-content-center gap-2">
+            <a href="#kontakt" class="btn btn-primary btn-p2cx">Für eine Firma durchrechnen</a>
+            <span class="smallmuted">Kostenlos &amp; unverbindlich · illustrativ, echte Zahlen im Gespräch</span>
+          </div>
+        </div></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- Proof / Credibility (weiter unten) — 1/3 Kennzahl + 2/3 Text, bricht den Kachel-Rhythmus -->
+  <section class="py-3">
+    <div class="container">
+      <div class="row g-3 align-items-stretch">
+        <div class="col-md-4">
+          <div class="p2cx-card h-100" style="background:linear-gradient(135deg,#fff 0%,#f5eeda 100%);border-color:var(--p2cx-gold);">
+            <div class="p2cx-body d-flex flex-column justify-content-center text-center h-100 py-4">
+              <div style="font-size:3.2rem;font-weight:800;color:#b8923f;line-height:1;">500+</div>
+              <div class="smallmuted mt-1">Unternehmen &amp; Beteiligungen mit Finanzreporting</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="p2cx-card h-100"><div class="p2cx-body">
+            <h2 class="mb-2">Warum wir das können</h2>
+            <p class="text-muted mb-0">Hinter p2cx steht der Mitgründer von <strong>loyos bi</strong>. In fünf Jahren daraus strukturiertes Finanzreporting für über 500 Unternehmen und Beteiligungen aufgebaut — und dabei die Beteiligungsbranche von innen kennengelernt. Wir wissen, wo in Portfoliounternehmen der Wert liegt, welche IT-Herausforderungen typisch sind — personell wie softwareseitig — und was vor dem Exit zählt.</p>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Anreize -->
+  <section class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body">
+        <h2 class="mb-3">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M12 2v20"/><path d="M5 5l14 14"/><path d="M19 5L5 19"/></svg></span>
+          Anreize, die in Ihre Richtung zeigen
+        </h2>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="p2cx-card h-100"><div class="p2cx-body">
+              <strong>Kein Lock-in</strong><br>
+              <span class="text-muted">Open Source, alles im GitHub des Portfoliounternehmens. Sie behalten die Kontrolle — beim Verkauf ein sauberes, übergabefähiges Asset.</span>
+            </div></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p2cx-card h-100"><div class="p2cx-body">
+              <strong>Enablement statt Abhängigkeit</strong><br>
+              <span class="text-muted">Wir machen das Team unabhängig, statt es zu binden. Je selbstständiger die Firma, desto wertvoller das, was bleibt.</span>
+            </div></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p2cx-card h-100"><div class="p2cx-body">
+              <strong>Upside am Wertzuwachs</strong><br>
+              <span class="text-muted">Wir <em>wollen</em> unseren Erfolg an Ihren koppeln — Prämie oder Beteiligung am realisierten Wertzuwachs. Nicht als Option, sondern aus Prinzip: nur so zeigen unsere Pfeile in dieselbe Richtung wie Ihre. Wir gewinnen, wenn Sie beim Exit gewinnen.</span>
+            </div></div>
+          </div>
+        </div>
+        <div class="p2cx-card mt-3 p2cx-card-quiet"><div class="p2cx-body">
+          <span class="text-muted">„Die meisten Dienstleister verdienen daran, dass man sie braucht. Wir verdienen daran, dass die Firma es selbst kann — und mehr wert wird."</span>
+        </div></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- Kontakt -->
+  <section id="kontakt" class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body">
+        <h2 class="mb-2">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="4" width="18" height="15" rx="2"/><path d="M3 9h18"/><path d="M15 13l5 2-5 2"/><path d="M8 17h4"/></svg></span>
+          Lassen Sie uns über ein Portfoliounternehmen sprechen
+        </h2>
+        <p class="text-muted">Nennen Sie uns eine Firma mit Handlungsbedarf — wir zeigen unverbindlich, wo der schnellste Hebel liegt.</p>
+
+        <form class="p2cx-card mt-2" id="leadForm" onsubmit="return sendLead(event)">
+          <div class="p2cx-body">
+            <input type="text" name="website" id="hp" tabindex="-1" autocomplete="off"
+                   style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;opacity:0;" aria-hidden="true">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                <input id="name" name="name" class="form-control" required autocomplete="name">
+              </div>
+              <div class="col-md-6">
+                <label for="firma" class="form-label">Beteiligungsgesellschaft <span class="text-danger">*</span></label>
+                <input id="firma" name="company" class="form-control" required autocomplete="organization">
+              </div>
+              <div class="col-md-6">
+                <label for="mail" class="form-label">E-Mail <span class="text-danger">*</span></label>
+                <input id="mail" name="email" type="email" class="form-control" required autocomplete="email">
+              </div>
+              <div class="col-md-6">
+                <label for="telefon" class="form-label">Telefon</label>
+                <input id="telefon" name="telefon" type="tel" class="form-control" autocomplete="tel">
+              </div>
+              <div class="col-md-6">
+                <label for="rolle" class="form-label">Ihre Rolle</label>
+                <select id="rolle" name="rolle" class="form-select">
+                  <option value="">Bitte wählen</option>
+                  <option value="operating-partner">Operating Partner</option>
+                  <option value="investment-manager">Investment Manager</option>
+                  <option value="portfolio-gf">Geschäftsführung Portfoliounternehmen</option>
+                  <option value="partner">Partner / Geschäftsführung Fonds</option>
+                  <option value="sonstige">Sonstige</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="portfolio" class="form-label">Portfoliounternehmen</label>
+                <select id="portfolio" name="portfolio" class="form-select">
+                  <option value="">Bitte wählen</option>
+                  <option value="1">1</option>
+                  <option value="2-5">2–5</option>
+                  <option value="6-15">6–15</option>
+                  <option value="15+">15+</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="msg" class="form-label">Um welche Firma / welchen Hebel geht es?</label>
+                <textarea id="msg" name="message" rows="3" class="form-control" placeholder="Z.B.: Ein Portfoliounternehmen mit hohen IT-Kosten und viel manueller Auftragsabwicklung — vor dem Exit in 18–24 Monaten..."></textarea>
+              </div>
+              <div class="col-12 d-flex align-items-center gap-2">
+                <button class="btn btn-primary btn-p2cx" type="submit">Gespräch anfragen</button>
+                <span class="smallmuted">Wir melden uns innerhalb eines Arbeitstages.</span>
+              </div>
+            </div>
+          </div>
+        </form>
+
+      </div></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer (App-Chrome, Marke 2. Mal) -->
+<footer class="p2cx-bar bottom">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 py-3">
+      <div class="d-flex align-items-center gap-2">
+        <img src="/logo/p2cx-icon.svg" alt="p2cx" height="20">
+        <span class="small fw-semibold" style="color:#1f2328;">p2cx</span>
+      </div>
+      <div class="small" style="color:#9ca3af;">
+        © 2025 p2cx · <a class="foot" href="/de/impressum.html">Impressum</a> · <a class="foot" href="/de/datenschutz.html">Datenschutz</a> · <a class="foot" href="/de/agb/">AGB</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+async function sendLead(e){
+  e.preventDefault();
+  const form = e.target;
+  if(document.getElementById('hp')?.value) return false;
+  const btn = form.querySelector('button[type="submit"]');
+  if(btn) btn.disabled = true;
+  const params = new URLSearchParams(window.location.search);
+  const payload = {
+    name: document.getElementById('name').value.trim(),
+    email: document.getElementById('mail').value.trim(),
+    company: document.getElementById('firma').value.trim(),
+    telefon: document.getElementById('telefon').value.trim(),
+    rolle: document.getElementById('rolle').value,
+    portfolio: document.getElementById('portfolio').value,
+    message: document.getElementById('msg').value.trim(),
+    equity: getEquity(),
+    segment: 'private-equity',
+    utm_source: params.get('utm_source') || '',
+    utm_medium: params.get('utm_medium') || '',
+    utm_campaign: params.get('utm_campaign') || '',
+    utm_content: params.get('utm_content') || '',
+    page: location.pathname, lang: 'de', ts: new Date().toISOString()
+  };
+  const FUNCTION_URL = 'https://prod-02.germanywestcentral.logic.azure.com:443/workflows/25ca0e47a6164ad79b3364698f13740e/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=DJlZD_qMRReJpH4_FbYw2ZoLTtE2HRNAlCuxCSuYKkg';
+  try{
+    const res = await fetch(FUNCTION_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(res.ok){alert('Danke! Wir melden uns innerhalb eines Arbeitstages.');form.reset();setMethod();}
+    else{alert('Das hat leider nicht geklappt. Bitte direkt mailen an hello@p2cx.de');}
+  }catch(err){alert('Netzwerkfehler. Bitte direkt mailen an hello@p2cx.de');}
+  finally{if(btn) btn.disabled = false;}
+  return false;
+}
+
+// Equity-Hebel-Rechner
+var EQ_METHODS = {
+  ebitda: { baseLabel:'IT-/Prozesskosten pro Jahr (EUR)', baseVal:500000,  pctLabel:'Erreichbare Senkung / Effizienz (%)', pctVal:15, mult:8,  multLabel:'EBITDA-Multiple (×)',      effekt:'Jährlicher EBITDA-Effekt' },
+  gewinn: { baseLabel:'IT-/Prozesskosten pro Jahr (EUR)', baseVal:500000,  pctLabel:'Erreichbare Senkung / Effizienz (%)', pctVal:15, mult:14, multLabel:'Gewinn-Multiple / KGV (×)', effekt:'Jährlicher Gewinn-Effekt' },
+  umsatz: { baseLabel:'Wiederkehrender Umsatz p.a. / ARR (EUR)', baseVal:2000000, pctLabel:'ARR-Wachstum p.a. (%)', pctVal:5, mult:3, multLabel:'Umsatz-Multiple / ARR (×)', effekt:'Jährliches ARR-Wachstum' }
+};
+function fmtEur(n){ return Math.round(n).toLocaleString('de-DE') + ' EUR'; }
+function eqVals(){
+  const k = parseFloat(document.getElementById('eqKosten').value)||0;
+  const s = (parseFloat(document.getElementById('eqSenkung').value)||0)/100;
+  const m = parseFloat(document.getElementById('eqMultiple').value)||0;
+  const method = document.getElementById('eqMethod').value;
+  const jahre = parseFloat(document.getElementById('eqJahre').value)||0;
+  const effektJahr = k*s;
+  const akkumuliert = effektJahr*jahre;
+  let exit, gesamt;
+  if(method === 'umsatz'){ exit = akkumuliert*m; gesamt = exit; }
+  else { exit = effektJahr*m; gesamt = exit + akkumuliert; }
+  return {kosten:k, senkungProzent:s*100, methode:method, multiple:m, jahre:jahre, jahresEffekt:effektJahr, akkumuliert:akkumuliert, wertzuwachs:exit, gesamtwirkung:gesamt};
+}
+function calcEquity(){
+  const v = eqVals();
+  document.getElementById('eqEbitda').textContent = fmtEur(v.jahresEffekt);
+  if(v.methode === 'umsatz'){
+    document.getElementById('eqEffektHint').textContent = 'pro Jahr, wächst mit';
+    document.getElementById('eqWertTitle').textContent = 'Zusätzliches ARR nach ' + v.jahre + ' J.';
+    document.getElementById('eqWert').textContent = fmtEur(v.akkumuliert);
+    document.getElementById('eqFormel').textContent = v.jahre + ' × jährliches Wachstum';
+    document.getElementById('eqGesamtTitle').textContent = 'Wertzuwachs beim Exit';
+    document.getElementById('eqGesamt').textContent = fmtEur(v.wertzuwachs);
+    document.getElementById('eqGesamtHint').textContent = 'akkumuliertes ARR × Multiple';
+  } else {
+    document.getElementById('eqEffektHint').textContent = 'pro Jahr, laufend';
+    document.getElementById('eqWertTitle').textContent = 'Wertzuwachs beim Exit';
+    document.getElementById('eqWert').textContent = fmtEur(v.wertzuwachs);
+    document.getElementById('eqFormel').textContent = 'einmalig · Jahres-Effekt × Multiple';
+    document.getElementById('eqGesamtTitle').textContent = 'Gesamtwirkung über ' + v.jahre + ' J.';
+    document.getElementById('eqGesamt').textContent = fmtEur(v.gesamtwirkung);
+    document.getElementById('eqGesamtHint').textContent = 'Exit-Hebel + laufender Cash';
+  }
+}
+function setMethod(){
+  const m = document.getElementById('eqMethod').value;
+  const cfg = EQ_METHODS[m] || EQ_METHODS.ebitda;
+  document.getElementById('eqKostenLabel').textContent = cfg.baseLabel;
+  document.getElementById('eqKosten').value = cfg.baseVal;
+  document.getElementById('eqSenkungLabel').textContent = cfg.pctLabel;
+  document.getElementById('eqSenkung').value = cfg.pctVal;
+  document.getElementById('eqMultiple').value = cfg.mult;
+  document.getElementById('eqMultipleLabel').textContent = cfg.multLabel;
+  document.getElementById('eqEffektLabel').textContent = cfg.effekt;
+  calcEquity();
+}
+function getEquity(){ return eqVals(); }
+setMethod();
+</script>
+</body>
+</html>
