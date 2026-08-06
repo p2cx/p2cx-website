@@ -1,0 +1,41 @@
+name: Deploy to Dev
+
+# Deployt die statische Website nach jedem Push auf dev automatisch
+# auf den Dev-Server p2cx-dev (dev.p2cx.de). Manuell startbar über "Run workflow".
+on:
+  push:
+    branches: [dev]
+    paths:
+      - 'p2cx/**'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-dev
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: SSH-Key einrichten
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.IONOS_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          # Host-Key gepinnt (Dev-Server p2cx-dev)
+          echo "85.215.254.100 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBP4QW8i78bfTYRq9J0msKgsrdYGTrETo8LRZk2deMPM" >> ~/.ssh/known_hosts
+
+      - name: Deploy p2cx/ via rsync (mit --delete, Dev spiegelt den Branch)
+        run: |
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=yes" \
+            ./p2cx/ root@85.215.254.100:/var/www/p2cx-website-dev/p2cx/
+
+      - name: Health-Check
+        run: |
+          STATUS=$(curl -s -o /dev/null -w '%{http_code}' -H "Host: dev.p2cx.de" http://85.215.254.100/de/index.html)
+          echo "dev.p2cx.de → HTTP $STATUS"
+          [ "$STATUS" = "200" ] || exit 1

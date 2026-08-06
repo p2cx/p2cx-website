@@ -4,6 +4,10 @@
 Repo: `p2cx/p2cx-website` (früher `p2cx-landing` — alter Name leitet per GitHub-Redirect weiter).
 
 ## Deployment (WICHTIG)
+- **Dev zuerst:** Push auf `dev` mit Änderungen unter `p2cx/**` → Workflow „Deploy to Dev"
+  (`.github/workflows/deploy-dev.yml`) rsync't (**mit** `--delete`) auf den Dev-Server
+  `root@85.215.254.100:/var/www/p2cx-website-dev/p2cx/` → **https://dev.p2cx.de**
+  (nginx-Vhost `p2cx-website-dev`, `X-Robots-Tag: noindex`). Prod-Weg: PR/Merge `dev` → `main`.
 - **Auto-Deploy via GitHub Actions:** Push auf `main` mit Änderungen unter `p2cx/**` → Workflow
   „Deploy to IONOS" (`.github/workflows/deploy.yml`) rsync't `p2cx/` auf den IONOS-Server.
 - Ziel: `root@87.106.190.113:/var/www/p2cx-landing/p2cx/` — **Server-Pfad heißt weiterhin
