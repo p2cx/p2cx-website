@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Etappe 3 — Ausbau | p2cx</title>
+<meta name="description" content="Etappe 3 des p2cx-Wegs: Ihr Team lernt, selbst zu bauen — mit Führerschein-Stufen, Sicherheits-Gates und Coaching am echten Code. Dabei entsteht Ihr digitales Betriebssystem.">
+<meta name="theme-color" content="#c9a44c">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/p2cx.css" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/logo/p2cx-icon.svg">
+<style>
+  :root{ --p2cx-bg:#f6f5f1; --p2cx-text:#1f2328; --p2cx-muted:#6b7280; --p2cx-border:#e7e5e0; }
+  body{ background:var(--p2cx-bg); }
+  .chip{ background:#f5eeda; color:#b8923f; }
+  .p2cx-bar{ background:linear-gradient(180deg,#ffffff,#faf8f3); box-shadow:0 1px 2px rgba(31,35,40,.04),0 4px 16px rgba(31,35,40,.05); }
+  .p2cx-bar.top{ position:sticky; top:0; z-index:50; border-bottom:1px solid #ece7da; }
+  .p2cx-bar.bottom{ border-top:1px solid #ece7da; margin-top:1.5rem; }
+  .p2cx-bar a.foot{ color:#6b7280; } .p2cx-bar a.foot:hover{ color:#b8923f; }
+  .step-num{ font-size:.72rem;font-weight:700;color:var(--p2cx-muted);text-transform:uppercase;letter-spacing:.08em; }
+  .etappen-dots{ display:flex;gap:.45rem;align-items:center; }
+  .etappen-dots a{ width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#6b7280;background:#fff;border:1px solid var(--p2cx-border);text-decoration:none; }
+  .etappen-dots a:hover{ border-color:var(--p2cx-gold);color:#b8923f; }
+  .etappen-dots a.active{ background:var(--p2cx-gold);border-color:#b8923f;color:#fff; }
+  .aha-card{ border:2px solid var(--p2cx-gold);background:linear-gradient(135deg,#fff 0%,#faf5eb 100%); }
+  .gate-card{ border-style:dashed;border-color:#d9d2c2;background:#fbfaf6; }
+  .klasse-badge{ display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;font-weight:800;font-size:1.05rem;color:#b8923f;background:#f5eeda;border:2px solid var(--p2cx-gold); }
+</style>
+</head>
+<body>
+
+<header class="p2cx-bar top">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between" style="height:52px;">
+      <div class="d-flex align-items-center gap-2">
+        <img src="/logo/p2cx-icon.svg" alt="p2cx" height="28">
+        <span class="fw-semibold" style="color:#1f2328;">p2cx</span>
+        <a class="ms-2 small" href="/de/index.html#etappen" style="color:#6b7280;">← Der ganze Weg</a>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <nav class="etappen-dots" aria-label="Etappen">
+          <a href="/de/etappen/funke.html" title="Etappe 1 — Funke">1</a>
+          <a href="/de/etappen/einzug.html" title="Etappe 2 — Einzug">2</a>
+          <a class="active" href="/de/etappen/ausbau.html" aria-current="page" title="Etappe 3 — Ausbau">3</a>
+          <a href="/de/etappen/bleiben.html" title="Etappe 4 — Bleiben">4</a>
+        </nav>
+        <a href="/de/index.html#kontakt" class="btn btn-primary btn-p2cx btn-sm d-none d-sm-inline-block">Anfragen</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Hero -->
+  <section class="py-3 pt-4">
+    <div class="container">
+      <div class="p2cx-card p-4 p-md-5">
+        <div class="d-flex gap-2 align-items-center flex-wrap">
+          <div class="chip">Etappe 3 von 4</div>
+          <div class="chip">Paket mit Etappe 4</div>
+        </div>
+        <h1 class="mb-2 mt-3 display-5">Ausbau — Ihr Team lernt, selbst zu bauen</h1>
+        <p class="text-muted mb-0 lead">Bis hierhin haben wir für Sie gebaut. Jetzt drehen wir es um: Ihre Leute bauen, wir sichern. Wie beim Führerschein — erst Fahrschule, dann begleitetes Fahren, dann allein. Und ein Sicherheitsnetz, das nie abgebaut wird.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Führerschein-Modell -->
+  <section class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body">
+        <h2 class="mb-2">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="8.5" cy="12" r="2.5"/><path d="M14 10h4"/><path d="M14 14h4"/></svg></span>
+          Der Führerschein — drei Klassen, wachsende Freiheit
+        </h2>
+        <p class="text-muted mb-3">Niemand fährt am ersten Tag allein auf die Autobahn. Ihr Team bekommt Schreibrechte in dem Tempo, in dem es sie sicher beherrscht — nachweislich, nicht gefühlt.</p>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="p2cx-card h-100"><div class="p2cx-body">
+              <div class="d-flex align-items-center gap-2 mb-2"><span class="klasse-badge">L</span><strong>Lernen</strong></div>
+              <span class="text-muted">Ihr Team baut in der Sandbox — frei experimentieren, nichts erreicht die Produktion. Alles Richtung Betrieb gibt p2cx frei. Fehler sind hier ausdrücklich erlaubt.</span>
+            </div></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p2cx-card h-100"><div class="p2cx-body">
+              <div class="d-flex align-items-center gap-2 mb-2"><span class="klasse-badge">B</span><strong>Begleitet</strong></div>
+              <span class="text-muted">Ihre eigenen Leads reviewen mit, p2cx macht Stichproben und Coaching am echten Code. Das Können wandert Stück für Stück zu Ihnen.</span>
+            </div></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p2cx-card h-100"><div class="p2cx-body">
+              <div class="d-flex align-items-center gap-2 mb-2"><span class="klasse-badge">F</span><strong>Frei</strong></div>
+              <span class="text-muted">Sie geben selbst frei. Nur eines bleibt: das automatische Sicherheits-Gate prüft jeden Deploy — für immer, für alle. Auch für uns.</span>
+            </div></div>
+          </div>
+        </div>
+        <div class="p2cx-card mt-3 p2cx-card-quiet"><div class="p2cx-body">
+          <strong>Vertrauen mit Netz:</strong> <span class="text-muted">Jeder Deploy durchläuft automatisch Schwachstellen-, Secret- und Code-Scan. Rot heißt Stopp — egal, wer pusht. Kein technischer Zaun um Ihr Team, sondern ein Netz darunter.</span>
+        </div></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- Was p2cx liefert + Betriebssystem -->
+  <section class="py-3">
+    <div class="container">
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="p2cx-card h-100"><div class="p2cx-body">
+            <h2 class="mb-3">Was wir dabei liefern</h2>
+            <div class="row g-3">
+              <div class="col-12"><div class="p2cx-card"><div class="p2cx-body"><strong>Management-Workshop</strong><br><span class="text-muted">Ziele, Rollen, Mandat — damit das Lernen Rückendeckung hat.</span></div></div></div>
+              <div class="col-12"><div class="p2cx-card"><div class="p2cx-body"><strong>Trainings je Team</strong><br><span class="text-muted">Praxisnah an Ihren echten Prozessen — KI-gestütztes Bauen, saubere Arbeitsweise mit Tickets, Branches und Reviews. Keine Theorie-Folien.</span></div></div></div>
+              <div class="col-12"><div class="p2cx-card"><div class="p2cx-body"><strong>Review- &amp; Coaching-Kontingent</strong><br><span class="text-muted">Sparring am echten Code plus eine wöchentliche Verbesserungs-Runde — kurz, regelmäßig, ehrlich.</span></div></div></div>
+            </div>
+          </div></div>
+        </div>
+        <div class="col-lg-6">
+          <div class="p2cx-card h-100" style="border-color:var(--p2cx-gold);"><div class="p2cx-body">
+            <h2 class="mb-2">Nebenbei entsteht Ihr digitales Betriebssystem</h2>
+            <p class="text-muted">Das Wichtigste an dieser Etappe sieht man erst später: Während Ihr Team lernt, entsteht die Infrastruktur, auf der Etappe 4 läuft —</p>
+            <ul class="text-muted mb-2">
+              <li><strong>Leitplanken im Repo:</strong> Regeln und Playbooks reisen mit dem Code — nicht in Ordnern, die keiner liest.</li>
+              <li><strong>Sicherheits-Gates:</strong> automatisch, dauerhaft, für alle.</li>
+              <li><strong>Rituale:</strong> die Verbesserungs-Runde wird zur Gewohnheit Ihres Teams.</li>
+              <li><strong>Der gehärtete Kern:</strong> erprobte Vorlagen und Standards, auf denen alles Neue aufsetzt.</li>
+            </ul>
+            <span class="text-muted">Deshalb gehören Ausbau und Bleiben zusammen: <strong>Hier wird gebaut, was dort weiterläuft.</strong></span>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Aha-Moment + Gate -->
+  <section class="py-3 pb-1">
+    <div class="container">
+      <div class="row g-3">
+        <div class="col-md-7">
+          <div class="p2cx-card aha-card h-100"><div class="p2cx-body">
+            <div class="step-num" style="color:#b8923f;">Der Aha-Moment</div>
+            <p class="mb-1 mt-1"><strong>Der erste Deploy, den Ihr Team komplett ohne uns gemacht hat.</strong></p>
+            <span class="text-muted">Und das Sicherheits-Gate hat trotzdem gewacht. Ab diesem Tag ist Digitalisierung bei Ihnen keine Dienstleistung mehr — sie ist eine Fähigkeit.</span>
+          </div></div>
+        </div>
+        <div class="col-md-5">
+          <div class="p2cx-card gate-card h-100"><div class="p2cx-body">
+            <div class="step-num">Gate zur Etappe 4</div>
+            <p class="mb-1 mt-1"><strong>Kann Ihr Team es nachweislich selbst?</strong></p>
+            <span class="text-muted">Messbar, nicht subjektiv: eigene Features gebaut und deployt, Reviews bestanden, Gates gehalten. Erst wenn das steht, lassen wir los.</span>
+            <div class="mt-2"><a href="/de/etappen/bleiben.html" class="btn btn-outline-secondary btn-sm">Weiter zu Etappe 4 — Bleiben →</a></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <div>
+          <strong>Ihr Team will selbst bauen können?</strong><br>
+          <span class="text-muted">Dann lassen Sie uns über Rollen, Tempo und den ersten Führerschein sprechen.</span>
+        </div>
+        <a href="/de/index.html#kontakt" class="btn btn-primary btn-p2cx">Erstgespräch anfragen</a>
+      </div></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="p2cx-bar bottom">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 py-3">
+      <div class="d-flex align-items-center gap-2">
+        <img src="/logo/p2cx-icon.svg" alt="p2cx" height="20">
+        <span class="small fw-semibold" style="color:#1f2328;">p2cx</span>
+      </div>
+      <div class="small" style="color:#9ca3af;">
+        © 2026 p2cx · <a class="foot" href="/de/impressum.html">Impressum</a> · <a class="foot" href="/de/datenschutz.html">Datenschutz</a> · <a class="foot" href="/de/agb/">AGB</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
