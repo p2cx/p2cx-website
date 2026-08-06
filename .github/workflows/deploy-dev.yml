@@ -36,6 +36,6 @@ jobs:
 
       - name: Health-Check
         run: |
-          STATUS=$(curl -s -o /dev/null -w '%{http_code}' -H "Host: dev.p2cx.de" http://85.215.254.100/de/index.html)
+          STATUS=$(curl -s -o /dev/null -w '%{http_code}' "https://dev.p2cx.de/de/index.html?nc=$(date +%s)")
           echo "dev.p2cx.de → HTTP $STATUS"
           [ "$STATUS" = "200" ] || exit 1
