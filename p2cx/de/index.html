@@ -1,342 +1,516 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
-
 <head>
-  <meta charset="utf-8" />
-  <title>p2cx – Workshop‑to‑Run (W2R) | Schnell. Ordnung. Wirkung.</title>
-  <meta name="description" content="Digitale Prozesse ohne Gedöns: Workshop → Build → Betrieb im p2cx‑Mandanten. Du gibst nur 33 % deiner Einsparungen weiter. Monatlich kündbar. EU‑Tenant." />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- p2cx Styles -->
-  <link href="../css/p2cx.css" rel="stylesheet" />
-  <meta name="theme-color" content="#c9a44c" />
-  <!-- Favicons -->
-  <link rel="icon" type="image/svg+xml" href="../logo/p2cx-icon.svg" />
-  <link rel="alternate icon" type="image/png" href="../logo/p2cx-icon.png" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prozesse digitalisieren im Mittelstand — ohne eigene IT | p2cx</title>
+<meta name="description" content="Erste App in Tagen statt Monaten, Ihr gebt 33 % der Einsparung weiter — kein Vorab-Invest, monatlich kündbar. p2cx aus Lübeck digitalisiert Eure Prozesse und baut das Können in Eurem Haus auf.">
+<meta name="theme-color" content="#c9a44c">
+<link rel="canonical" href="https://p2cx.de/de/index.html">
+<link rel="alternate" hreflang="de" href="https://p2cx.de/de/index.html">
+<link rel="alternate" hreflang="en" href="https://p2cx.de/en/index.html">
+<link rel="alternate" hreflang="da" href="https://p2cx.de/dk/index.html">
+<link rel="alternate" hreflang="x-default" href="https://p2cx.de/de/index.html">
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/p2cx.css" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/logo/p2cx-icon.svg">
+<link rel="alternate icon" type="image/png" href="/logo/p2cx-icon.png">
+<style>
+  /* p2cx-App-Look: warme Neutrale (Playbook design-system.md), Gold nur Akzent */
+  :root{ --p2cx-bg:#f6f5f1; --p2cx-text:#1f2328; --p2cx-muted:#6b7280; --p2cx-border:#e7e5e0; }
+  body{ background:var(--p2cx-bg); }
+  .form-control,.form-select{ background:#faf9f6; border-color:#e7e5e0; }
+  .chip{ background:#f5eeda; color:#7a6015; }
+  .p2cx-bar{ background:linear-gradient(180deg,#ffffff,#faf8f3); box-shadow:0 1px 2px rgba(31,35,40,.04),0 4px 16px rgba(31,35,40,.05); }
+  .p2cx-bar.top{ position:sticky; top:0; z-index:50; border-bottom:1px solid #ece7da; }
+  .p2cx-bar.bottom{ border-top:1px solid #ece7da; margin-top:1.5rem; }
+  .p2cx-bar a.foot{ color:#6b7280; } .p2cx-bar a.foot:hover{ color:#7a6015; }
+  .etappe .ziel{ display:inline-block;font-size:.72rem;font-weight:700;color:#7a6015;background:#f5eeda;border:1px solid var(--p2cx-gold);border-radius:20px;padding:.15rem .6rem;margin-top:.6rem; }
+  .etappe.paket{ border-color:var(--p2cx-gold); }
+  .paket-tag{ font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#fff;background:#7a6015;border-radius:20px;padding:.15rem .55rem; }
+  .step-num{ font-size:.72rem;font-weight:700;color:var(--p2cx-muted);text-transform:uppercase;letter-spacing:.08em; }
+  .wertkurve{ width:100%;height:auto;display:block;color:var(--p2cx-text);margin:.75rem 0 .25rem; }
+  .wertkurve .cap{ fill:var(--p2cx-muted);font-size:12px; }
+  .wertkurve .lbl{ fill:var(--p2cx-text);font-weight:700;font-size:14px; }
+  /* Klickbare Karten: ganz klickbar + goldenes „Details →" (Konvention wie /products) */
+  .etappe{ position:relative; transition:box-shadow .15s ease, border-color .15s ease; }
+  .etappe:has(.stretched-link):hover{ border-color:var(--p2cx-gold); box-shadow:0 6px 18px rgba(2,6,23,.10); }
+  .details-cue{ display:inline-block;margin-top:.7rem;padding:.32rem .75rem;font-size:.84rem;font-weight:600;color:#7a6015;background:#fff;border:1px solid var(--p2cx-gold);border-radius:8px;transition:background .15s ease,color .15s ease; }
+  .etappe:hover .details-cue{ background:#7a6015;color:#fff; }
+  .wertkurve a text{ fill:#7a6015;text-decoration:underline;cursor:pointer; }
+  .gate-card{ border-style:dashed; border-color:#d9d2c2; background:#fbfaf6; }
+  .gate-q{ font-weight:700; }
+  .flag{ border-radius:2px; box-shadow:0 0 0 1px rgba(31,35,40,.12); }
+</style>
 </head>
-
 <body>
-  <!-- Header: Logo + Language Switcher -->
-<div class="container py-2">
-  <div class="p2cx-card p2cx-card-quiet">
-    <div class="p2cx-body d-flex align-items-center justify-content-between py-2">
+
+<!-- Header (warmer Weiß-Verlauf, App-Chrome) -->
+<header class="p2cx-bar top">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between" style="height:52px;">
       <div class="d-flex align-items-center gap-2">
-        <img src="../logo/p2cx-icon.svg" alt="p2cx Icon" height="28"/>
-        <h6 class="mb-1">p2cx</h6>
-        <span class="ms-2 small text-muted">Digitale Prozesse. Starkes Unternehmen.</span>
+        <img src="/logo/p2cx-icon.svg" alt="p2cx" height="28">
+        <span class="fw-semibold" style="color:#1f2328;">p2cx</span>
+        <span class="ms-2 small d-none d-md-inline" style="color:#374151;">Digitale Prozesse. Starkes Unternehmen.</span>
       </div>
       <nav class="d-flex gap-3 align-items-center">
-        <a class="small d-inline-flex align-items-center gap-1" href="../de/index.html" aria-label="Deutsch" aria-current="page" title="Deutsch">
-          <svg xmlns="http://www.w3.org/2000/svg" class="flag" width="18" height="12" viewBox="0 0 24 16" aria-hidden="true">
-            <rect width="24" height="16" fill="#000"/>
-            <rect y="5.333" width="24" height="5.333" fill="#dd0000"/>
-            <rect y="10.666" width="24" height="5.334" fill="#ffce00"/>
-          </svg>
+        <a class="small d-none d-sm-inline" href="#etappen" style="color:#6b7280;">Der Weg</a>
+        <a class="small d-none d-sm-inline" href="#einstieg" style="color:#6b7280;">Einstieg</a>
+        <a href="#kontakt" class="btn btn-primary btn-p2cx btn-sm">Kennenlernen anfragen</a>
+        <a class="small d-inline-flex align-items-center" href="/de/index.html" aria-label="Deutsch" aria-current="page" title="Deutsch">
+          <svg xmlns="http://www.w3.org/2000/svg" class="flag" width="18" height="12" viewBox="0 0 24 16" aria-hidden="true"><rect width="24" height="16" fill="#000"/><rect y="5.333" width="24" height="5.333" fill="#dd0000"/><rect y="10.666" width="24" height="5.334" fill="#ffce00"/></svg>
         </a>
-        <a class="small d-inline-flex align-items-center gap-1" href="../en/index.html" aria-label="English" title="English">
-          <svg xmlns="http://www.w3.org/2000/svg" class="flag" width="18" height="12" viewBox="0 0 24 16" aria-hidden="true">
-            <rect width="24" height="16" fill="#012169"/>
-            <path d="M0,0 24,16 M24,0 0,16" stroke="#fff" stroke-width="3"/>
-            <path d="M0,0 24,16 M24,0 0,16" stroke="#C8102E" stroke-width="1.5"/>
-            <path d="M12,0 v16 M0,8 h24" stroke="#fff" stroke-width="5"/>
-            <path d="M12,0 v16 M0,8 h24" stroke="#C8102E" stroke-width="3"/>
-          </svg>
+        <a class="small d-inline-flex align-items-center" href="/en/index.html" aria-label="English" title="English">
+          <svg xmlns="http://www.w3.org/2000/svg" class="flag" width="18" height="12" viewBox="0 0 24 16" aria-hidden="true"><rect width="24" height="16" fill="#012169"/><path d="M0,0 24,16 M24,0 0,16" stroke="#fff" stroke-width="3"/><path d="M0,0 24,16 M24,0 0,16" stroke="#C8102E" stroke-width="1.5"/><path d="M12,0 v16 M0,8 h24" stroke="#fff" stroke-width="5"/><path d="M12,0 v16 M0,8 h24" stroke="#C8102E" stroke-width="3"/></svg>
         </a>
-        <a class="small d-inline-flex align-items-center gap-1" href="../dk/index.html" aria-label="Dansk" title="Dansk">
-          <svg xmlns="http://www.w3.org/2000/svg" class="flag" width="18" height="12" viewBox="0 0 24 16" aria-hidden="true">
-            <rect width="24" height="16" fill="#C60C30"/>
-            <rect x="7" width="3" height="16" fill="#fff"/>
-            <rect y="6" width="24" height="3" fill="#fff"/>
-          </svg>
+        <a class="small d-inline-flex align-items-center" href="/dk/index.html" aria-label="Dansk" title="Dansk">
+          <svg xmlns="http://www.w3.org/2000/svg" class="flag" width="18" height="12" viewBox="0 0 24 16" aria-hidden="true"><rect width="24" height="16" fill="#C60C30"/><rect x="7" width="3" height="16" fill="#fff"/><rect y="6" width="24" height="3" fill="#fff"/></svg>
         </a>
       </nav>
     </div>
   </div>
-</div>
+</header>
 
-  <main>
-    <!-- ===== Hero (als große Card mit Schatten, wie Referenz) ===== -->
-    <section class="py-3">
-      <div class="container">
-        <div class="p2cx-card p-4 p-md-5">
-          <div class="row g-4 align-items-center">
-            <div class="col-lg-7">
-              <h1 class="mb-2 display-5">Automatisierte Prozesse. Ohne Gedöns.</h1>
-              <p class="text-muted mb-3 lead">Einfach starten, ausprobieren, Wirkung messen.<br>Workshop → Build → Betrieb im p2cx‑Mandanten.<br><strong>Du gibst nur 33 % deiner Einsparungen weiter.</strong></p>
-              <div class="d-flex gap-2 flex-wrap">
-                <a href="#anfrage" class="btn btn-primary btn-p2cx">Kennenlernen anfragen</a>
-                <a href="#ablauf" class="btn btn-outline-secondary">So funktioniert’s</a>
+<main>
+
+  <!-- Hero: vom Ziel her -->
+  <section class="py-3 pt-4">
+    <div class="container">
+      <div class="p2cx-card p-4 p-md-5">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-7">
+            <div class="chip">Digitalisierung in vier Etappen</div>
+            <h1 class="mb-2 mt-3 display-5">Am Ende könnt Ihr es selbst.</h1>
+            <h2 class="h6 fw-normal text-muted mb-2">Prozesse digitalisieren im Mittelstand — in vier Etappen, ohne eigene IT-Abteilung, ohne Vorab-Invest.</h2>
+            <p class="text-muted mb-3 lead">Das ist unser Ziel — ehrlich. Wir digitalisieren Eure Prozesse und bauen dabei das <strong>Können in Eurem Haus</strong> auf. In vier Etappen, mit klaren Gates dazwischen: <strong>Weitergehen nur, wenn es sich für Euch und uns rechnet.</strong></p>
+            <div class="d-flex gap-2 flex-wrap">
+              <a href="#kontakt" class="btn btn-primary btn-p2cx">Kennenlernen anfragen</a>
+              <a href="#etappen" class="btn btn-outline-secondary">Der Weg in 4 Etappen</a>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <aside class="p2cx-card p2cx-card-quiet">
+              <div class="p2cx-body">
+                <div class="chip">Kein Big-Bang</div>
+                <p class="mt-2 mb-1"><strong>Warum wir klein starten</strong></p>
+                <p class="text-muted mb-0">Wir beginnen mit einer App, die sofort etwas spürbar besser macht. So lernen wir Eure Prozesse, Euer Team und die Bereitschaft kennen — kein Großprojekt, das am Ende keiner mehr stoppen kann.</p>
               </div>
-            </div>
-            <div class="col-lg-5">
-              <aside class="p2cx-card p2cx-card-quiet">
-                <div class="p2cx-body">
-                  <div class="chip">Keine Vorabinvestition</div>
-                  <p class="mt-2 mb-1"><strong>Unser schneller Weg zu digitalen Prozessen</strong></p>
-                  <ul class="mb-0 text-muted">
-                    <li>Gemeinsames 20‑Min‑Kennenlernen</li>
-                    <li>Kostenloser Prozessaufnahme‑Workshop (maximal 3 h)</li>
-                    <li>Build auf der Microsoft Azure Platform – in Tagen</li>
-                    <li>Betrieb im p2cx‑Mandanten (EU) + KPI‑Dashboard</li>
-                  </ul>
-                </div>
-              </aside>
-            </div>
+            </aside>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ===== So funktioniert’s ===== -->
-    <section id="ablauf" class="py-3">
-      <div class="container">
-        <div class="p2cx-card"><div class="p2cx-body">
-          <h2 class="mb-3"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" role="img" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><circle cx="5" cy="6" r="1.5"/><path d="M6.5 6H12"/><circle cx="14.5" cy="6" r="1.5"/><path d="M5 12h7"/><circle cx="14" cy="12" r="1.5"/><path d="M8 18h6"/><circle cx="16.5" cy="18" r="1.5"/></svg></span>So funktioniert’s</h2>
-          <div class="row g-3">
-            <div class="col-md-3"><div class="p2cx-card h-100"><div class="p2cx-body"><strong>Kennenlernen</strong><br><span class="text-muted">Kostenloses 20‑Min‑Gespräch. Erwartungen & Voraussetzungen – passt es?</span></div></div></div>
-            <div class="col-md-3"><div class="p2cx-card h-100"><div class="p2cx-body"><strong>Prozessaufnahme-Workshop</strong><br><span class="text-muted">Maximal 3 Stunden. Zielbild, Prozessablauf, Datenherkunft, Schnittstellen. Ready‑to‑build.</span></div></div></div>
-            <div class="col-md-3"><div class="p2cx-card h-100"><div class="p2cx-body"><strong>Build (Microsoft Azure)</strong><br><span class="text-muted">Function Apps. Digitale Prozesse in Tagen. Klein starten, ausbauen.</span></div></div></div>
-            <div class="col-md-3"><div class="p2cx-card h-100"><div class="p2cx-body"><strong>Betrieb</strong><br><span class="text-muted">SLA, Monitoring, Kontinuierlich besser.</span></div></div></div>
-          </div>
-          <div class="p2cx-card mt-3 p2cx-card-quiet"><div class="p2cx-body"><strong>Voraussetzungen für Workshop</strong><ul class="mb-0 text-muted"><li>Bis zu 3 Prozesse mit insgesamt ≥ <strong>1.000 €</strong> theoretischer Einsparung/Monat (≈ <strong>330 €</strong> Monats‑Preis bei 33 %).</li><li>Eingerichtete Verbindungen zu Datenquellen (z. B. SQL‑Datenbank, CRM, SharePoint/Blob/S3) inkl. Zugangsdaten.</li></ul></div></div>
-        </div></div>
-      </div>
-    </section>
-
-    <!-- ===== Warum p2cx‑Mandant ===== -->
-    <section id="warum" class="py-3">
-      <div class="container">
-        <div class="p2cx-card"><div class="p2cx-body">
-          <h2 class="mb-3"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M3 18h18"/><path d="M6 14l4-3-4-3"/><path d="M12 14l4-3-4-3"/></svg></span>Warum p2cx‑Mandant?</h2>
-          <div class="row g-3">
-            <div class="col-md-3"><div class="p2cx-card h-100"><div class="p2cx-body"><strong>Schnell produktiv</strong><br><span class="text-muted">Prozesserstellung in Microsoft Azure weitgehend automatisiert</span></div></div></div>
-            <div class="col-md-3"><div class="p2cx-card h-100"><div class="p2cx-body"><strong>Robuste Integrationen</strong><br><span class="text-muted">Stabile Prozesse durch Error Handling, kontinuierliche Verbesserung sowie Transparenz durch detailliertes Monitoring</span></div></div></div>
-            <div class="col-md-3"><div class="p2cx-card h-100"><div class="p2cx-body"><strong>Datenschutz und IT-Sicherheit</strong><br><span class="text-muted">EU-Datenstandort, klare Rollen, mandantenunabhängige Architektur, Fokus auf Microsoft</span></div></div></div>
-            <div class="col-md-3"><div class="p2cx-card h-100"><div class="p2cx-body"><strong>Jederzeit portierbar</strong><br><span class="text-muted">Dokumentierter Exit & Export.<br>Kein Vendor‑Lock‑in.</span></div></div></div>
-          </div>
-        </div></div>
-      </div>
-    </section>
-
-<!-- ===== Ohne Gedöns  ===== -->
-<section id="gedoens" class="py-3">
-      <div class="container">
-        <div class="p2cx-card"><div class="p2cx-body">
-          <h2 class="mb-3"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><rect x="6" y="4" width="12" height="14" rx="2"/><path d="M9 3h6v3H9z"/><path d="M9 12l2 2 4-4"/></svg></span>Ohne Gedöns</h2>
-          <div class="row g-3">
-            <div class="col-md-3">
-              <div class="p2cx-card h-100"><div class="p2cx-body">
-                <strong>Kein Vertragsmarathon</strong><br>
-                <span class="text-muted">1‑Seiter + AVV/DPA. Monatlich kündbar.</span>
-              </div></div>
-            </div>
-            <div class="col-md-3">
-              <div class="p2cx-card h-100"><div class="p2cx-body">
-                <strong>Kein Konzept‑Roman</strong><br>
-                <span class="text-muted">20 Min Kennenlernen → 3‑Std‑Workshop → Build.</span>
-              </div></div>
-            </div>
-            <div class="col-md-3">
-              <div class="p2cx-card h-100"><div class="p2cx-body">
-                <strong>Schnell live</strong><br>
-                <span class="text-muted">Lauffähig in Tagen. Dann ausbauen.</span>
-              </div></div>
-            </div>
-            <div class="col-md-3">
-              <div class="p2cx-card h-100"><div class="p2cx-body">
-                <strong>Ehrlicher Preis</strong><br>
-                <span class="text-muted">Du gibst <strong>33&nbsp;%</strong> deiner Einsparungen weiter.</span>
-              </div></div>
-            </div>
-          </div>
-        </div></div>
-      </div>
-    </section>
-
-    <!-- ===== Preis ===== -->
-    <section id="preis" class="py-3">
-      <div class="container">
-        <div class="p2cx-card"><div class="p2cx-body">
-          <h2 class="mb-3"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="9"/><path d="M9 15l6-6"/><circle cx="9" cy="9" r="1"/><circle cx="15" cy="15" r="1"/></svg></span>Preis – norddeutsch klar</h2>
-          <div class="p2cx-card"><div class="p2cx-body">
-            <div class="chip">Outcome‑Pricing</div>
-            <p class="mb-2"><strong>Du gibst 33 % deiner Einsparungen weiter.</strong></p>
-            <ul class="mb-2 text-muted">
-              <li>Abgegolten: Workshops zur Aufnahme von Prozessen</li>
-              <li>Operativ: laufende und verfügbare Prozesse</li>
-              <li>Monitoring & Überwachung</li>
-              <li>KPI‑Dashboard</li>
-            </ul>
-            <div class="p2cx-card mt-2 p2cx-card-quiet"><div class="p2cx-body"><strong>Warum so günstig?</strong><br><span class="text-muted">Weil wir die Prozess‑Generierung weitgehend automatisiert haben – mit Vorlagen, Bots und Checks. Schnell live, stabil im Betrieb.</span></div></div>
-          </div></div>
-        </div></div>
-      </div>
-    </section>
-
-    <!-- ===== FAQ ===== -->
-    <section id="faq" class="py-3">
-      <div class="container">
-        <div class="p2cx-card"><div class="p2cx-body">
-          <h2 class="mb-3"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="9"/><path d="M12 17h0"/><path d="M9.5 9a2.5 2.5 0 1 1 5 0c0 1.5-1 2-2 2.8"/></svg></span>FAQ</h2>
-
-          <div class="p2cx-card mb-2"><div class="p2cx-body">
-            <strong>Kündigungsfrist?</strong><br>
-            <span class="text-muted">Monatlich zum Monatsende – du zahlst nur, wenn’s was bringt.</span>
-          </div></div>
-
-          <div class="p2cx-card mb-2"><div class="p2cx-body">
-            <strong>Wie setzt sich der Preis zusammen?</strong><br>
-            <span class="text-muted">Norddeutsch klar: <strong>33 % deiner Einsparungen</strong>. Kein Vorab‑Invest.</span>
-          </div></div>
-
-          <div class="p2cx-card mb-2"><div class="p2cx-body">
-            <strong>Wie berechnet ihr die Einsparung?</strong><br>
-            <span class="text-muted">Formel: <em>Aufwand pro Prozessdurchlauf x Anzahl der Durchläufe/Monat × durchschnittliche Personalkosten</em></span>
-          </div></div>
-
-          <div class="p2cx-card"><div class="p2cx-body">
-            <strong>Wann bietet ihr das Modell an?</strong><br>
-            <span class="text-muted">Ab Prozessen mit <strong>≥ 1.000 €</strong> theoretischer Einsparung/Monat.</span>
-          </div></div>
-
-        </div></div>
-      </div>
-    </section>
-
-<!-- ===== Lead-Form ===== -->
-<section id="anfrage" class="py-3">
-  <div class="container">
-    <div class="p2cx-card"><div class="p2cx-body">
-      <h2 class="mb-2">
-        <span class="ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round">
-            <rect x="3" y="4" width="18" height="15" rx="2"/><path d="M3 9h18"/><path d="M15 13l5 2-5 2"/><path d="M8 17h4"/>
-          </svg>
-        </span>
-        Workshop anfragen
-      </h2>
-      <p class="text-muted">Wir melden uns mit einem kurzen Termin-Vorschlag.</p>
-
-      <form class="p2cx-card mt-2" onsubmit="return sendLead(event)">
-        <div class="p2cx-body">
-          <!-- Honeypot gegen Bots -->
-          <input type="text" name="website" id="website" tabindex="-1" autocomplete="off"
-                 style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;opacity:0;" aria-hidden="true">
-
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label for="name" class="form-label">Ihr Name <span class="text-danger" aria-hidden="true">*</span></label>
-              <input id="name" name="name" class="form-control" required autocomplete="name" aria-required="true">
-            </div>
-
-            <div class="col-md-6">
-              <label for="mail" class="form-label">E-Mail <span class="text-danger" aria-hidden="true">*</span></label>
-              <input id="mail" name="email" type="email" class="form-control" required autocomplete="email" aria-required="true">
-            </div>
-
-            <div class="col-12">
-              <label for="company" class="form-label">Unternehmen <span class="text-danger" aria-hidden="true">*</span></label>
-              <input id="company" name="company" class="form-control" required autocomplete="organization" aria-required="true">
-            </div>
-
-            <div class="col-12">
-              <label for="process" class="form-label">Zielprozesse (optional)</label>
-              <input id="process" name="process" placeholder="z. B. Onboarding, Tickets, P2P …" class="form-control" autocomplete="off">
-            </div>
-
-            <div class="col-12">
-              <label class="form-label">Voraussetzungen <span class="text-danger" aria-hidden="true">*</span></label>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="chk1" required aria-required="true">
-                <label class="form-check-label" for="chk1">Ich akzeptiere den Betrieb im p2cx-Mandanten (Datenschutz und IT-Sicherheit).</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="chk2" required aria-required="true">
-                <label class="form-check-label" for="chk2">Die mögliche Prozesseinsparung meiner geplanten Prozesse ist größer als 1.000 € im Monat.</label>
-              </div>
-            </div>
-
-            <div class="col-12">
-              <label for="msg" class="form-label">Nachricht (optional)</label>
-              <textarea id="msg" rows="4" class="form-control" autocomplete="off"></textarea>
-            </div>
-
-            <div class="col-12 d-flex align-items-center gap-2">
-              <button class="btn btn-primary btn-p2cx" type="submit">Absenden</button>
-              <span class="smallmuted">Wir antworten in der Regel innerhalb eines Arbeitstages.</span>
-            </div>
-          </div>
-        </div>
-      </form>
-
-    </div></div>
-  </div>
-</section>
-
-  
-  </main>
-
-    <!-- Footer -->
-    <div class="container mt-3 pb-2">
-      <div class="p2cx-card p2cx-card-quiet"><div class="p2cx-body py-2 text-center small text-muted">
-        © 2025 p2cx · <a href="/de/products/">Produkte</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a>
+  <!-- Problem & Einwand -->
+  <section class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body">
+        <h2 class="mb-2">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M7 9h7"/><path d="M7 12h10"/><path d="M7 15h5"/></svg></span>
+          Kommt Euch das bekannt vor?
+        </h2>
+        <p class="text-muted mb-2">Bestellungen werden abgetippt, dieselbe Liste wird an drei Stellen gepflegt, und was wo steht, weiß nur Frau Petersen. Vielleicht gab es schon mal einen Anlauf — und das Ergebnis war ein Konzept-Ordner im Regal und die Frage: <strong>„Warum ging das beim letzten Dienstleister nicht?"</strong></p>
+        <p class="text-muted mb-0">Ihr seid damit nicht allein, und es liegt nicht an Euch: Digitalisierungs-Großprojekte scheitern im Mittelstand, <em>weil</em> sie groß sind. Deshalb fangen wir anders an — mit einer App, in einer Woche, an einem Prozess, der Euch heute wirklich Geld kostet.</p>
       </div></div>
     </div>
+  </section>
+
+  <!-- Die vier Etappen -->
+  <section id="etappen" class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body">
+        <h2 class="mb-2">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M4 20h16"/><path d="M6 20V10"/><path d="M12 20V6"/><path d="M18 20v-8"/></svg></span>
+          Vier Etappen — jede mit einem Ergebnis, das zählt
+        </h2>
+        <p class="text-muted">Ihr bestimmt das Tempo. Weitergehen nur, wenn es passt — und selbst ein Stopp lässt Euch im Plus. Mit jeder Etappe wird Euer Haus digitaler <em>und</em> unabhängiger. Klickt Euch rein: Jede Etappe zeigt, was konkret passiert.</p>
+
+        <svg class="wertkurve" viewBox="0 0 820 312" role="img" aria-label="Digitale Reife und Unabhängigkeit steigen über die vier Etappen">
+          <line x1="55" y1="250" x2="790" y2="250" stroke="currentColor" opacity="0.18"/>
+          <line x1="55" y1="250" x2="55" y2="55" stroke="currentColor" opacity="0.18"/>
+          <g stroke="currentColor" opacity="0.10" stroke-dasharray="3 4">
+            <line x1="150" y1="250" x2="150" y2="232"/>
+            <line x1="340" y1="250" x2="340" y2="214"/>
+            <line x1="560" y1="250" x2="560" y2="110"/>
+            <line x1="740" y1="250" x2="740" y2="84"/>
+          </g>
+          <path d="M60,247 C110,245 120,239 150,232 C240,226 270,220 340,214 C440,206 470,150 560,110 C620,96 690,90 740,84 L740,250 L60,250 Z" fill="#c9a44c" opacity="0.10"/>
+          <path d="M60,247 C110,245 120,239 150,232 C240,226 270,220 340,214 C440,206 470,150 560,110 C620,96 690,90 740,84" fill="none" stroke="#c9a44c" stroke-width="3" stroke-linecap="round"/>
+          <g fill="#c9a44c" stroke="#7a6015" stroke-width="2">
+            <circle cx="150" cy="232" r="7"/>
+            <circle cx="340" cy="214" r="7"/>
+            <circle cx="560" cy="110" r="7"/>
+            <circle cx="740" cy="84" r="7"/>
+          </g>
+          <g class="cap" text-anchor="middle">
+            <text x="150" y="220">spart sofort</text>
+            <text x="340" y="202">Team an Bord</text>
+            <text x="560" y="96">Ihr baut selbst</text>
+            <text x="740" y="70">läuft im Haus</text>
+          </g>
+          <g class="lbl" text-anchor="middle">
+            <a href="/de/etappen/funke.html"><text x="150" y="272">Funke</text></a>
+            <a href="/de/etappen/einzug.html"><text x="340" y="272">Einzug</text></a>
+            <a href="/de/etappen/ausbau.html"><text x="560" y="272">Ausbau</text></a>
+            <a href="/de/etappen/bleiben.html"><text x="740" y="272">Bleiben</text></a>
+          </g>
+          <path d="M560,285 L560,291 L740,291 L740,285" fill="none" stroke="#c9a44c" stroke-width="1.5"/>
+          <text x="650" y="306" text-anchor="middle" class="cap" style="fill:#7a6015;font-weight:700;">Ausbau &amp; Bleiben: ein Paket</text>
+          <text x="20" y="152" transform="rotate(-90 20 152)" text-anchor="middle" class="cap">Digitale Reife &amp; Unabhängigkeit</text>
+        </svg>
+
+        <div class="row g-3 mt-1">
+          <div class="col-md-3">
+            <div class="p2cx-card etappe h-100"><div class="p2cx-body">
+              <div class="step-num">Etappe 1</div>
+              <p class="mt-1 mb-1"><strong>Funke</strong></p>
+              <span class="text-muted">Eine App, die sofort spart — Euer Team sieht in rund einer Woche, wie schnell das heute geht. Ihr gebt 33&nbsp;% der Einsparung weiter, kein Vorab-Invest.</span>
+              <div><span class="ziel">Ergebnis: sofortige Einsparung</span></div>
+              <a class="stretched-link" href="/de/etappen/funke.html" aria-label="Etappe 1 Funke im Detail"></a>
+              <span class="details-cue">Was hier passiert →</span>
+            </div></div>
+          </div>
+          <div class="col-md-3">
+            <div class="p2cx-card etappe h-100"><div class="p2cx-body">
+              <div class="step-num">Etappe 2</div>
+              <p class="mt-1 mb-1"><strong>Einzug</strong></p>
+              <span class="text-muted">Zwei, drei Apps im Betrieb, die Schlüsselleute an Bord (IT, Datenschutz, Betriebsrat) — und wir finden gemeinsam die Leute, die später selbst bauen.</span>
+              <div><span class="ziel">Ergebnis: Handlungsfeld-Analyse</span></div>
+              <a class="stretched-link" href="/de/etappen/einzug.html" aria-label="Etappe 2 Einzug im Detail"></a>
+              <span class="details-cue">Was hier passiert →</span>
+            </div></div>
+          </div>
+          <div class="col-md-3">
+            <div class="p2cx-card etappe paket h-100"><div class="p2cx-body">
+              <div class="d-flex justify-content-between align-items-center"><div class="step-num">Etappe 3</div><span class="paket-tag">Paket</span></div>
+              <p class="mt-1 mb-1"><strong>Ausbau</strong></p>
+              <span class="text-muted">Euer Team lernt, selbst zu bauen — mit Führerschein-Stufen und Sicherheits-Gates. Dabei entsteht Euer digitales Betriebssystem.</span>
+              <div><span class="ziel">Ergebnis: Euer Team kann es</span></div>
+              <a class="stretched-link" href="/de/etappen/ausbau.html" aria-label="Etappe 3 Ausbau im Detail"></a>
+              <span class="details-cue">Was hier passiert →</span>
+            </div></div>
+          </div>
+          <div class="col-md-3">
+            <div class="p2cx-card etappe paket h-100"><div class="p2cx-body">
+              <div class="d-flex justify-content-between align-items-center"><div class="step-num">Etappe 4</div><span class="paket-tag">Paket</span></div>
+              <p class="mt-1 mb-1"><strong>Bleiben</strong></p>
+              <span class="text-muted">Es läuft im Haus, ohne uns im Alltag. Wir bleiben als Beirat und Sicherheitsnetz — und halten den gehärteten Kern scharf.</span>
+              <div><span class="ziel">Ergebnis: Unabhängigkeit gesichert</span></div>
+              <a class="stretched-link" href="/de/etappen/bleiben.html" aria-label="Etappe 4 Bleiben im Detail"></a>
+              <span class="details-cue">Was hier passiert →</span>
+            </div></div>
+          </div>
+        </div>
+        <div class="p2cx-card mt-3 p2cx-card-quiet"><div class="p2cx-body">
+          <span class="text-muted"><strong>Ausbau &amp; Bleiben gehören zusammen:</strong> In Etappe 3 entsteht nicht nur Können, sondern Euer digitales Betriebssystem — Leitplanken, Sicherheits-Gates, feste Verbesserungs-Rituale. Etappe 4 heißt: Dieses Betriebssystem läuft bei Euch weiter, ohne uns im Alltag. Wir treiben Euer Haus nicht an und lassen es dann fallen.</span>
+        </div></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- Die Gates -->
+  <section id="gates" class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body">
+        <h2 class="mb-2">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6"/></svg></span>
+          Die Gates — Kennenlernen mit eingebauter Notbremse
+        </h2>
+        <p class="text-muted mb-3">Zwischen den Etappen stehen keine Vertragsklauseln, sondern ehrliche Fragen. Beide Seiten dürfen stoppen — und selbst dann seid Ihr im Plus, weil jede Etappe ein Ergebnis liefert, das bleibt.</p>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="p2cx-card gate-card h-100"><div class="p2cx-body">
+              <div class="step-num">Gate 1 → 2</div>
+              <p class="gate-q mt-1 mb-1">Hat der Funke gezündet?</p>
+              <span class="text-muted">Spart die erste App wirklich? Will Euer Team mehr? Wenn nein: Ihr behaltet die App — und wir trennen uns als gute Bekannte.</span>
+            </div></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p2cx-card gate-card h-100"><div class="p2cx-body">
+              <div class="step-num">Gate 2 → 3</div>
+              <p class="gate-q mt-1 mb-1">Ziehen die Schlüsselleute mit?</p>
+              <span class="text-muted">IT, Datenschutz, Betriebsrat an Bord? Die größten Hebel klar? Wenn nein: Wir betreiben Eure Apps einfach weiter — auch ein gutes Ergebnis.</span>
+            </div></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p2cx-card gate-card h-100"><div class="p2cx-body">
+              <div class="step-num">Gate 3 → 4</div>
+              <p class="gate-q mt-1 mb-1">Kann Euer Team es nachweislich selbst?</p>
+              <span class="text-muted">Messbar, nicht gefühlt: eigene Features gebaut, Reviews bestanden, Sicherheits-Gates gehalten. Erst dann lassen wir los.</span>
+            </div></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- Warum schrittweise -->
+  <section class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body">
+        <h2 class="mb-3">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4"/><path d="M12 16h0"/></svg></span>
+          Warum wir nicht mit dem großen Wurf anfangen
+        </h2>
+        <p class="text-muted mb-3">Digitalisierung gelingt nur, wenn die Grundlage stimmt und alle mitziehen — IT, Datenschutz, Betriebsrat, Euer Team. Oft fehlen Schnittstellen zum (in die Jahre gekommenen) System oder saubere Daten. Genau hier bringen wir unser <strong>IT- und KI-Know-how</strong> ein: Schnittstellen schaffen, Daten in Form bringen und mit KI automatisieren, wo es wirklich trägt. Deshalb starten wir klein — <strong>so lernen wir uns kennen</strong> und schaffen gemeinsam die Voraussetzungen. Ehrlich, statt ein Großprojekt, das keiner mehr versteht.</p>
+        <div class="p2cx-card p2cx-card-quiet"><div class="p2cx-body">
+          <strong>Kennenlernen schützt Euer Budget:</strong> <span class="text-muted">Kein sechsstelliges Beratungsabenteuer auf Verdacht. Die frühen Etappen zeigen schnell, ob die richtigen Leute da sind und wo echte Hebel liegen. So geht Ihr nur dort in die Tiefe, wo es sich wirklich lohnt.</span>
+        </div></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- Zwei Ziele, ein Schritt -->
+  <section class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body">
+        <h2 class="mb-3">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/></svg></span>
+          Zwei Ziele — in einem Schritt
+        </h2>
+        <p class="text-muted mb-3">Die meisten trennen das. Wir verschmelzen es: Jede App, die entsteht, macht Euer Team ein Stück selbstständiger.</p>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="p2cx-card h-100"><div class="p2cx-body">
+              <strong>Prozesse digitalisieren</strong><br>
+              <span class="text-muted">Schluss mit Excel-Chaos und manuellen Abläufen — günstiger, schneller, weniger Fehler, mehr Überblick.</span>
+            </div></div>
+          </div>
+          <div class="col-md-6">
+            <div class="p2cx-card h-100" style="background:linear-gradient(135deg,#fff 0%,#f5eeda 100%);border-color:var(--p2cx-gold);"><div class="p2cx-body">
+              <strong>Können im Haus aufbauen</strong><br>
+              <span class="text-muted">Euer Team lernt mit jeder App mit. Ihr werdet unabhängiger — statt ewig vom Dienstleister abhängig zu sein.</span>
+            </div></div>
+          </div>
+        </div>
+        <div class="p2cx-card mt-3 p2cx-card-quiet"><div class="p2cx-body">
+          <span class="text-muted">Ihr braucht nicht <em>erst</em> Tools und <em>dann</em> Schulung — bei uns ist beides <strong>derselbe Schritt</strong>.</span>
+        </div></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- Der schnellste Einstieg: Etappe 1 konkret (W2R) -->
+  <section id="einstieg" class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body">
+        <h2 class="mb-2">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></span>
+          Der schnellste Einstieg: heute eine App, die spart
+        </h2>
+        <p class="text-muted mb-3">Etappe 1 ist kein Konzept, sondern ein Produkt — norddeutsch klar:</p>
+        <div class="row g-3">
+          <div class="col-md-3"><div class="p2cx-card h-100"><div class="p2cx-body"><strong>Kennenlernen</strong><br><span class="text-muted">Kostenloses 20-Min-Gespräch. Erwartungen &amp; Voraussetzungen — passt es?</span></div></div></div>
+          <div class="col-md-3"><div class="p2cx-card h-100"><div class="p2cx-body"><strong>Workshop</strong><br><span class="text-muted">Maximal 3 Stunden Prozessaufnahme. Zielbild, Ablauf, Daten — ready to build.</span></div></div></div>
+          <div class="col-md-3"><div class="p2cx-card h-100"><div class="p2cx-body"><strong>Build</strong><br><span class="text-muted">Digitale Prozesse in Tagen, nicht Monaten — auf unserem gehärteten Kern.</span></div></div></div>
+          <div class="col-md-3"><div class="p2cx-card h-100"><div class="p2cx-body"><strong>Betrieb</strong><br><span class="text-muted">EU-Mandant, Monitoring, KPI-Dashboard. Monatlich kündbar.</span></div></div></div>
+        </div>
+        <div class="p2cx-card mt-3" style="background:linear-gradient(135deg,#fff 0%,#faf5eb 100%);border-color:var(--p2cx-gold);"><div class="p2cx-body d-flex flex-wrap align-items-center justify-content-between gap-2">
+          <div>
+            <div class="chip">Outcome-Pricing</div>
+            <p class="mb-0 mt-2"><strong>Ihr gebt 33&nbsp;% Eurer Einsparungen weiter.</strong> <span class="text-muted">Kein Vorab-Invest, monatlich kündbar — Ihr zahlt nur, wenn's wirkt.</span></p>
+          </div>
+          <div class="d-flex gap-2 flex-wrap">
+            <a href="/de/etappen/funke.html" class="btn btn-outline-secondary">So funktioniert Etappe 1</a>
+            <a href="#kontakt" class="btn btn-primary btn-p2cx">Workshop anfragen</a>
+          </div>
+        </div></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- Proof / Credibility -->
+  <section class="py-3">
+    <div class="container">
+      <div class="row g-3 align-items-stretch">
+        <div class="col-md-4">
+          <div class="p2cx-card h-100" style="background:linear-gradient(135deg,#fff 0%,#f5eeda 100%);border-color:var(--p2cx-gold);">
+            <div class="p2cx-body d-flex flex-column justify-content-center text-center h-100 py-4">
+              <div style="font-size:3.2rem;font-weight:800;color:#7a6015;line-height:1;">500+</div>
+              <div class="smallmuted mt-1">Unternehmen &amp; Beteiligungen mit Finanzreporting</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="p2cx-card h-100"><div class="p2cx-body">
+            <h2 class="mb-2">Warum wir das können</h2>
+            <p class="text-muted mb-0">Hinter p2cx steht der Mitgründer von <strong>loyos bi</strong>. In fünf Jahren daraus strukturiertes Finanzreporting für über 500 Unternehmen aufgebaut — wir kennen den Mittelstand und wo seine Prozesse klemmen, technisch wie menschlich. Und wir wissen, wie man ein Team <strong>befähigt</strong>, statt es abhängig zu machen.</p>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ausstieg -->
+  <section class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body">
+        <h2 class="mb-2">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg></span>
+          Und wenn Ihr aufhören wollt?
+        </h2>
+        <p class="text-muted mb-2">Dann hört Ihr auf. Monatlich kündbar, ohne Begründung, mit dokumentiertem Exit und Datenexport — und die Einsparung, die bis dahin entstanden ist, behaltet Ihr. Jede Etappe endet mit einem Ergebnis, das auch ohne die nächste einen Wert hat.</p>
+        <p class="text-muted mb-0">Und falls Ihr Euch fragt, wovon wir dann leben: <strong>Wir verdienen daran, dass Ihr bleibt — nicht daran, dass Ihr abhängig seid.</strong> Deshalb bauen wir Euer Können auf, statt es zu behalten.</p>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- Kontakt (id "anfrage" als Alias für alte Links aus en/dk/products) -->
+  <section id="kontakt" class="py-3"><span id="anfrage" aria-hidden="true"></span>
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body">
+        <h2 class="mb-2">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="4" width="18" height="15" rx="2"/><path d="M3 9h18"/><path d="M15 13l5 2-5 2"/><path d="M8 17h4"/></svg></span>
+          Lasst uns über Euer Unternehmen sprechen
+        </h2>
+        <p class="text-muted">Erzählt uns, was Euch gerade beschäftigt — wir zeigen unverbindlich, wo der schnellste erste Schritt liegt.</p>
+
+        <form class="p2cx-card mt-2" id="leadForm" onsubmit="return sendLead(event)">
+          <div class="p2cx-body">
+            <input type="text" name="website" id="hp" tabindex="-1" autocomplete="off"
+                   style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;opacity:0;" aria-hidden="true">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                <input id="name" name="name" class="form-control" required autocomplete="name">
+              </div>
+              <div class="col-md-6">
+                <label for="firma" class="form-label">Unternehmen <span class="text-danger">*</span></label>
+                <input id="firma" name="company" class="form-control" required autocomplete="organization">
+              </div>
+              <div class="col-md-6">
+                <label for="mail" class="form-label">E-Mail <span class="text-danger">*</span></label>
+                <input id="mail" name="email" type="email" class="form-control" required autocomplete="email">
+              </div>
+              <div class="col-md-6">
+                <label for="telefon" class="form-label">Telefon</label>
+                <input id="telefon" name="telefon" type="tel" class="form-control" autocomplete="tel">
+              </div>
+              <div class="col-md-6">
+                <label for="rolle" class="form-label">Eure Rolle</label>
+                <select id="rolle" name="rolle" class="form-select">
+                  <option value="">Bitte wählen</option>
+                  <option value="geschaeftsfuehrung">Geschäftsführung / Inhaber</option>
+                  <option value="it-leitung">IT-Leitung</option>
+                  <option value="fachbereich">Fachbereich / Prozesse</option>
+                  <option value="sonstige">Sonstige</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="mitarbeiter" class="form-label">Mitarbeiterzahl</label>
+                <select id="mitarbeiter" name="mitarbeiter" class="form-select">
+                  <option value="">Bitte wählen</option>
+                  <option value="10-50">10–50</option>
+                  <option value="50-100">50–100</option>
+                  <option value="100-250">100–250</option>
+                  <option value="250-500">250–500</option>
+                  <option value="500+">500+</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="msg" class="form-label">Was beschäftigt Euch gerade?</label>
+                <textarea id="msg" name="message" rows="3" class="form-control" placeholder="Z.B.: Wir haben zu viele Excel-Listen und wollen unsere Auftragsabwicklung digitalisieren — aber ohne uns abhängig zu machen..."></textarea>
+              </div>
+              <div class="col-12 d-flex align-items-center gap-2">
+                <button class="btn btn-primary btn-p2cx" type="submit">Kennenlernen anfragen</button>
+                <span class="smallmuted">Wir melden uns innerhalb eines Arbeitstages.</span>
+              </div>
+            </div>
+          </div>
+        </form>
+
+      </div></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="p2cx-bar bottom">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 py-3">
+      <div class="d-flex align-items-center gap-2">
+        <img src="/logo/p2cx-icon.svg" alt="p2cx" height="20">
+        <span class="small fw-semibold" style="color:#1f2328;">p2cx</span>
+      </div>
+      <div class="small" style="color:#9ca3af;">
+        © 2026 p2cx GmbH, Lübeck · <a class="foot" href="/de/products/">Produkte</a> · <a class="foot" href="/de/faq.html">FAQ</a> · <a class="foot" href="/de/impressum.html">Impressum</a> · <a class="foot" href="/de/datenschutz.html">Datenschutz</a> · <a class="foot" href="/de/agb/">AGB</a>
+      </div>
+    </div>
+  </div>
+</footer>
 
 <script>
-  // Senden an Azure Function / API
-  async function sendLead(e){
-    e.preventDefault();
-    const form = e.target;
-
-    // Honeypot gegen Bots
-    if (document.getElementById('website')?.value) return false;
-
-    const btn = form.querySelector('button[type="submit"]');
-    if (btn) btn.disabled = true;
-
-    const payload = {
-      name: document.getElementById('name').value.trim(),
-      email: document.getElementById('mail').value.trim(),
-      company: document.getElementById('company').value.trim(),
-      process: document.getElementById('process').value.trim(),
-      message: document.getElementById('msg').value.trim(),
-      consentMandant: document.getElementById('chk1').checked,
-      consentExit: document.getElementById('chk2').checked,
-      page: location.href,
-      lang: 'de',
-      ts: new Date().toISOString()
-    };
-
-    const FUNCTION_URL = 'https://prod-02.germanywestcentral.logic.azure.com:443/workflows/25ca0e47a6164ad79b3364698f13740e/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=DJlZD_qMRReJpH4_FbYw2ZoLTtE2HRNAlCuxCSuYKkg';
-
-    try{
-      const res = await fetch(FUNCTION_URL,{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify(payload)
-      });
-      if (res.ok){
-        alert('Danke! Wir melden uns zeitnah.');
-        form.reset();
-        return false;
-      } else {
-        alert('Uups – das hat nicht geklappt. Bitte später erneut versuchen oder direkt mailen an hello@p2cx.de');
-        return false;
-      }
-    }catch(err){
-      alert('Netzwerkfehler. Bitte direkt mailen an hello@p2cx.de');
-      return false;
-    }finally{
-      if (btn) btn.disabled = false;
-    }
-  }
+async function sendLead(e){
+  e.preventDefault();
+  const form = e.target;
+  if(document.getElementById('hp')?.value) return false;
+  const btn = form.querySelector('button[type="submit"]');
+  if(btn) btn.disabled = true;
+  const params = new URLSearchParams(window.location.search);
+  const payload = {
+    name: document.getElementById('name').value.trim(),
+    email: document.getElementById('mail').value.trim(),
+    company: document.getElementById('firma').value.trim(),
+    telefon: document.getElementById('telefon').value.trim(),
+    rolle: document.getElementById('rolle').value,
+    mitarbeiter: document.getElementById('mitarbeiter').value,
+    message: document.getElementById('msg').value.trim(),
+    segment: 'vier-etappen',
+    utm_source: params.get('utm_source') || '',
+    utm_medium: params.get('utm_medium') || '',
+    utm_campaign: params.get('utm_campaign') || '',
+    utm_content: params.get('utm_content') || '',
+    page: location.pathname, lang: 'de', ts: new Date().toISOString()
+  };
+  const FUNCTION_URL = 'https://prod-02.germanywestcentral.logic.azure.com:443/workflows/25ca0e47a6164ad79b3364698f13740e/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=DJlZD_qMRReJpH4_FbYw2ZoLTtE2HRNAlCuxCSuYKkg';
+  try{
+    const res = await fetch(FUNCTION_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(res.ok){alert('Danke! Wir melden uns innerhalb eines Arbeitstages.');form.reset();}
+    else{alert('Das hat leider nicht geklappt. Bitte direkt mailen an hello@p2cx.de');}
+  }catch(err){alert('Netzwerkfehler. Bitte direkt mailen an hello@p2cx.de');}
+  finally{if(btn) btn.disabled = false;}
+  return false;
+}
 </script>
- 
-
-
-
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://p2cx.de/#org",
+      "name": "p2cx GmbH",
+      "url": "https://p2cx.de/",
+      "logo": "https://p2cx.de/logo/p2cx-icon.svg",
+      "email": "hello@p2cx.de",
+      "vatID": "DE458931803",
+      "founder": { "@type": "Person", "name": "Hauke Gastmeyer" },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Willy-Brandt-Allee 31 b",
+        "postalCode": "23554",
+        "addressLocality": "Lübeck",
+        "addressCountry": "DE"
+      },
+      "areaServed": ["Lübeck", "Schleswig-Holstein", "Hamburg", "Norddeutschland", "Deutschland"],
+      "description": "p2cx digitalisiert Prozesse im Mittelstand in vier Etappen und baut dabei das Können im Unternehmen auf. Erste App in Tagen, Abrechnung: 33 % der nachgewiesenen monatlichen Einsparung, kein Vorab-Invest, monatlich kündbar. EU-Datenhaltung."
+    },
+    {
+      "@type": "Service",
+      "name": "Prozess-Digitalisierung in vier Etappen",
+      "provider": { "@id": "https://p2cx.de/#org" },
+      "serviceType": "Prozessdigitalisierung und Team-Befähigung für den Mittelstand",
+      "offers": {
+        "@type": "Offer",
+        "description": "Etappe 1 (Funke): Outcome-Pricing — 33 % der nachgewiesenen monatlichen Einsparung, kein Vorab-Invest, monatlich kündbar. Voraussetzung: Prozesse mit zusammen mindestens 1.000 € theoretischer Einsparung pro Monat.",
+        "priceCurrency": "EUR"
+      }
+    }
+  ]
+}
+</script>
 </body>
 </html>
-

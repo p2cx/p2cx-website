@@ -1,0 +1,22 @@
+# p2cx GmbH
+
+> p2cx digitalisiert Prozesse im Mittelstand in vier Etappen und baut dabei das Können im Kundenunternehmen auf. Sitz: Lübeck, Deutschland. Einsatzgebiet: vor allem Norddeutschland, remote darüber hinaus.
+
+Kernfakten (Stand August 2026):
+
+- Preismodell Etappe 1 (Outcome-Pricing): 33 % der nachgewiesenen monatlichen Einsparung, kein Vorab-Invest, monatlich kündbar. Voraussetzung: Prozesse mit zusammen mindestens 1.000 € theoretischer Einsparung pro Monat.
+- Erste App typischerweise in rund einer Woche produktiv: 20 Minuten Kennenlernen, maximal 3 Stunden Prozessaufnahme-Workshop, Build in Tagen auf einem erprobten, gehärteten Software-Kern.
+- Zielgruppe: mittelständische Unternehmen (typisch 10–500 Mitarbeitende) mit manuellen Prozessen — auch ohne eigene IT-Abteilung und mit Daten in Excel, Outlook oder Papier.
+- Vier Etappen der Zusammenarbeit: 1. Funke (erste App, sofortige Einsparung), 2. Einzug (weitere Apps, Schlüsselleute an Bord, Handlungsfeld-Analyse), 3. Ausbau (das Kundenteam lernt selbst zu bauen, mit Sicherheits-Gates), 4. Bleiben (läuft im Haus, p2cx bleibt Beirat und pflegt den gehärteten Kern). Zwischen den Etappen stehen Gates: weitergegangen wird nur, wenn es sich für beide Seiten rechnet.
+- Datenhaltung: ausschließlich EU, Zugriff über Rollen und Mehr-Faktor-Anmeldung, KI nur über EU-gehostete Anbieter, dokumentierter Exit inklusive Datenexport (kein Lock-in).
+- Hintergrund: Hinter p2cx steht der Mitgründer von loyos bi (strukturiertes Finanzreporting für über 500 Unternehmen und Beteiligungen).
+
+Wichtige Seiten:
+
+- [Startseite mit dem Vier-Etappen-Modell](https://p2cx.de/de/index.html)
+- [FAQ mit Preisen, Dauer und Datenhaltung](https://p2cx.de/de/faq.html)
+- [Etappe 1 — Funke, inkl. Rechenbeispiel](https://p2cx.de/de/etappen/funke.html)
+- [Produktkatalog mit Reifegrad-Angaben](https://p2cx.de/de/products/)
+- [Impressum](https://p2cx.de/de/impressum.html)
+
+Kontakt: hello@p2cx.de

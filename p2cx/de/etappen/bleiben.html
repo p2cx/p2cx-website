@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Etappe 4 — Bleiben | p2cx</title>
+<meta name="description" content="Etappe 4 des p2cx-Wegs: Es läuft im Haus, ohne uns im Alltag. Euer Betriebssystem aus Etappe 3 läuft weiter — wir bleiben als Beirat und halten den gehärteten Kern scharf.">
+<meta name="theme-color" content="#c9a44c">
+<link rel="canonical" href="https://p2cx.de/de/etappen/bleiben.html">
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/p2cx.css" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/logo/p2cx-icon.svg">
+<style>
+  :root{ --p2cx-bg:#f6f5f1; --p2cx-text:#1f2328; --p2cx-muted:#6b7280; --p2cx-border:#e7e5e0; }
+  body{ background:var(--p2cx-bg); }
+  .chip{ background:#f5eeda; color:#7a6015; }
+  .p2cx-bar{ background:linear-gradient(180deg,#ffffff,#faf8f3); box-shadow:0 1px 2px rgba(31,35,40,.04),0 4px 16px rgba(31,35,40,.05); }
+  .p2cx-bar.top{ position:sticky; top:0; z-index:50; border-bottom:1px solid #ece7da; }
+  .p2cx-bar.bottom{ border-top:1px solid #ece7da; margin-top:1.5rem; }
+  .p2cx-bar a.foot{ color:#6b7280; } .p2cx-bar a.foot:hover{ color:#7a6015; }
+  .step-num{ font-size:.72rem;font-weight:700;color:var(--p2cx-muted);text-transform:uppercase;letter-spacing:.08em; }
+  .etappen-dots{ display:flex;gap:.45rem;align-items:center; }
+  .etappen-dots a{ width:38px;height:38px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#6b7280;background:#fff;border:1px solid var(--p2cx-border);text-decoration:none; }
+  .etappen-dots a:hover{ border-color:var(--p2cx-gold);color:#7a6015; }
+  .etappen-dots a.active{ background:#7a6015;border-color:#7a6015;color:#fff; }
+  .aha-card{ border:2px solid var(--p2cx-gold);background:linear-gradient(135deg,#fff 0%,#faf5eb 100%); }
+  .weiter-tab{ display:flex;gap:.75rem;align-items:flex-start; }
+  .weiter-tab .arrow{ flex:0 0 auto;color:#7a6015;font-weight:800;margin-top:.1rem; }
+</style>
+</head>
+<body>
+
+<header class="p2cx-bar top">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between" style="height:52px;">
+      <div class="d-flex align-items-center gap-2">
+        <img src="/logo/p2cx-icon.svg" alt="p2cx" height="28">
+        <span class="fw-semibold" style="color:#1f2328;">p2cx</span>
+        <a class="ms-2 small" href="/de/index.html#etappen" style="color:#6b7280;">← Der ganze Weg</a>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <nav class="etappen-dots" aria-label="Etappen">
+          <a href="/de/etappen/funke.html" title="Etappe 1 — Funke">1</a>
+          <a href="/de/etappen/einzug.html" title="Etappe 2 — Einzug">2</a>
+          <a href="/de/etappen/ausbau.html" title="Etappe 3 — Ausbau">3</a>
+          <a class="active" href="/de/etappen/bleiben.html" aria-current="page" title="Etappe 4 — Bleiben">4</a>
+        </nav>
+        <a href="/de/index.html#kontakt" class="btn btn-primary btn-p2cx btn-sm d-none d-sm-inline-block">Anfragen</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Hero -->
+  <section class="py-3 pt-4">
+    <div class="container">
+      <div class="p2cx-card p-4 p-md-5">
+        <div class="d-flex gap-2 align-items-center flex-wrap">
+          <div class="chip">Etappe 4 von 4</div>
+          <div class="chip">Paket mit Etappe 3</div>
+        </div>
+        <h1 class="mb-2 mt-3 display-5">Bleiben — es läuft im Haus, ohne uns</h1>
+        <p class="text-muted mb-0 lead">Die meisten Dienstleister verdienen daran, dass Ihr sie braucht. Wir verdienen daran, dass Euer Team es selbst kann. Etappe 4 ist kein Abschied — es ist der Zustand, für den wir die ganze Zeit gearbeitet haben.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Was aus Etappe 3 weiterlebt -->
+  <section class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body">
+        <h2 class="mb-2">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></span>
+          Was aus dem Ausbau weiterlebt
+        </h2>
+        <p class="text-muted mb-3">In Etappe 3 ist Euer digitales Betriebssystem entstanden. Jetzt zeigt sich, warum: Es läuft weiter — nur eben mit Euren Leuten am Steuer.</p>
+        <div class="row g-3">
+          <div class="col-md-6"><div class="p2cx-card h-100"><div class="p2cx-body">
+            <div class="weiter-tab"><span class="arrow">→</span><div><strong>Die Sicherheits-Gates</strong><br><span class="text-muted">prüfen weiter jeden Deploy — automatisch, ohne dass jemand daran denken muss. Rot heißt Stopp, für immer, für alle.</span></div></div>
+          </div></div></div>
+          <div class="col-md-6"><div class="p2cx-card h-100"><div class="p2cx-body">
+            <div class="weiter-tab"><span class="arrow">→</span><div><strong>Die Playbooks</strong><br><span class="text-muted">reisen mit jedem neuen Projekt mit. Ein neues Teammitglied lernt das Bauen von Euren Leuten — nicht von uns.</span></div></div>
+          </div></div></div>
+          <div class="col-md-6"><div class="p2cx-card h-100"><div class="p2cx-body">
+            <div class="weiter-tab"><span class="arrow">→</span><div><strong>Die Verbesserungs-Runde</strong><br><span class="text-muted">führt Euer Team selbst. Der kontinuierliche Verbesserungsprozess ist keine Beratungsleistung mehr — er ist Eure Gewohnheit.</span></div></div>
+          </div></div></div>
+          <div class="col-md-6"><div class="p2cx-card h-100" style="border-color:var(--p2cx-gold);"><div class="p2cx-body">
+            <div class="weiter-tab"><span class="arrow">→</span><div><strong>Der gehärtete Kern</strong><br><span class="text-muted">bleibt unsere Aufgabe: Wir halten Vorlagen, Standards und Gates scharf — Sicherheitslücken, neue Anforderungen, bessere Muster. Das ist der Teil, der sich zentral einfach besser pflegen lässt.</span></div></div>
+          </div></div></div>
+        </div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- Unsere Rolle -->
+  <section class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body">
+        <h2 class="mb-3">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M12 3l8 4v5c0 4.5-3.2 8.1-8 9-4.8-.9-8-4.5-8-9V7Z"/><path d="M9 12l2 2 4-4"/></svg></span>
+          Unsere Rolle: Beirat und Sicherheitsnetz
+        </h2>
+        <div class="row g-3">
+          <div class="col-md-4"><div class="p2cx-card h-100"><div class="p2cx-body">
+            <strong>Strategisches Sparring</strong><br>
+            <span class="text-muted">Die Fragen werden seltener, aber größer: Architektur, Make-or-Buy, neue Technologien. Genau dafür sind wir noch da.</span>
+          </div></div></div>
+          <div class="col-md-4"><div class="p2cx-card h-100"><div class="p2cx-body">
+            <strong>Notfall-Support</strong><br>
+            <span class="text-muted">Wenn es brennt, sind wir erreichbar — mit Leuten, die Euer System kennen, weil sie es mit Euch gebaut haben.</span>
+          </div></div></div>
+          <div class="col-md-4"><div class="p2cx-card h-100"><div class="p2cx-body">
+            <strong>Kern-Pflege</strong><br>
+            <span class="text-muted">Updates, Sicherheits-Standards, neue Vorlagen — der gehärtete Kern bleibt aktuell, ohne dass Euer Team sich darum kümmern muss.</span>
+          </div></div></div>
+        </div>
+        <div class="p2cx-card mt-3 p2cx-card-quiet"><div class="p2cx-body">
+          <strong>Ehrlich gesagt:</strong> <span class="text-muted">Je besser Ihr werdet, desto weniger braucht Ihr uns im Alltag — genau so ist es gedacht. Deshalb ist Etappe 4 eine kleine, planbare Rate statt eines Projektbudgets. Kein Knebelvertrag: Wer gehen will, geht — dokumentierter Exit inklusive.</span>
+        </div></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- Aha-Moment -->
+  <section class="py-3 pb-1">
+    <div class="container">
+      <div class="p2cx-card aha-card"><div class="p2cx-body">
+        <div class="step-num" style="color:#7a6015;">Der Aha-Moment</div>
+        <p class="mb-1 mt-1"><strong>Euer Team stellt eine neue App live — und Ihr erzählt uns davon im Quartalsgespräch, nicht vorher.</strong></p>
+        <span class="text-muted">Kein Gate mehr nach dieser Etappe. Das hier ist kein Übergang — es ist der Zustand, in dem Euer Unternehmen von jetzt an arbeitet: digital, unabhängig, mit Netz.</span>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <div>
+          <strong>Der Weg dahin beginnt klein.</strong><br>
+          <span class="text-muted">Mit einer App, die sofort spart — <a href="/de/etappen/funke.html">Etappe 1: Funke</a>.</span>
+        </div>
+        <a href="/de/index.html#kontakt" class="btn btn-primary btn-p2cx">Kennenlernen anfragen</a>
+      </div></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="p2cx-bar bottom">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 py-3">
+      <div class="d-flex align-items-center gap-2">
+        <img src="/logo/p2cx-icon.svg" alt="p2cx" height="20">
+        <span class="small fw-semibold" style="color:#1f2328;">p2cx</span>
+      </div>
+      <div class="small" style="color:#9ca3af;">
+        © 2026 p2cx · <a class="foot" href="/de/impressum.html">Impressum</a> · <a class="foot" href="/de/datenschutz.html">Datenschutz</a> · <a class="foot" href="/de/agb/">AGB</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
