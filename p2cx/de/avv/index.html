@@ -170,14 +170,14 @@
       <td>EU (Niederlande / Irland)*</td>
     </tr>
     <tr>
-      <td>Mammouth SAS</td>
-      <td>KI-Inferenz (API), Sprachmodelle für Analyse und Automatisierung<br><em>(wird derzeit durch Langdock ersetzt)</em></td>
-      <td>EU (Frankreich)</td>
-    </tr>
-    <tr>
       <td>Langdock GmbH</td>
       <td>KI-Inferenz (API), Sprachmodelle für Analyse und Automatisierung</td>
       <td>EU (Deutschland)</td>
+    </tr>
+    <tr>
+      <td>Anthropic PBC</td>
+      <td>KI-gestützte Entwicklungs- und Arbeitswerkzeuge (Claude). Zugriff ist technisch auf Entwicklungs- und Demo-Umgebungen begrenzt — Bestandsdaten der Verantwortlichen werden nicht bereitgestellt; berufliche Kontaktdaten von Ansprechpartnern können im Projektkontext verarbeitet werden</td>
+      <td>USA — EU-Standardvertragsklauseln im Auftragsverarbeitungsvertrag (siehe § 12)</td>
     </tr>
   </tbody>
 </table>
@@ -293,7 +293,7 @@
   <h3>3. Zugriffskontrolle</h3>
   <ul>
     <li>Rollenbasiertes Berechtigungssystem (RBAC)</li>
-    <li>Mandantentrennung auf Datenbankebene (Row-Level-Security)</li>
+    <li>Mandantentrennung auf Datenbank- oder Anwendungsebene über einen verpflichtenden Mandantenschlüssel; bei geteilten Datenbanken zusätzlich Row-Level-Security (in Einführung, je Produkt dokumentiert)</li>
     <li>Minimalprinzip bei der Rechtevergabe (Least Privilege)</li>
     <li>Regelmäßige Überprüfung der Zugriffsberechtigungen</li>
   </ul>
@@ -324,9 +324,11 @@
 
   <h3>7. Verfügbarkeitskontrolle</h3>
   <ul>
-    <li>Regelmäßige automatisierte Backups</li>
+    <li>Tägliche automatisierte Backups auf externen Speicher (IONOS S3 Object Storage, separates Rechenzentrum) gemäß 3-2-1 Regel</li>
+    <li>Backup-Verschlüsselung (AES-256, client-seitig) und Aufbewahrung: 30 Tage täglich, 12 Monate monatlich</li>
+    <li>PostgreSQL-Datenbank-Dumps als Teil des täglichen Backups</li>
     <li>Health-Check-Monitoring aller Produktivsysteme (automatisiert, zentrale Übersicht)</li>
-    <li>Redundante Serverinfrastruktur bei IONOS</li>
+    <li>Wiederherstellbarkeit über tägliche automatisierte Offsite-Backups (3-2-1-Regel, getrenntes Rechenzentrum); Wiederanlaufverfahren dokumentiert und regelmäßig getestet</li>
     <li>Dokumentierte Notfall- und Wiederherstellungsverfahren</li>
   </ul>
 
@@ -359,7 +361,7 @@
   <!-- Footer -->
   <div class="container mt-3 pb-2">
     <div class="p2cx-card p2cx-card-quiet"><div class="p2cx-body py-2 text-center small text-muted">
-      © 2025 p2cx · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · Version 1.0 · April 2026 · <a href="https://github.com/p2cx/contracts/commits/main/avv">Änderungshistorie</a>
+      © 2025 p2cx · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · Version 1.1 · August 2026 · <a href="https://github.com/p2cx/contracts/commits/main/avv">Änderungshistorie</a>
     </div></div>
   </div>
 
