@@ -32,7 +32,7 @@ Repo: `p2cx/p2cx-website` (früher `p2cx-landing` — alter Name leitet per GitH
 - **Produktkatalog `/products`:** deep-link only (NICHT in der Hauptnav), nur dezenter Footer-Link auf
   den Startseiten. Karten **ganz klickbar** (Bootstrap `stretched-link` + `position:relative`),
   klickbare zeigen goldenes „Details →" (CSS `:has()`). Ehrliche Status-Badges:
-  Live / MVP / Konzept / intern·auf Anfrage.
+  Live / MVP / Konzept / intern·auf Anfrage / ruht (gebaut und erprobt, gerade nicht im Betrieb — seit 03.10.2026 für Steuerportal, Aufnahmeportal, Dealflow).
 - **Sprachumschalter (Flaggen):** springt immer zur GLEICHEN Seite in der anderen Sprache,
   nie zur index. `aria-current` auf der aktiven Sprache.
 - **Tonalität:** Leitmotiv „gehärteter Kern + Individualisierung" — siehe `../kernbotschaften.md`
