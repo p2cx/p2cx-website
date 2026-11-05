@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" aria-labelledby="sb-title sb-desc">
+  <title id="sb-title">Steuerberater prüft statt abzutippen</title>
+  <desc id="sb-desc">Gezeichnete Szene: Ein Steuerberater sitzt im Profil am Schreibtisch vor einem Bildschirm mit einer abgehakten Liste. Rechts daneben liegt ein unordentlicher Papierstapel; aus ihm steigen einzelne Blätter auf, werden gerade und ordnen sich oben zu einer sauberen Liste mit goldenen Häkchen.</desc>
+  <style>
+    .bg{fill:var(--paper,#faf7f0)}
+    .l{fill:none;stroke:var(--ink,#2b2a27);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .h{fill:none;stroke:var(--ink,#2b2a27);stroke-width:1.8;stroke-linecap:round;opacity:.32}
+    .d{fill:none;stroke:var(--ink,#2b2a27);stroke-width:1.8;stroke-linecap:round;stroke-dasharray:2 7}
+    .a{fill:none;stroke:var(--accent,#c9a44c);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+    .af{fill:var(--accent,#c9a44c);opacity:.22}
+    .p{fill:var(--paper,#faf7f0)}
+  </style>
+  <rect class="bg" width="800" height="560"/>
+  <g>
+    <!-- Boden -->
+    <path class="h" d="M60 528 L200 527 M260 530 L340 529 M560 528 L740 527"/>
+
+    <!-- Stuhl -->
+    <path class="l" d="M118 250 Q112 244 120 240 L136 238 Q142 240 140 248 L134 424"/>
+    <path class="l" d="M118 250 L120 424"/>
+    <path class="l" d="M110 426 L246 428 L244 444 L112 442 Z"/>
+    <path class="l" d="M178 444 L178 500 M188 444 L188 500"/>
+    <path class="l" d="M134 506 L234 506"/>
+    <circle class="l" cx="138" cy="514" r="7"/>
+    <circle class="l" cx="230" cy="514" r="7"/>
+
+    <!-- Person im Profil -->
+    <circle class="p" cx="190" cy="196" r="26"/>
+    <circle class="l" cx="190" cy="196" r="26"/>
+    <path class="l" d="M164 194 Q164 166 190 166 Q210 166 216 180"/>
+    <path class="h" d="M168 186 Q172 174 184 170"/>
+    <!-- Brille -->
+    <path class="l" d="M204 188 L220 188 L219 198 L206 198 Z"/>
+    <path class="l" d="M204 191 L186 190"/>
+    <!-- Hals und Rumpf -->
+    <path class="l" d="M180 220 L178 232 M198 221 L200 232"/>
+    <path class="p" d="M178 232 Q156 240 152 300 Q150 380 164 428 L222 412 Q232 330 222 246 Q214 236 200 232 Z"/>
+    <path class="l" d="M178 232 Q156 240 152 300 Q150 380 164 428"/>
+    <path class="l" d="M200 232 Q222 240 226 290 Q230 360 222 410"/>
+    <path class="l" d="M188 234 L196 262 L204 236"/>
+    <!-- Oberschenkel und Unterschenkel -->
+    <path class="l" d="M222 410 L300 412 Q314 426 302 442 L190 442 Q170 440 164 428"/>
+    <path class="l" d="M308 424 L314 516 M292 442 L296 516"/>
+    <path class="l" d="M296 516 Q294 526 304 526 L340 526 Q344 516 314 514"/>
+    <!-- Arm zur Tastatur -->
+    <path class="l" d="M206 246 Q218 290 218 330 M194 262 Q200 300 202 334"/>
+    <path class="l" d="M202 334 Q206 348 220 342"/>
+    <path class="l" d="M218 330 L290 344 M220 342 L290 356"/>
+    <path class="l" d="M290 344 Q306 344 306 352 Q302 362 290 356"/>
+
+    <!-- Schreibtisch -->
+    <path class="l" d="M248 370 Q500 366 764 370"/>
+    <path class="l" d="M248 386 Q500 382 764 386"/>
+    <path class="l" d="M262 386 L264 528 M744 386 L742 528"/>
+    <!-- Tastatur -->
+    <path class="l" d="M280 368 L292 358 L414 358 L420 368"/>
+
+    <!-- Bildschirm -->
+    <path class="l" d="M330 148 L534 146 Q542 146 542 154 L544 312 Q544 320 536 320 L338 322 Q330 322 330 314 L328 156 Q328 148 336 148"/>
+    <path class="l" d="M344 162 L528 160 L530 306 L346 308 Z"/>
+    <path class="l" d="M428 322 L428 352 M444 322 L444 352"/>
+    <path class="l" d="M394 356 Q436 350 478 356 L480 364 L392 364 Z"/>
+    <!-- Liste auf dem Bildschirm -->
+    <path class="a" d="M364 188 L370 194 L382 180"/>
+    <path class="l" d="M396 188 L500 187"/>
+    <path class="a" d="M364 220 L370 226 L382 212"/>
+    <path class="l" d="M396 220 L480 219"/>
+    <path class="a" d="M364 252 L370 258 L382 244"/>
+    <path class="l" d="M396 252 L506 251"/>
+    <path class="l" d="M362 278 L380 278 L380 290 L362 290 Z"/>
+    <path class="h" d="M396 284 L462 283"/>
+
+    <!-- Unordentlicher Stapel -->
+    <path class="p" d="M584 304 L708 296 L716 368 L578 370 Z"/>
+    <path class="l" d="M578 368 L720 366 L716 352 L582 354 Z"/>
+    <path class="l" d="M586 352 L714 346 L708 334 L590 340"/>
+    <path class="l" d="M588 340 L600 322 L716 330 L708 342"/>
+    <path class="l" d="M596 324 L604 304 L700 300 L712 318"/>
+    <path class="h" d="M612 314 L680 311 M610 360 L690 359"/>
+    <path class="l" d="M704 352 L736 340 L742 356 L716 364"/>
+
+    <!-- Blätter steigen auf und werden gerade -->
+    <g transform="rotate(-24 604 262)">
+      <path class="p" d="M584 246 L624 246 L624 278 L584 278 Z"/>
+      <path class="l" d="M584 246 L624 246 L624 278 L584 278 Z"/>
+      <path class="h" d="M592 256 L616 256 M592 266 L610 266"/>
+    </g>
+    <g transform="rotate(14 690 248)">
+      <path class="p" d="M672 234 L708 234 L708 262 L672 262 Z"/>
+      <path class="l" d="M672 234 L708 234 L708 262 L672 262 Z"/>
+      <path class="h" d="M680 244 L700 244 M680 252 L694 252"/>
+    </g>
+    <g transform="rotate(-6 646 212)">
+      <path class="p" d="M628 198 L664 198 L664 226 L628 226 Z"/>
+      <path class="l" d="M628 198 L664 198 L664 226 L628 226 Z"/>
+      <path class="h" d="M636 208 L656 208 M636 216 L650 216"/>
+    </g>
+    <path class="d" d="M612 292 Q600 240 620 200 M700 290 Q714 240 688 196"/>
+
+    <!-- Saubere Liste oben -->
+    <path class="p" d="M584 44 L736 44 L736 176 L584 176 Z"/>
+    <path class="l" d="M592 44 L730 42 Q738 42 738 50 L738 170 Q738 178 730 178 L592 178 Q584 178 584 170 L584 52 Q584 44 592 44 Z"/>
+    <path class="l" d="M638 36 L684 36 L684 50 L638 50 Z"/>
+    <path class="a" d="M602 80 L609 87 L622 72"/>
+    <path class="l" d="M636 80 L718 79"/>
+    <path class="a" d="M602 112 L609 119 L622 104"/>
+    <path class="l" d="M636 112 L704 111"/>
+    <path class="a" d="M602 144 L609 151 L622 136"/>
+    <path class="l" d="M636 144 L712 143"/>
+    <rect class="af" x="592" y="66" width="38" height="96" rx="6"/>
+  </g>
+</svg>

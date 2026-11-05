@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" aria-labelledby="tr-title tr-desc">
+  <title id="tr-title">Im Transporter: Lieferschein am Armaturenbrett</title>
+  <desc id="tr-desc">Gezeichnete Szene aus dem Fahrersitz eines Handwerker-Transporters: Lenkrad, Lüftung, Armaturenbrett, durch die Frontscheibe eine Straße mit Häusern. Am Armaturenbrett klemmt ein Lieferschein, daneben steckt ein Smartphone in der Halterung, das ihn mit einem goldenen Häkchen erfasst hat.</desc>
+  <style>
+    .bg{fill:var(--paper,#faf7f0)}
+    .l{fill:none;stroke:var(--ink,#2b2a27);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .h{fill:none;stroke:var(--ink,#2b2a27);stroke-width:1.8;stroke-linecap:round;opacity:.32}
+    .d{fill:none;stroke:var(--ink,#2b2a27);stroke-width:1.8;stroke-linecap:round;stroke-dasharray:2 7}
+    .a{fill:none;stroke:var(--accent,#c9a44c);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+    .af{fill:var(--accent,#c9a44c);opacity:.22}
+    .p{fill:var(--paper,#faf7f0)}
+  </style>
+  <rect class="bg" width="800" height="560"/>
+  <g>
+    <!-- Frontscheibe -->
+    <path class="l" d="M96 52 Q400 30 704 52 L752 282 Q400 266 48 282 Z"/>
+    <!-- Blick nach draußen: Straße und Häuser -->
+    <path class="h" d="M70 212 Q400 200 730 212"/>
+    <path class="l" d="M372 206 L250 276 M428 206 L560 276"/>
+    <path class="h" d="M400 214 L398 228 M397 242 L394 262"/>
+    <path class="l" d="M124 208 L124 160 L164 128 L204 160 L204 206"/>
+    <path class="l" d="M150 206 L150 182 L172 182 L172 206"/>
+    <path class="l" d="M220 206 L220 172 L276 172 L276 204"/>
+    <path class="l" d="M214 176 L248 148 L282 176"/>
+    <path class="h" d="M234 186 L246 186 M254 186 L266 186"/>
+    <path class="l" d="M548 206 L548 168 Q548 150 566 150 Q584 150 584 168 L584 206"/>
+    <path class="l" d="M636 206 L636 156 Q610 150 616 124 Q626 98 652 108 Q676 100 684 124 Q690 150 664 156 L664 206"/>
+    <path class="h" d="M650 156 L650 206"/>
+    <path class="h" d="M300 90 Q314 80 330 88 Q344 78 360 90 M520 78 Q532 70 546 76"/>
+
+    <!-- Innenspiegel -->
+    <path class="l" d="M400 40 L400 62"/>
+    <path class="l" d="M350 62 L450 62 Q458 62 458 70 L456 84 Q454 90 446 90 L354 90 Q346 90 344 84 L342 70 Q342 62 350 62 Z"/>
+
+    <!-- A-Säulen -->
+    <path class="l" d="M96 52 L40 60 L22 300 M48 282 L22 300"/>
+    <path class="l" d="M704 52 L760 60 L780 300 M752 282 L780 300"/>
+
+    <!-- Armaturenbrett -->
+    <path class="l" d="M20 302 Q400 282 780 302"/>
+    <path class="l" d="M20 380 Q140 360 220 364 M580 364 Q680 360 780 380"/>
+    <path class="l" d="M220 364 Q400 352 580 364"/>
+    <path class="h" d="M60 330 Q400 312 740 330"/>
+    <!-- Lüftung Mitte -->
+    <path class="l" d="M372 396 L428 396 L428 432 L372 432 Z"/>
+    <path class="h" d="M380 406 L420 406 M380 414 L420 414 M380 422 L420 422"/>
+
+    <!-- Lieferschein, eingeklemmt -->
+    <g transform="rotate(-4 520 300)">
+      <path class="p" d="M462 214 L572 214 L572 340 L462 340 Z"/>
+      <path class="l" d="M466 214 L570 212 L574 334 L462 338 Z"/>
+      <path class="l" d="M480 236 L522 236"/>
+      <path class="h" d="M480 258 L556 258 M480 274 L548 274 M480 290 L552 290 M480 306 L536 306"/>
+      <path class="l" d="M480 322 L520 322"/>
+      <path class="l" d="M500 206 L536 206 L536 222 L500 222 Z"/>
+    </g>
+
+    <!-- Smartphone in der Halterung -->
+    <path class="l" d="M640 344 L640 360 M628 362 L652 362"/>
+    <path class="p" d="M604 214 L676 214 L676 344 L604 344 Z"/>
+    <path class="l" d="M612 212 L670 212 Q678 212 678 220 L678 336 Q678 344 670 344 L612 344 Q604 344 604 336 L604 220 Q604 212 612 212 Z"/>
+    <path class="l" d="M598 260 L604 260 M598 300 L604 300 M678 260 L684 260 M678 300 L684 300"/>
+    <!-- Kamerarahmen und Häkchen -->
+    <path class="a" d="M616 238 L616 228 L626 228 M654 228 L664 228 L664 238 M664 304 L664 314 L654 314 M626 314 L616 314 L616 304"/>
+    <rect class="af" x="622" y="246" width="36" height="36" rx="18"/>
+    <path class="a" d="M630 264 L638 272 L652 254"/>
+    <path class="h" d="M624 296 L656 296"/>
+    <path class="d" d="M590 266 L598 266"/>
+
+    <!-- Lenkrad -->
+    <path class="l" d="M88 560 Q70 416 220 392 Q370 380 388 520 L392 560"/>
+    <path class="l" d="M114 560 Q102 438 222 418 Q350 408 362 524 L364 560"/>
+    <path class="l" d="M178 470 Q228 450 290 470 L300 520 Q236 540 172 520 Z"/>
+    <path class="l" d="M110 492 L178 486 M300 486 L364 494"/>
+    <circle class="l" cx="236" cy="496" r="10"/>
+  </g>
+</svg>

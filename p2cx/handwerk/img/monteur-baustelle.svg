@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" aria-labelledby="mb-title mb-desc">
+  <title id="mb-title">Monteur im Heizungskeller</title>
+  <desc id="mb-desc">Gezeichnete Szene: Ein Monteur in Latzhose und Kappe steht im Heizungskeller zwischen Therme, Rohren und Werkzeugkiste. Er hält ein Smartphone; eine vergrößerte Sprechblase zeigt darauf eine Liste, die mit jedem Häkchen um eine Zeile wächst.</desc>
+  <style>
+    .bg{fill:var(--paper,#faf7f0)}
+    .l{fill:none;stroke:var(--ink,#2b2a27);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .h{fill:none;stroke:var(--ink,#2b2a27);stroke-width:1.8;stroke-linecap:round;opacity:.32}
+    .d{fill:none;stroke:var(--ink,#2b2a27);stroke-width:1.8;stroke-linecap:round;stroke-dasharray:2 7}
+    .a{fill:none;stroke:var(--accent,#c9a44c);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+    .af{fill:var(--accent,#c9a44c);opacity:.22}
+    .p{fill:var(--paper,#faf7f0)}
+  </style>
+  <rect class="bg" width="800" height="560"/>
+  <g>
+    <!-- Boden und Wandkante -->
+    <path class="l" d="M38 482 Q220 478 400 481 T764 479"/>
+    <path class="h" d="M70 500 L120 500 M180 506 L260 505 M520 503 L600 504 M660 498 L720 499"/>
+
+    <!-- Rohr oben an der Decke -->
+    <path class="l" d="M232 96 L766 93"/>
+    <path class="l" d="M232 112 L766 110"/>
+    <path class="l" d="M520 92 L520 113 M528 92 L528 113"/>
+    <path class="l" d="M700 90 L700 114 M708 90 L708 114"/>
+
+    <!-- Therme -->
+    <path class="l" d="M92 88 Q90 84 96 82 L226 80 Q232 81 232 88 L234 296 Q234 302 228 302 L98 304 Q92 303 92 297 Z"/>
+    <path class="l" d="M106 120 L218 118"/>
+    <rect class="af" x="132" y="140" width="62" height="30" rx="4"/>
+    <path class="a" d="M132 144 Q132 140 136 140 L190 139 Q194 140 194 144 L194 166 Q194 170 190 170 L136 171 Q132 170 132 166 Z"/>
+    <path class="a" d="M144 156 L152 163 L168 148"/>
+    <circle class="l" cx="148" cy="218" r="9"/>
+    <circle class="l" cx="180" cy="218" r="9"/>
+    <path class="h" d="M110 250 L214 248 M110 262 L214 260 M110 274 L214 272"/>
+
+    <path class="h" d="M84 84 L100 80 M226 306 L240 308 M86 298 L92 312"/>
+    <!-- Rohre unter der Therme -->
+    <path class="l" d="M120 304 L120 440 Q120 452 132 452 L232 452"/>
+    <path class="l" d="M134 304 L134 432 Q134 438 140 438 L232 438"/>
+    <path class="l" d="M178 304 L178 400 M192 304 L192 400"/>
+    <path class="l" d="M172 400 L198 400 L198 414 L172 414 Z"/>
+    <path class="l" d="M185 414 L185 424 M175 424 L195 424"/>
+    <path class="l" d="M210 304 L210 370 Q210 378 218 378 L258 378"/>
+    <path class="l" d="M222 304 L222 364 L258 364"/>
+
+    <!-- Ausdehnungsgefäß -->
+    <path class="l" d="M258 340 Q286 336 292 370 Q290 404 260 404 Q242 400 244 372 Q244 344 258 340 Z"/>
+    <path class="h" d="M252 360 Q268 356 286 362 M250 384 Q268 388 286 382"/>
+    <!-- Kugelhahn an der Rohrleitung -->
+    <circle class="l" cx="232" cy="445" r="9"/>
+    <path class="l" d="M232 436 L246 424"/>
+
+    <!-- Monteur -->
+    <!-- Kopf und Kappe -->
+    <circle class="l" cx="380" cy="170" r="26"/>
+    <path class="p" d="M354 166 Q356 138 382 140 Q406 142 406 164 Z"/>
+    <path class="l" d="M354 166 Q356 138 382 140 Q406 142 406 164"/>
+    <path class="l" d="M350 165 Q382 158 420 163"/>
+    <path class="l" d="M372 196 L372 207 M388 196 L389 207"/>
+    <!-- Oberkörper -->
+    <path class="l" d="M330 224 Q348 207 372 207 M389 207 Q414 208 430 224"/>
+    <path class="l" d="M330 224 Q322 280 328 332"/>
+    <path class="l" d="M430 224 Q438 270 432 332"/>
+    <path class="l" d="M328 332 Q380 340 432 332"/>
+    <!-- Latz -->
+    <path class="l" d="M352 228 L356 262 M408 228 L404 262 M356 262 L404 262 M356 262 L360 332 M404 262 L400 332"/>
+    <path class="l" d="M368 274 L392 274 L391 296 L369 296 Z"/>
+    <circle class="l" cx="354" cy="236" r="2.5"/>
+    <circle class="l" cx="406" cy="236" r="2.5"/>
+    <!-- Beine -->
+    <path class="l" d="M330 334 L336 466 M377 340 L374 466 M384 340 L388 466 M430 334 L426 466"/>
+    <path class="h" d="M345 400 L366 400 M396 400 L418 400"/>
+    <path class="l" d="M336 466 Q330 480 316 482 Q314 488 322 488 L376 488 L374 466"/>
+    <path class="l" d="M388 466 L388 488 L442 488 Q450 488 446 482 Q432 480 426 466"/>
+    <!-- linker Arm hängend -->
+    <path class="l" d="M330 226 Q312 272 316 320 M344 244 Q336 282 334 318"/>
+    <circle class="l" cx="325" cy="329" r="10"/>
+    <!-- rechter Arm mit Smartphone -->
+    <path class="l" d="M430 226 Q456 252 462 294"/>
+    <path class="l" d="M420 250 Q438 276 444 298"/>
+    <path class="l" d="M444 298 Q452 310 464 300"/>
+    <path class="l" d="M464 300 L484 268 M444 298 L470 258"/>
+    <!-- Smartphone -->
+    <path class="p" d="M466 196 L504 200 L496 270 L458 266 Z"/>
+    <path class="l" d="M468 194 Q470 192 474 192 L502 196 Q506 197 506 201 L498 268 Q497 272 493 272 L460 268 Q456 267 457 263 L465 198 Q466 195 468 194 Z"/>
+    <path class="a" d="M471 210 L476 214 L483 206 M487 211 L497 212"/>
+    <path class="a" d="M469 226 L474 230 L481 222 M485 227 L495 228"/>
+    <path class="l" d="M468 243 L493 245"/>
+    <!-- Hand um das Telefon -->
+    <path class="p" d="M462 248 Q452 258 462 272 Q476 280 486 268 L474 252 Z"/>
+    <path class="l" d="M466 246 Q452 256 460 270 Q472 282 486 270"/>
+    <path class="l" d="M470 258 Q478 256 484 262"/>
+
+    <!-- Verbindung zur Sprechblase -->
+    <path class="d" d="M508 206 Q526 200 540 196"/>
+
+    <!-- Sprechblase mit wachsender Liste -->
+    <path class="p" d="M548 140 L742 136 L746 372 L552 376 Z"/>
+    <path class="l" d="M556 138 Q546 138 546 150 L550 364 Q550 376 562 376 L734 372 Q746 372 746 360 L742 148 Q742 136 730 136 Z"/>
+    <path class="l" d="M546 186 L536 196 L548 204"/>
+    <path class="h" d="M738 128 L750 140 M544 368 L540 384"/>
+    <!-- Zeilen -->
+    <path class="a" d="M574 170 L582 178 L596 162"/>
+    <path class="l" d="M612 171 L716 169"/>
+    <path class="a" d="M574 212 L582 220 L596 204"/>
+    <path class="l" d="M612 213 L690 212"/>
+    <path class="a" d="M574 254 L582 262 L596 246"/>
+    <path class="l" d="M612 255 L706 253"/>
+    <path class="a" d="M574 296 L582 304 L596 288"/>
+    <path class="l" d="M612 297 L668 296"/>
+    <!-- neue Zeile kommt hinzu -->
+    <rect class="af" x="566" y="324" width="160" height="30" rx="6"/>
+    <path class="a" d="M582 330 L582 348 M573 339 L591 339"/>
+    <path class="d" d="M612 339 L712 338"/>
+
+    <!-- Werkzeugkiste -->
+    <path class="l" d="M560 424 L712 422 L716 482 L556 484 Z"/>
+    <path class="l" d="M556 440 L716 438"/>
+    <path class="l" d="M610 424 Q612 400 636 400 Q660 400 662 422"/>
+    <path class="l" d="M620 424 Q622 410 636 410 Q650 410 652 422"/>
+    <path class="l" d="M628 446 L644 446 L644 456 L628 456 Z"/>
+    <!-- Schraubendreher ragt heraus -->
+    <path class="l" d="M592 424 L582 404 M598 422 L588 402"/>
+    <path class="l" d="M580 404 L592 398 L584 382 Q580 374 572 378 L570 379 Q563 384 567 391 Z"/>
+    <path class="h" d="M574 386 L580 383 M577 392 L583 389"/>
+    <!-- Zange -->
+    <path class="l" d="M680 424 Q684 404 700 392 M690 424 Q690 406 702 396"/>
+    <path class="l" d="M700 392 L712 380 M702 396 L716 388"/>
+    <!-- Rohrstück am Boden -->
+    <path class="l" d="M476 478 L540 464 M478 470 L538 456"/>
+    <ellipse class="l" cx="540" cy="460" rx="4" ry="5"/>
+  </g>
+</svg>
