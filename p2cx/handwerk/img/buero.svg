@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" aria-labelledby="bu-title bu-desc">
+  <title id="bu-title">Büro: Rechnung kommt fertig aus dem Laptop</title>
+  <desc id="bu-desc">Gezeichnete Szene: Ein Schreibtisch mit aufgeklapptem Laptop, daneben eine dampfende Kaffeetasse und ein Tablet. Aus dem Bildschirm gleitet ein Rechnungsblatt heraus, über ihm ein goldenes Häkchen im Kreis. Im Hintergrund ein Regal mit Ordnern und ein Wandkalender.</desc>
+  <style>
+    .bg{fill:var(--paper,#faf7f0)}
+    .l{fill:none;stroke:var(--ink,#2b2a27);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .h{fill:none;stroke:var(--ink,#2b2a27);stroke-width:1.8;stroke-linecap:round;opacity:.32}
+    .d{fill:none;stroke:var(--ink,#2b2a27);stroke-width:1.8;stroke-linecap:round;stroke-dasharray:2 7}
+    .a{fill:none;stroke:var(--accent,#c9a44c);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+    .af{fill:var(--accent,#c9a44c);opacity:.22}
+    .p{fill:var(--paper,#faf7f0)}
+  </style>
+  <rect class="bg" width="800" height="560"/>
+  <g>
+    <!-- Wandkalender -->
+    <path class="l" d="M86 74 L210 72 L212 186 L88 188 Z"/>
+    <path class="l" d="M86 98 L210 96"/>
+    <path class="l" d="M112 66 L112 82 M184 64 L184 80"/>
+    <path class="h" d="M90 122 L208 121 M90 146 L208 145 M90 168 L208 167"/>
+    <path class="h" d="M118 100 L118 186 M148 100 L149 186 M178 99 L178 186"/>
+    <path class="a" d="M156 152 L162 158 L172 146"/>
+
+    <!-- Regal mit Ordnern -->
+    <path class="l" d="M632 262 L760 260 M632 272 L760 270"/>
+    <path class="l" d="M644 262 L642 186 L666 186 L668 262"/>
+    <path class="l" d="M670 262 L670 190 L694 190 L694 262"/>
+    <path class="l" d="M698 262 L712 194 L734 198 L722 262"/>
+    <path class="l" d="M650 232 L660 232 L660 246 L650 246 Z M677 232 L687 232 L687 246 L677 246 Z"/>
+    <path class="l" d="M646 274 L642 290 M748 272 L752 288"/>
+
+    <!-- Schreibtisch -->
+    <path class="l" d="M40 392 Q400 386 762 391"/>
+    <path class="l" d="M44 408 Q400 403 758 407"/>
+    <path class="l" d="M92 408 L94 520 M708 407 L706 520"/>
+    <path class="l" d="M600 408 L602 512 L706 510"/>
+    <path class="l" d="M610 450 L700 449 M650 428 L662 428 M650 474 L662 474"/>
+    <path class="h" d="M70 532 L140 531 M640 530 L740 529"/>
+
+    <!-- Kaffeetasse -->
+    <path class="l" d="M128 316 L132 378 Q134 386 144 386 L182 386 Q192 386 192 378 L196 316"/>
+    <path class="l" d="M126 316 Q162 324 198 316"/>
+    <path class="l" d="M196 332 Q222 330 220 352 Q218 370 192 366"/>
+    <path class="l" d="M118 388 Q162 396 206 388"/>
+    <path class="l" d="M148 300 Q138 286 150 272 Q160 258 150 244"/>
+    <path class="l" d="M172 302 Q164 290 174 278"/>
+
+    <!-- Tablet flach auf dem Tisch -->
+    <path class="l" d="M214 382 L232 352 L320 352 L310 382 Z"/>
+    <path class="h" d="M232 372 L300 372 M240 362 L304 362"/>
+
+    <!-- Rechnung kommt oben aus dem Bildschirm -->
+    <path class="d" d="M420 150 L412 96 M400 140 L388 108"/>
+    <path class="d" d="M590 150 L600 104 M608 156 L620 128"/>
+    <g transform="rotate(-4 480 140)">
+      <path class="p" d="M430 40 L570 40 L570 190 L430 190 Z"/>
+      <path class="l" d="M434 40 L568 38 Q572 38 572 44 L572 190 L430 192 L430 46 Q430 40 434 40 Z"/>
+      <path class="l" d="M448 62 L492 62"/>
+      <path class="l" d="M524 56 L554 56 L554 78 L524 78 Z"/>
+      <path class="h" d="M448 102 L554 102 M448 122 L534 122 M448 142 L546 142"/>
+    </g>
+
+    <!-- Laptop -->
+    <path class="p" d="M332 168 L570 166 L572 350 L334 352 Z"/>
+    <path class="l" d="M340 166 L566 164 Q574 164 574 172 L576 346 Q576 352 568 352 L340 354 Q332 354 332 346 L330 174 Q330 166 340 166 Z"/>
+    <path class="l" d="M346 180 L560 178 L562 340 L348 342 Z"/>
+    <path class="l" d="M310 386 L596 384 L578 354 L326 356 Z"/>
+    <path class="h" d="M344 372 L560 370 M420 380 L486 379"/>
+    <!-- Bildschirminhalt: dieselbe Rechnung als Liste -->
+    <path class="h" d="M368 204 L470 203 M368 228 L452 227 M368 252 L476 251 M368 276 L440 275"/>
+    <path class="l" d="M440 306 L536 305"/>
+    <path class="a" d="M440 318 L536 317"/>
+
+    <!-- Häkchen im Kreis -->
+    <rect class="af" x="650" y="48" width="68" height="68" rx="34"/>
+    <path class="a" d="M684 48 Q718 48 718 82 Q718 116 684 116 Q650 116 650 82 Q650 52 680 48"/>
+    <path class="a" d="M667 84 L680 97 L702 68"/>
+
+    <!-- Stift -->
+    <path class="h" d="M128 400 L166 400"/>
+  </g>
+</svg>

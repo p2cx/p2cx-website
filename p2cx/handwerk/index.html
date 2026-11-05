@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erledigt. — Vom Auftrag zur Rechnung, ohne Zettel</title>
+<meta name="description" content="Erledigt. ist eine App für kleine Handwerksbetriebe: Angebot, Auftrag, Stunden und Material auf der Baustelle, Unterschrift, Rechnung und Übergabe an DATEV. Wir suchen drei Pilotbetriebe und einen Partner-Steuerberater.">
+<!-- Kampagnen-Test (Board-Vorhaben 119): bis zur Freigabe durch Hauke nicht in Suchmaschinen -->
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#2b2a27">
+<link rel="icon" type="image/svg+xml" href="/logo/p2cx-icon.svg">
+<style>
+  /* Eigener Look der Handwerk-Seite: Anthrazit auf Sand, Gold nur für das eine Ding.
+     Bewusst ohne Bootstrap und ohne p2cx.css: die Marke soll für sich stehen (Briefing #1397). */
+  :root{
+    --sand:#f4efe4; --papier:#faf7f0; --tinte:#2b2a27; --grau:#5f5a52; --linie:#d9d1c1;
+    --gold:#c9a44c; --gold-dunkel:#7d6320; --gold-zart:#efe3c2;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--sand); color:var(--tinte); font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  a{ color:var(--gold-dunkel); }
+  a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{ outline:3px solid var(--gold); outline-offset:2px; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 1.25rem; }
+  section{ padding:3.5rem 0; }
+  section + section{ border-top:1px solid var(--linie); }
+  h1,h2,h3{ line-height:1.2; margin:0 0 .75rem; }
+  h1{ font-size:clamp(2.1rem,5vw,3.4rem); letter-spacing:-.02em; }
+  h2{ font-size:clamp(1.6rem,3.2vw,2.2rem); letter-spacing:-.01em; }
+  h3{ font-size:1.15rem; }
+  p{ margin:0 0 1rem; }
+  .leise{ color:var(--grau); }
+  .klein{ font-size:.9rem; }
+  .marke{ font-weight:800; letter-spacing:-.02em; }
+  .marke .punkt{ color:#94742a; } /* Gold dunkler, damit der Punkt auf Sand 3:1 schafft (großer Text) */
+
+  /* Kopf */
+  header{ position:sticky; top:0; z-index:20; background:rgba(244,239,228,.94); backdrop-filter:blur(6px); border-bottom:1px solid var(--linie); }
+  header .wrap{ display:flex; align-items:center; justify-content:space-between; height:58px; }
+  header .marke{ font-size:1.35rem; text-decoration:none; color:var(--tinte); }
+  header nav a{ color:var(--tinte); text-decoration:none; margin-left:1.25rem; font-size:.95rem; }
+  header nav a:hover{ color:var(--gold-dunkel); }
+  @media (max-width:760px){ header nav a.optional{ display:none; } }
+
+  /* Knöpfe */
+  .knopf{ display:inline-block; padding:.75rem 1.25rem; border-radius:10px; font-weight:650; text-decoration:none; border:2px solid var(--tinte); color:var(--tinte); background:transparent; cursor:pointer; font-size:1rem; }
+  .knopf:hover{ background:var(--papier); }
+  .knopf.gold{ background:var(--gold); border-color:var(--gold); color:var(--tinte); }
+  .knopf.gold:hover{ background:#d4b363; }
+  .knoepfe{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1.25rem; }
+
+  /* Bühne */
+  .buehne{ display:grid; grid-template-columns:1.05fr 1fr; gap:2.5rem; align-items:center; padding-top:3rem; }
+  .buehne .zitat{ font-size:1.25rem; color:var(--grau); margin-bottom:1.25rem; }
+  .buehne .unterzeile{ font-size:1.35rem; font-weight:600; margin-bottom:.5rem; }
+  .bild{ width:100%; height:auto; display:block; border-radius:14px; background:var(--papier); border:1px solid var(--linie); }
+  @media (max-width:860px){ .buehne{ grid-template-columns:1fr; } }
+
+  /* Ablauf */
+  .ablauf{ list-style:none; padding:0; margin:1.5rem 0 0; display:grid; grid-template-columns:repeat(6,1fr); gap:1rem; counter-reset:schritt; }
+  .ablauf li{ background:var(--papier); border:1px solid var(--linie); border-radius:12px; padding:1rem; position:relative; counter-increment:schritt; }
+  .ablauf li::before{ content:counter(schritt); display:inline-flex; align-items:center; justify-content:center; width:1.8rem; height:1.8rem; border-radius:50%; border:1.8px solid var(--tinte); font-weight:700; font-size:.9rem; margin-bottom:.5rem; }
+  .ablauf li.ziel{ border-color:var(--gold); background:linear-gradient(180deg,var(--papier),var(--gold-zart)); }
+  .ablauf li.ziel::before{ border-color:var(--gold); background:var(--gold); }
+  .ablauf strong{ display:block; margin-bottom:.25rem; }
+  .ablauf span{ color:var(--grau); font-size:.92rem; }
+  @media (max-width:980px){ .ablauf{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:560px){ .ablauf{ grid-template-columns:1fr; } }
+
+  /* Fünf Sichten */
+  .reiter{ display:flex; flex-wrap:wrap; gap:.5rem; margin:1.5rem 0 1rem; }
+  .reiter button{ font:inherit; font-size:.95rem; padding:.5rem 1rem; border-radius:999px; border:1.5px solid var(--linie); background:var(--papier); color:var(--tinte); cursor:pointer; }
+  .reiter button[aria-selected="true"]{ border-color:var(--tinte); background:var(--tinte); color:var(--papier); }
+  .sicht{ display:grid; grid-template-columns:1fr 1fr; gap:2rem; background:var(--papier); border:1px solid var(--linie); border-radius:14px; padding:1.75rem; }
+  .sicht[hidden]{ display:none; }
+  .sicht .satz{ font-size:1.3rem; font-weight:650; margin-bottom:.75rem; }
+  .sicht .heute{ color:var(--grau); }
+  .sicht ul{ margin:0; padding-left:1.1rem; }
+  .sicht li{ margin-bottom:.35rem; }
+  .sicht .gewinn{ margin-top:1rem; padding:.75rem 1rem; border-left:4px solid var(--gold); background:var(--gold-zart); border-radius:0 8px 8px 0; }
+  .kommt{ display:inline-block; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--grau); border:1px solid var(--linie); border-radius:999px; padding:.05rem .5rem; margin-left:.35rem; vertical-align:middle; background:var(--sand); }
+  @media (max-width:860px){ .sicht{ grid-template-columns:1fr; } }
+
+  /* Funktionen */
+  .raster{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.5rem; }
+  .kachel{ background:var(--papier); border:1px solid var(--linie); border-radius:12px; padding:1.1rem 1.2rem; }
+  .kachel h3{ display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; }
+  .kachel svg{ width:26px; height:26px; flex:none; fill:none; stroke:var(--tinte); stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  .kachel p{ color:var(--grau); font-size:.95rem; margin:0; }
+  @media (max-width:900px){ .raster{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .raster{ grid-template-columns:1fr; } }
+
+  /* Steuerberater */
+  .kanzlei{ background:var(--tinte); color:var(--papier); }
+  .kanzlei .leise{ color:#cfc8ba; }
+  .kanzlei a{ color:var(--gold); }
+  .kanzlei .zweispaltig{ display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; align-items:center; }
+  .kanzlei ul{ padding-left:1.1rem; }
+  .kanzlei li{ margin-bottom:.4rem; }
+  .kanzlei .knopf{ border-color:var(--papier); color:var(--papier); }
+  .kanzlei .knopf.gold{ border-color:var(--gold); color:var(--tinte); }
+  .kanzlei .knopf:hover{ background:#3a3833; }
+  .kanzlei .knopf.gold:hover{ background:#d4b363; }
+  .kanzlei .frage{ font-size:1.2rem; font-style:italic; border-left:4px solid var(--gold); padding-left:1rem; margin:1.25rem 0; }
+  @media (max-width:860px){ .kanzlei .zweispaltig{ grid-template-columns:1fr; } }
+
+  /* Ehrlich gesagt */
+  .ehrlich{ display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; margin-top:1.5rem; }
+  .ehrlich div{ background:var(--papier); border:1px dashed var(--grau); border-radius:12px; padding:1rem 1.2rem; }
+  .ehrlich strong{ display:block; margin-bottom:.25rem; }
+  .ehrlich p{ margin:0; color:var(--grau); font-size:.95rem; }
+  @media (max-width:760px){ .ehrlich{ grid-template-columns:1fr; } }
+
+  /* Formular */
+  form{ background:var(--papier); border:1px solid var(--linie); border-radius:14px; padding:1.75rem; margin-top:1.5rem; }
+  fieldset{ border:0; padding:0; margin:0 0 1.25rem; }
+  legend{ font-weight:650; margin-bottom:.5rem; }
+  .wahl{ display:flex; flex-wrap:wrap; gap:.5rem; }
+  .wahl label{ display:inline-flex; align-items:center; gap:.45rem; padding:.45rem .9rem; border:1.5px solid var(--linie); border-radius:999px; cursor:pointer; background:var(--sand); }
+  .wahl input{ accent-color:var(--tinte); }
+  .wahl label:has(input:checked){ border-color:var(--tinte); background:#fff; }
+  .felder{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+  .feld label{ display:block; font-weight:600; margin-bottom:.3rem; font-size:.95rem; }
+  .feld input,.feld textarea{ width:100%; font:inherit; padding:.65rem .8rem; border:1.5px solid var(--linie); border-radius:8px; background:#fff; color:var(--tinte); }
+  .feld textarea{ min-height:7rem; resize:vertical; }
+  #kontaktfelder[hidden]{ display:none; }
+  .hinweis{ font-size:.88rem; color:var(--grau); margin-top:.75rem; }
+  .meldung{ margin-top:1rem; padding:.75rem 1rem; border-radius:8px; }
+  .meldung.ok{ background:var(--gold-zart); border-left:4px solid var(--gold); }
+  .meldung.fehler{ background:#f6e3dc; border-left:4px solid #8a3b1f; }
+  .hp{ position:absolute; left:-10000px; width:1px; height:1px; opacity:0; }
+  @media (max-width:760px){ .felder{ grid-template-columns:1fr; } }
+
+  /* Fuß */
+  footer{ border-top:1px solid var(--linie); padding:1.75rem 0 2.5rem; font-size:.9rem; color:var(--grau); }
+  footer .wrap{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem; align-items:center; }
+  footer a{ color:var(--grau); }
+  footer .powered{ display:inline-flex; align-items:center; gap:.5rem; color:var(--grau); text-decoration:none; }
+  footer .powered img{ height:18px; width:auto; }
+
+  @media (prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="marke" href="#start">Erledigt<span class="punkt">.</span></a>
+    <nav aria-label="Seitenbereiche">
+      <a class="optional" href="#ablauf">Ablauf</a>
+      <a class="optional" href="#sichten">Für wen</a>
+      <a class="optional" href="#steuerberater">Steuerberater</a>
+      <a href="#mitmachen">Mitmachen</a>
+    </nav>
+  </div>
+</header>
+
+<main id="start">
+
+  <!-- Bühne -->
+  <section>
+    <div class="wrap buehne">
+      <div>
+        <p class="zitat">„Wenn ich aus dem Keller komme, ist die Arbeit erledigt.“</p>
+        <h1><span class="marke">Erledigt<span class="punkt">.</span></span></h1>
+        <p class="unterzeile">Vom Auftrag zur Rechnung, ohne Zettel.</p>
+        <p class="leise">Eine App für Betriebe mit einer Handvoll Leuten. Angebot, Auftrag, Stunden und Material auf der Baustelle, Unterschrift vor Ort, Rechnung und Übergabe an den Steuerberater. Wir verkaufen noch nichts. Wir wollen von Ihnen hören, ob es hilft und was fehlt.</p>
+        <div class="knoepfe">
+          <a class="knopf gold demo-link" href="https://demo.handwerk.p2cx.de/vorstellung">Demo ansehen, fünf Minuten</a>
+          <a class="knopf" href="#mitmachen" data-wunsch="pilot">Pilotbetrieb werden</a>
+        </div>
+        <p class="klein leise" style="margin-top:.75rem;">Ohne Anmeldung. Die Demo läuft mit erfundenen Daten.</p>
+      </div>
+      <img class="bild" src="/handwerk/img/monteur-baustelle.svg" width="800" height="560"
+           alt="Gezeichnet: Ein Monteur im Heizungskeller hält ein Smartphone, auf dem eine Liste mit jedem Häkchen um eine Zeile wächst.">
+    </div>
+  </section>
+
+  <!-- Ablauf -->
+  <section id="ablauf">
+    <div class="wrap">
+      <h2>Ein Auftrag, ein Weg</h2>
+      <p class="leise">Was heute auf Zetteln, im Transporter und abends am Küchentisch passiert, läuft in einem Fluss. Niemand tippt etwas zweimal.</p>
+      <ol class="ablauf">
+        <li><strong>Angebot</strong><span>Schnell geschrieben, mit voraussichtlichem Lohnanteil.</span></li>
+        <li><strong>Auftrag</strong><span>Bei Zusage per Klick. Festpreis oder nach Aufwand.</span></li>
+        <li><strong>Baustelle</strong><span>Stunden und Material per Daumen oder Sprache. Lieferschein abfotografieren.</span></li>
+        <li><strong>Unterschrift</strong><span>Der Kunde unterschreibt den Arbeitsnachweis auf dem Display.</span></li>
+        <li><strong>Rechnung</strong><span>Das Büro prüft und schickt sie per Klick, mit § 35a und § 13b.</span></li>
+        <li class="ziel"><strong>Steuerberater</strong><span>Belege mit Buchungsvorschlag in DATEV. Geprüft und gebucht wird in der Kanzlei.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Fünf Sichten -->
+  <section id="sichten">
+    <div class="wrap">
+      <h2>Was es für wen bedeutet</h2>
+      <p class="leise">Fünf Leute haben mit einem Auftrag zu tun. Jeder sieht etwas anderes.</p>
+
+      <div class="reiter" role="tablist" aria-label="Sichten">
+        <button role="tab" id="t-monteur" aria-controls="s-monteur" aria-selected="true">Monteur</button>
+        <button role="tab" id="t-inhaber" aria-controls="s-inhaber" aria-selected="false" tabindex="-1">Inhaber</button>
+        <button role="tab" id="t-buero" aria-controls="s-buero" aria-selected="false" tabindex="-1">Büro</button>
+        <button role="tab" id="t-steuerberater" aria-controls="s-steuerberater" aria-selected="false" tabindex="-1">Steuerberater</button>
+        <button role="tab" id="t-kunde" aria-controls="s-kunde" aria-selected="false" tabindex="-1">Ihr Kunde</button>
+      </div>
+
+      <div class="sicht" role="tabpanel" id="s-monteur" aria-labelledby="t-monteur">
+        <div>
+          <p class="satz">„Wenn ich aus dem Keller komme, ist die Arbeit erledigt.“</p>
+          <p class="heute"><strong>Heute:</strong> Stunden und Teile auf dem Zettel, Lieferscheine im Transporter, abends nachtragen.</p>
+          <ul>
+            <li>Aufträge des Tages auf dem Handy</li>
+            <li>Stunden und Material per Daumen oder Sprache, die Liste wächst sichtbar mit</li>
+            <li>Lieferschein und Großhändler-Beleg abfotografieren, landet am Auftrag</li>
+            <li>Kunde unterschreibt den Arbeitsnachweis auf dem Display</li>
+            <li>Übergabe ans Büro mit einem Tipp</li>
+          </ul>
+          <p class="gewinn">Kein Abtippen, kein vergessenes Material. Große Knöpfe, weil die Regel von Monteuren mit Handschuhen stammt.</p>
+        </div>
+        <img class="bild" src="/handwerk/img/transporter.svg" width="800" height="560" loading="lazy"
+             alt="Gezeichnet: Blick aus dem Fahrersitz eines Transporters, am Armaturenbrett klemmt ein Lieferschein, ein Handy erfasst ihn.">
+      </div>
+
+      <div class="sicht" role="tabpanel" id="s-inhaber" aria-labelledby="t-inhaber" hidden>
+        <div>
+          <p class="satz">„Sehen, welche Baustelle Geld bringt, ohne aufs Quartal zu warten.“</p>
+          <p class="heute"><strong>Heute:</strong> Angebote in Word, Nachkalkulation selten, die Zahlen kommen Wochen später vom Steuerberater.</p>
+          <ul>
+            <li>Angebot erstellen, bei Zusage per Klick zum Auftrag</li>
+            <li>Festpreis oder nach Aufwand, Mehrstunden werden sichtbar</li>
+            <li>Offene, überfällige und bezahlte Rechnungen im Blick</li>
+            <li>Auswertung je Baustelle: Kosten gegen Erlös <span class="kommt">kommt</span></li>
+            <li>Überblick über Auslastung, offene Posten und Marge <span class="kommt">kommt</span></li>
+          </ul>
+          <p class="gewinn">Steuern statt hinterherlaufen. Und ein Test neben dem bisherigen Programm geht.</p>
+        </div>
+        <img class="bild" src="/handwerk/img/buero.svg" width="800" height="560" loading="lazy"
+             alt="Gezeichnet: Ein Schreibtisch, aus dem Laptop kommt eine fertige Rechnung mit Häkchen.">
+      </div>
+
+      <div class="sicht" role="tabpanel" id="s-buero" aria-labelledby="t-buero" hidden>
+        <div>
+          <p class="satz">„Alles liegt schon da, ich prüfe nur noch.“</p>
+          <p class="heute"><strong>Heute:</strong> Zettel entziffern, Belege suchen, Rechnung schreiben, Eingangsrechnungen sortieren und abtippen.</p>
+          <ul>
+            <li>Übergebene Aufträge prüfen, Rechnung per Klick, mit § 35a und § 13b</li>
+            <li>E-Rechnung für Geschäftskunden, Versand per Mail</li>
+            <li>Eingangsrechnungen erfassen, dem Auftrag zuordnen, per QR-Code bezahlen</li>
+            <li>Übergabe an DATEV mit Kontierung</li>
+            <li>Eingangsrechnungen kommen per Mail von selbst rein <span class="kommt">kommt</span></li>
+          </ul>
+          <p class="gewinn">Vom Auftrag zur Rechnung in einer Minute. Im Pilot richten wir alles ein, Sie müssen nichts neu lernen, bevor es losgeht.</p>
+        </div>
+        <img class="bild" src="/handwerk/img/buero.svg" width="800" height="560" loading="lazy"
+             alt="Gezeichnet: Ein Schreibtisch, aus dem Laptop kommt eine fertige Rechnung mit Häkchen.">
+      </div>
+
+      <div class="sicht" role="tabpanel" id="s-steuerberater" aria-labelledby="t-steuerberater" hidden>
+        <div>
+          <p class="satz">„Prüfen statt erfassen.“</p>
+          <p class="heute"><strong>Heute:</strong> Pendelordner oder Scans, alles abtippen, Konten mal so, mal so, Rückfragen per Telefon.</p>
+          <ul>
+            <li>Belege mit Buchungsvorschlag in DATEV Unternehmen online: Konto, Steuer, Kreditor</li>
+            <li>Aufteilung nach Steuersatz und Konto schon fertig</li>
+            <li>Kostenstelle je Baustelle</li>
+            <li>Hinweise, wo uneinheitlich gebucht wird <span class="kommt">kommt</span></li>
+          </ul>
+          <p class="gewinn">Gebucht wird nie automatisch. Die Kanzlei bucht weiter selbst, wir liefern zu.</p>
+        </div>
+        <img class="bild" src="/handwerk/img/steuerberater.svg" width="800" height="560" loading="lazy"
+             alt="Gezeichnet: Ein Steuerberater am Bildschirm, ein Stapel Belege wird zu einer sauberen Liste.">
+      </div>
+
+      <div class="sicht" role="tabpanel" id="s-kunde" aria-labelledby="t-kunde" hidden>
+        <div>
+          <p class="satz">„Ich weiß, was es kostet und wofür.“</p>
+          <p class="heute"><strong>Heute:</strong> Das Angebot dauert, die Rechnung kommt Wochen später, der Lohnanteil fürs Finanzamt fehlt oft.</p>
+          <ul>
+            <li>Schnelles, klares Angebot mit voraussichtlichem Lohnanteil</li>
+            <li>Arbeitsnachweis vor Ort unterschreiben, keine Diskussion über Stunden</li>
+            <li>Rechnung zeitnah, Lohnanteil für § 35a getrennt ausgewiesen</li>
+            <li>Geschäftskunden bekommen XRechnung oder ZUGFeRD fürs eigene System</li>
+            <li>Bezahlen per QR-Code</li>
+          </ul>
+          <p class="gewinn">Transparenz und Tempo. Der Betrieb wirkt so ordentlich, wie er arbeitet.</p>
+        </div>
+        <img class="bild" src="/handwerk/img/monteur-baustelle.svg" width="800" height="560" loading="lazy"
+             alt="Gezeichnet: Ein Monteur im Heizungskeller hält ein Smartphone mit einer wachsenden Liste.">
+      </div>
+    </div>
+  </section>
+
+  <!-- Funktionen -->
+  <section id="funktionen">
+    <div class="wrap">
+      <h2>Was die App heute kann</h2>
+      <p class="leise">Kein Prospekt, sondern das, was in der Demo zu sehen ist. Was noch nicht fertig ist, steht als „kommt“ da.</p>
+      <div class="raster">
+        <div class="kachel">
+          <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>Angebot und Auftrag</h3>
+          <p>Angebot schreiben, bei Zusage per Klick zum Auftrag. Zusatzleistungen und Festpreis inklusive.</p>
+        </div>
+        <div class="kachel">
+          <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>Baustelle am Handy</h3>
+          <p>Stunden und Material per Daumen oder Sprache. Die Liste wächst sichtbar mit, nichts verschwindet im Nirgendwo.</p>
+        </div>
+        <div class="kachel">
+          <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Belege abfotografieren</h3>
+          <p>Lieferschein und Großhändler-Beleg landen direkt am Auftrag, nicht im Handschuhfach.</p>
+        </div>
+        <div class="kachel">
+          <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17c3-4 5 2 8-2s4-6 6-2 2 3 4 2"/><path d="M3 21h18"/></svg>Unterschrift vor Ort</h3>
+          <p>Der Kunde unterschreibt den Arbeitsnachweis auf dem Display. Die Stunden sind damit geklärt.</p>
+        </div>
+        <div class="kachel">
+          <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg>Rechnung per Klick</h3>
+          <p>Mit § 35a-Ausweis für Privatkunden und § 13b für Bauleistungen. Versand per Mail.</p>
+        </div>
+        <div class="kachel">
+          <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg>E-Rechnung</h3>
+          <p>XRechnung und ZUGFeRD für Geschäftskunden. Die externe Prüfung mit den amtlichen Prüfwerkzeugen steht noch aus.</p>
+        </div>
+        <div class="kachel">
+          <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h10l4 4v14H5z"/><path d="M9 13l2 2 4-4"/></svg>Eingangsrechnungen</h3>
+          <p>Erfassen, dem Auftrag zuordnen, mit Kontovorschlag. Bezahlen per QR-Code.</p>
+        </div>
+        <div class="kachel">
+          <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h13"/><path d="M12 7l5 5-5 5"/><path d="M20 4v16"/></svg>Übergabe an DATEV</h3>
+          <p>Belege mit Buchungsvorschlag: Sachkonto, Steuer, Kreditor, Kostenstelle, Skonto, Fälligkeit.</p>
+        </div>
+        <div class="kachel">
+          <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Auswertung je Baustelle <span class="kommt">kommt</span></h3>
+          <p>Kosten gegen Erlös je Auftrag, damit Sie nicht erst beim Jahresabschluss merken, was sich gelohnt hat.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Steuerberater -->
+  <section id="steuerberater" class="kanzlei">
+    <div class="wrap zweispaltig">
+      <div>
+        <h2>Für Steuerberater: prüfen statt erfassen</h2>
+        <p class="leise">Ihre Mandanten im Handwerk schicken Belege mit fertigem Buchungsvorschlag in DATEV Unternehmen online. Aufgeteilt nach Steuersatz und Konto, mit Kostenstelle je Baustelle. Gebucht wird nie automatisch, die Kanzlei bucht weiter selbst.</p>
+        <ul>
+          <li>Im echten DATEV-Bestand getestet, im November 2026</li>
+          <li>Braucht beim Betrieb den Belegtransfer am Büro-PC und Ihre Freischaltung</li>
+          <li>Die E-Rechnungspflicht ab 2027 und 2028 ist beim Mandanten abgedeckt</li>
+        </ul>
+        <p class="frage">Was brauchen Sie, damit Sie bei Ihren Handwerksmandanten nur noch prüfen?</p>
+        <p><strong>Wir suchen einen Partner-Steuerberater</strong>, der einen Mandanten im Pilot begleitet, die Buchungsvorschläge prüft und mitbestimmt, was zuerst kommt. Kostenloser Kanzleizugang, keine Provision.</p>
+        <div class="knoepfe">
+          <a class="knopf gold" href="#mitmachen" data-wunsch="partner" data-rolle="steuerberater">Partner-Steuerberater werden</a>
+          <a class="knopf demo-link" href="https://demo.handwerk.p2cx.de/vorstellung">Demo ansehen</a>
+        </div>
+      </div>
+      <img class="bild" src="/handwerk/img/steuerberater.svg" width="800" height="560" loading="lazy"
+           alt="Gezeichnet: Ein Steuerberater am Bildschirm, ein Stapel Belege wird zu einer sauberen Liste.">
+    </div>
+  </section>
+
+  <!-- Ehrlich gesagt -->
+  <section id="ehrlich">
+    <div class="wrap">
+      <h2>Ehrlich gesagt</h2>
+      <p class="leise">Lieber sagen wir es vorher, als dass Sie es im Pilot merken.</p>
+      <div class="ehrlich">
+        <div><strong>Der Kern läuft, die Handwerk-Fassung ist neu.</strong><p>Auftrag, Stunden und Rechnung laufen seit Monaten im Alltag einer LKW-Werkstatt in Hamburg. Für Handwerksbetriebe haben wir das angepasst. Wie gut es bei Ihnen passt, wissen wir erst, wenn Sie es ausprobieren.</p></div>
+        <div><strong>Noch keine Erfahrungsberichte.</strong><p>Wir haben keine Zitate von zufriedenen Betrieben, weil es die noch nicht gibt. Deshalb suchen wir drei Pilotbetriebe, deren Urteil zählt, auch wenn es „brauchen wir nicht“ heißt.</p></div>
+        <div><strong>E-Rechnung: gebaut, aber noch nicht extern geprüft.</strong><p>DATEV hat unsere Daten erkannt und ausgelesen. Die Prüfung mit den amtlichen Werkzeugen steht noch aus.</p></div>
+        <div><strong>DATEV ohne Partnerstatus.</strong><p>Die Übergabe läuft über den Belegtransfer am Büro-PC. Der Weg ganz ohne Zutun braucht den DATEV-Partnerstatus, den haben wir noch nicht.</p></div>
+        <div><strong>Einiges kommt erst.</strong><p>Auswertung je Baustelle und Rechnungseingang per Mail sind in Arbeit. Was Sie im Formular unten schreiben, entscheidet mit, was zuerst kommt.</p></div>
+        <div><strong>Wir verkaufen gerade nichts.</strong><p>Der Pilot ist kostenlos, wir richten ein, Ihre Daten können Sie jederzeit mitnehmen. Ein Preis steht erst fest, wenn wir wissen, ob es hilft.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mitmachen -->
+  <section id="mitmachen">
+    <div class="wrap">
+      <h2>Was fehlt?</h2>
+      <p class="leise">Zwei Minuten. Wer nur seine Meinung sagen will, braucht keinen Namen anzugeben.</p>
+
+      <form id="rueckmeldung" novalidate>
+        <input type="text" name="website" id="hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <fieldset>
+          <legend>Ich bin …</legend>
+          <div class="wahl">
+            <label><input type="radio" name="rolle" value="inhaber" required> Inhaber</label>
+            <label><input type="radio" name="rolle" value="buero"> im Büro</label>
+            <label><input type="radio" name="rolle" value="monteur"> Monteur</label>
+            <label><input type="radio" name="rolle" value="steuerberater"> Steuerberater</label>
+            <label><input type="radio" name="rolle" value="multiplikator"> Club oder Kammer</label>
+            <label><input type="radio" name="rolle" value="anderes"> etwas anderes</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Ich möchte …</legend>
+          <div class="wahl">
+            <label><input type="radio" name="wunsch" value="rueckmeldung" required checked> nur Rückmeldung geben</label>
+            <label><input type="radio" name="wunsch" value="pilot"> Pilotbetrieb werden</label>
+            <label><input type="radio" name="wunsch" value="partner"> Partner-Steuerberater werden</label>
+          </div>
+        </fieldset>
+
+        <div class="feld" style="margin-bottom:1.25rem;">
+          <label for="was-fehlt">Was würde Ihnen am meisten helfen? Was fehlt?</label>
+          <textarea id="was-fehlt" name="message" placeholder="Zum Beispiel: Ich schreibe Stunden immer noch auf den Lieferschein, weil …"></textarea>
+        </div>
+
+        <div id="kontaktfelder" hidden>
+          <div class="felder">
+            <div class="feld"><label for="name">Name</label><input id="name" name="name" autocomplete="name"></div>
+            <div class="feld"><label for="betrieb">Betrieb oder Kanzlei</label><input id="betrieb" name="company" autocomplete="organization"></div>
+            <div class="feld"><label for="mail">E-Mail</label><input id="mail" name="email" type="email" autocomplete="email"></div>
+          </div>
+          <p class="hinweis">Wir nutzen Ihre Angaben nur, um uns auf Ihre Anfrage zu melden. Mehr in der <a href="/de/datenschutz.html">Datenschutzerklärung</a>.</p>
+        </div>
+
+        <div class="knoepfe">
+          <button class="knopf gold" type="submit" id="senden">Absenden</button>
+        </div>
+        <div id="meldung" class="meldung" role="status" aria-live="polite" hidden></div>
+      </form>
+
+      <p class="klein leise" style="margin-top:1rem;">Lieber reden? Schreiben Sie an <a href="mailto:hello@p2cx.de?subject=Erledigt.%20Handwerk">hello@p2cx.de</a>. Wir zählen Besuche dieser Seite ohne Cookies und ohne Tracking-Werkzeuge.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="powered" href="/de/" title="p2cx GmbH">
+      <span>powered by</span><img src="/logo/p2cx-icon.svg" alt="" width="18" height="18"><strong>p2cx</strong>
+    </a>
+    <div>
+      <a href="/de/impressum.html">Impressum</a> · <a href="/de/datenschutz.html">Datenschutz</a> · <a href="/de/agb/">AGB</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // UTM aus der eigenen URL, kein Cookie, kein Speichern im Browser (Messkonzept #1401, Abschnitt 5).
+  var q = new URLSearchParams(location.search);
+  var utm = {
+    utm_source: q.get('utm_source') || 'direkt',
+    utm_medium: q.get('utm_medium') || '',
+    utm_campaign: q.get('utm_campaign') || 'handwerk-resonanz',
+    utm_content: q.get('utm_content') || ''
+  };
+
+  // Demo-Links reichen campaign, content und medium weiter (Messkonzept Abschnitt 4).
+  document.querySelectorAll('a.demo-link').forEach(function(a){
+    var u = new URL(a.href);
+    ['utm_campaign','utm_content','utm_medium'].forEach(function(k){ if(utm[k]) u.searchParams.set(k, utm[k]); });
+    a.href = u.toString();
+  });
+
+  // Sichten als Reiter (Pfeiltasten wie bei WAI-ARIA Tabs).
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  function zeige(tab){
+    tabs.forEach(function(t){
+      var an = t === tab;
+      t.setAttribute('aria-selected', an ? 'true' : 'false');
+      t.tabIndex = an ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !an;
+    });
+  }
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ zeige(t); });
+    t.addEventListener('keydown', function(e){
+      var n = null;
+      if(e.key === 'ArrowRight') n = tabs[(i+1) % tabs.length];
+      if(e.key === 'ArrowLeft') n = tabs[(i-1+tabs.length) % tabs.length];
+      if(n){ e.preventDefault(); zeige(n); n.focus(); }
+    });
+  });
+  // Einstieg über die Zielgruppe des Posts: utm_content öffnet die passende Sicht.
+  var start = { monteur:'t-monteur', inhaber:'t-inhaber', buero:'t-buero', steuerberater:'t-steuerberater' }[utm.utm_content];
+  if(start) zeige(document.getElementById(start));
+
+  // Formular
+  var form = document.getElementById('rueckmeldung');
+  var kontakt = document.getElementById('kontaktfelder');
+  var meldung = document.getElementById('meldung');
+  function wert(name){ var el = form.querySelector('input[name="'+name+'"]:checked'); return el ? el.value : ''; }
+  function kontaktNoetig(){ return wert('wunsch') !== 'rueckmeldung'; }
+  function aktualisiere(){
+    var noetig = kontaktNoetig();
+    kontakt.hidden = !noetig;
+    ['name','betrieb','mail'].forEach(function(id){ document.getElementById(id).required = noetig; });
+  }
+  form.addEventListener('change', aktualisiere);
+
+  // Knöpfe „Pilotbetrieb werden“ / „Partner-Steuerberater werden“ wählen vor.
+  document.querySelectorAll('a[data-wunsch]').forEach(function(a){
+    a.addEventListener('click', function(){
+      var w = form.querySelector('input[name="wunsch"][value="'+a.dataset.wunsch+'"]');
+      if(w) w.checked = true;
+      if(a.dataset.rolle){ var r = form.querySelector('input[name="rolle"][value="'+a.dataset.rolle+'"]'); if(r) r.checked = true; }
+      aktualisiere();
+    });
+  });
+
+  function zeigeMeldung(text, ok){
+    meldung.textContent = text;
+    meldung.className = 'meldung ' + (ok ? 'ok' : 'fehler');
+    meldung.hidden = false;
+  }
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    if(document.getElementById('hp').value) return;
+    if(!wert('rolle')){ zeigeMeldung('Bitte wählen Sie aus, wer Sie sind.', false); return; }
+    if(!form.checkValidity()){ form.reportValidity(); return; }
+    var btn = document.getElementById('senden');
+    btn.disabled = true;
+    var mitKontakt = kontaktNoetig();
+    var payload = {
+      name: mitKontakt ? document.getElementById('name').value.trim() : '',
+      email: mitKontakt ? document.getElementById('mail').value.trim() : '',
+      company: mitKontakt ? document.getElementById('betrieb').value.trim() : '',
+      rolle: wert('rolle'),
+      wunsch: wert('wunsch'),
+      message: document.getElementById('was-fehlt').value.trim(),
+      segment: 'handwerk',
+      utm_source: utm.utm_source, utm_medium: utm.utm_medium,
+      utm_campaign: utm.utm_campaign, utm_content: utm.utm_content,
+      page: location.pathname, lang: 'de', ts: new Date().toISOString()
+    };
+    // Gleicher Eingang wie die übrigen Kampagnenseiten (familienunternehmen, private-equity).
+    var FUNCTION_URL = 'https://prod-02.germanywestcentral.logic.azure.com:443/workflows/25ca0e47a6164ad79b3364698f13740e/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=DJlZD_qMRReJpH4_FbYw2ZoLTtE2HRNAlCuxCSuYKkg';
+    try{
+      var res = await fetch(FUNCTION_URL, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(payload) });
+      if(res.ok){
+        zeigeMeldung(mitKontakt ? 'Danke. Wir melden uns innerhalb von zwei Arbeitstagen.' : 'Danke. Genau das wollten wir wissen.', true);
+        form.reset(); aktualisiere();
+      } else {
+        zeigeMeldung('Das hat leider nicht geklappt. Schreiben Sie uns gern direkt an hello@p2cx.de.', false);
+      }
+    } catch(err){
+      zeigeMeldung('Keine Verbindung. Schreiben Sie uns gern direkt an hello@p2cx.de.', false);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+})();
+</script>
+</body>
+</html>
