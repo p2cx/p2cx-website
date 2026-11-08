@@ -1,3 +1,6 @@
 node_modules/
 .env*
 site/
+
+# Rohbilder aus dem Bild-Chat (nur die fertigen WebP unter p2cx/img/motive/ kommen ins Repo)
+bildbriefing/eingang/
