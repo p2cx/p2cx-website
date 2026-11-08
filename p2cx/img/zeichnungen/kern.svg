@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-labelledby="t d">
+  <title id="t">Der gehärtete Kern, für jeden Betrieb angepasst</title>
+  <desc id="d">In der Mitte ein dunkles Fünfeck mit Schloss, der sichere Kern. Daran angedockt fünf goldene Bausteine in unterschiedlicher Größe, die Anpassungen für den jeweiligen Betrieb.</desc>
+  <g fill="none" stroke="#24221f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Ringe wie im Logo -->
+    <circle cx="200" cy="200" r="168" stroke="#c9a44c" stroke-opacity=".35" stroke-width="2.5" stroke-dasharray="3 10"/>
+    <circle cx="200" cy="200" r="120" stroke="#c9a44c" stroke-opacity=".3" stroke-width="2.5"/>
+    <!-- Verbindungen zu den Bausteinen -->
+    <g stroke-width="2.4">
+      <path d="M200 132 L200 78"/>
+      <path d="M265 179 L318 160"/>
+      <path d="M240 255 L276 300"/>
+      <path d="M160 255 L120 308"/>
+      <path d="M135 179 L84 162"/>
+    </g>
+    <!-- Bausteine, je Betrieb anders -->
+    <g fill="#c9a44c" fill-opacity=".55">
+      <rect x="168" y="30" width="64" height="48" rx="10"/>
+      <path d="M312 132 Q340 118 364 136 Q378 160 360 182 Q334 194 316 176 Q300 154 312 132 Z"/>
+      <rect x="262" y="296" width="54" height="54" rx="27"/>
+      <path d="M86 300 L148 304 L140 352 L80 346 Z"/>
+      <path d="M30 140 Q56 128 86 146 L82 186 Q52 196 34 178 Z"/>
+    </g>
+    <!-- Kern -->
+    <path d="M200 120 L278 178 L248 268 L152 268 L122 178 Z" fill="#24221f"/>
+    <path d="M200 132 L266 181 L240 258 L160 258 L134 181 Z" stroke="#c9a44c" stroke-width="2" stroke-opacity=".7"/>
+    <!-- Schloss -->
+    <path d="M184 196 L184 184 Q184 168 200 168 Q216 168 216 184 L216 196" stroke="#f7f3ea" stroke-width="5"/>
+    <rect x="174" y="196" width="52" height="40" rx="7" fill="#f7f3ea" stroke="#f7f3ea"/>
+    <circle cx="200" cy="212" r="5" fill="#24221f" stroke="none"/>
+    <path d="M200 216 L200 226" stroke="#24221f" stroke-width="4"/>
+  </g>
+</svg>
