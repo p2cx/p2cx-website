@@ -69,3 +69,6 @@ a:hover{ color:var(--ink); }
 /* Kopf auf dem Handy: Knopf einzeilig und schmal, sonst schiebt er sich über das Logo */
 .p2cx-bar .btn-sm{ white-space:nowrap; padding-inline:.85em; }
 @media (max-width:575.98px){ .p2cx-bar .btn-sm{ font-size:.78rem; padding:.3em .7em; } .p2cx-bar nav{ gap:.6rem!important; } }
+
+/* Zitat in der Firmenseite: die Person spricht, abgesetzt von der Firmenstimme */
+.zitat{ margin:0; padding:.2rem 0 .2rem 1rem; border-left:3px solid var(--gold); color:var(--ink); font-style:italic; }
