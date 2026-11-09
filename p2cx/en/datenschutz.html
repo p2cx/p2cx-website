@@ -9,7 +9,8 @@
     <meta name="theme-color" content="#c9a44c" />
     <link rel="icon" type="image/svg+xml" href="../logo/p2cx-icon.svg" />
     <link rel="alternate icon" type="image/png" href="p2cx-icon.png" />
-  </head>
+  <link href="/css/p2cx-papier.css" rel="stylesheet">
+</head>
   <body>
 
     <!-- Header -->
@@ -56,36 +57,46 @@
         <div class="p2cx-card">
           <div class="p2cx-body p-4 p-md-5">
             <h1 class="h3 fw-semibold mb-2">Privacy</h1>
-            <p class="text-muted mb-4">We process personal data only if you request contact.</p>
+            <p class="text-muted mb-4">We only process personal data when you write to us, and we count visits only as daily totals. No cookies, no third-party analytics.</p>
+            <!-- As of 09.11.2026, Board #1398. Pending approval by Hauke. The visitor-count section assumes that
+                 /usr/local/bin/p2cx-log-archive.sh removes IP addresses before archiving. -->
 
             <h2 class="h6 fw-semibold mb-1">Controller</h2>
             <p class="mb-3">
-              see <a href="../en/impressum.html">Imprint</a> · Email: <a href="mailto:datenschutz@p2cx.de">datenschutz@p2cx.de</a>
+              p2cx GmbH, see <a href="impressum.html">Imprint</a> · Privacy questions: <a href="mailto:datenschutz@p2cx.de">datenschutz@p2cx.de</a>
             </p>
 
-            <h2 class="h6 fw-semibold mb-1">What data?</h2>
-            <p class="mb-3">Name, email address (from the contact form).</p>
+            <h2 class="h6 fw-semibold mb-1">Contact and feedback forms</h2>
+            <p class="mb-2">On our pages, for example the home page or handwerk.p2cx.de, you can write to us via a form, sign up for a trial or give feedback.</p>
+            <ul class="mb-3">
+              <li><strong>What data:</strong> name, email address or phone number, and optionally company, role, number of employees or trade, plus your message. If you arrive via a campaign link, we also store the campaign tag from the address (e.g. <code>utm_campaign</code>). That shows us which ad or post worked.</li>
+              <li><strong>How:</strong> The forms go to our server in Germany (IONOS) and are forwarded from there to us as an email. The server does not store the data. The emails are stored in our mailbox at STRATO GmbH in Berlin.</li>
+              <li><strong>Purpose and legal basis:</strong> answering your request and, if you wish, preparing a trial or a collaboration (Art. 6(1)(b) GDPR). Otherwise our legitimate interest in answering requests (Art. 6(1)(f) GDPR).</li>
+              <li><strong>Retention:</strong> We delete the message once the conversation has ended without a collaboration, at the latest after 12 months. If a contract follows, its terms and the statutory retention periods apply.</li>
+            </ul>
 
-            <h2 class="h6 fw-semibold mb-1">Purpose & legal bases</h2>
-            <p class="mb-3">
-              Responding to your inquiry and subsequent contact. Legal bases: contract/contract initiation (Art. 6(1)(b) GDPR) or
-              consent (Art. 6(1)(a) GDPR). You may withdraw consent at any time with effect for the future.
-            </p>
+            <h2 class="h6 fw-semibold mb-1">Visitor counting without cookies</h2>
+            <p class="mb-2">Like every web server, ours writes a log of requests: page requested, time, browser, referring page and IP address. Once a day we count <strong>totals</strong> from it: how often each page was viewed, which pages visitors came from and which campaign links they used.</p>
+            <ul class="mb-3">
+              <li><strong>Legal basis:</strong> our legitimate interest in secure operation and in knowing which content is read (Art. 6(1)(f) GDPR).</li>
+              <li><strong>Retention:</strong> The server deletes the raw logs with IP addresses after 14 days. For counting, we keep the requests after that <strong>without IP addresses</strong>, on our own servers in Germany. The daily totals contain no personal data.</li>
+            </ul>
 
-            <h2 class="h6 fw-semibold mb-1">Retention period</h2>
-            <p class="mb-3">Deletion after the communication has concluded, at the latest after 12 months, unless statutory retention obligations prevent this.</p>
+            <h2 class="h6 fw-semibold mb-1">Advertising on Google</h2>
+            <p class="mb-3">We run ads in Google Search. If you click an ad, you reach us with a Google identifier (<code>gclid</code>) and our campaign details in the address. <strong>We do not use a cookie or a Google tag for this, and we do not report any data about your visit back to Google.</strong> What Google itself records when you click is governed by Google's own privacy policy.</p>
 
-            <h2 class="h6 fw-semibold mb-1">Recipients / third countries</h2>
-            <p class="mb-3">No disclosure to third parties. No transfer to third countries.</p>
+            <h2 class="h6 fw-semibold mb-1">Cookies and embedded content</h2>
+            <p class="mb-3">No cookies, no third-party analytics, no embedded third-party content. Fonts and scripts are hosted on our own server, so your browser does not request anything from other providers during your visit.</p>
 
-            <h2 class="h6 fw-semibold mb-1">Cookies / Tracking</h2>
-            <p class="mb-3">No cookies, no tracking, no embedded third-party content.</p>
+            <h2 class="h6 fw-semibold mb-1">Recipients and third countries</h2>
+            <p class="mb-3">Hosting: IONOS SE, Germany. Email: STRATO GmbH, Berlin. Both process data as our processors in Germany. Beyond that, we do not share data with third parties. No data is transferred to third countries.</p>
 
             <h2 class="h6 fw-semibold mb-1">Your rights</h2>
-            <p class="mb-0">
-              Access, rectification, erasure, restriction, data portability, and objection (Art. 15–21 GDPR).
-              You also have the right to lodge a complaint with a supervisory authority (Art. 77 GDPR).
+            <p class="mb-2">
+              Access, rectification, erasure, restriction, data portability and objection (Art. 15–21 GDPR).
+              You also have the right to lodge a complaint with a supervisory authority (Art. 77 GDPR), e.g. the Independent Centre for Privacy Protection Schleswig-Holstein (ULD).
             </p>
+            <p class="small text-muted mb-0">As of November 2026</p>
           </div>
         </div>
       </section>
@@ -94,10 +105,10 @@
     <!-- Footer -->
     <div class="container mt-3 pb-2">
       <div class="p2cx-card p2cx-card-quiet"><div class="p2cx-body py-2 text-center small text-muted">
-        © 2025 p2cx · <a href="../en/index.html">Back to home</a> · <a href="../en/impressum.html">Imprint</a>
+        © 2026 p2cx · <a href="../en/index.html">Back to home</a> · <a href="../en/impressum.html">Imprint</a>
       </div></div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

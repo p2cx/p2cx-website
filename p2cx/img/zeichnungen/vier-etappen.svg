@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 220" role="img" aria-labelledby="t d">
+  <title id="t">Der Weg in vier Etappen</title>
+  <desc id="d">Ein gezeichneter Weg mit vier Stationen: ein Funke, ein Haus mit offener Tür, ein wachsender Turm aus Bausteinen und ein verwurzelter Baum.</desc>
+  <g fill="none" stroke="#24221f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Weg -->
+    <path d="M30 170 C 120 120, 180 190, 260 160 S 420 120, 500 160 S 660 190, 740 150 S 900 130, 975 160" stroke="#c9a44c" stroke-width="5" stroke-dasharray="2 14"/>
+    <!-- Stationen -->
+    <g fill="#f7f3ea">
+      <circle cx="125" cy="150" r="9"/><circle cx="375" cy="146" r="9"/><circle cx="625" cy="167" r="9"/><circle cx="875" cy="140" r="9"/>
+    </g>
+    <!-- 1 Funke -->
+    <g transform="translate(125 70)">
+      <path d="M0 -30 L8 -8 L30 0 L8 8 L0 30 L-8 8 L-30 0 L-8 -8 Z" fill="#c9a44c" fill-opacity=".85"/>
+      <path d="M30 -30 L38 -38 M-30 -30 L-36 -36 M34 26 L40 32" stroke-width="2.6"/>
+    </g>
+    <!-- 2 Einzug: Haus mit offener Tür -->
+    <g transform="translate(375 72)">
+      <path d="M-40 4 L0 -34 L40 4"/>
+      <path d="M-32 -2 L-32 44 L32 44 L32 -2" fill="#fbf9f4"/>
+      <path d="M-8 44 L-8 14 L10 14 L10 44" fill="#c9a44c" fill-opacity=".55"/>
+      <path d="M10 14 L20 20 L20 48 L10 44" fill="#fff"/>
+      <path d="M-24 6 L-14 6 L-14 16 L-24 16 Z" stroke-width="2.4"/>
+    </g>
+    <!-- 3 Ausbau: Bausteine, einer kommt dazu -->
+    <g transform="translate(625 66)">
+      <rect x="-36" y="26" width="34" height="26" rx="3" fill="#fbf9f4"/>
+      <rect x="2" y="26" width="34" height="26" rx="3" fill="#fbf9f4"/>
+      <rect x="-17" y="0" width="34" height="26" rx="3" fill="#c9a44c" fill-opacity=".55"/>
+      <rect x="14" y="-40" width="30" height="22" rx="3" fill="#fff" transform="rotate(12 29 -29)"/>
+      <path d="M22 -12 L14 -2 M14 -2 L10 -12" stroke-width="2.4"/>
+    </g>
+    <!-- 4 Bleiben: Baum mit Wurzeln -->
+    <g transform="translate(875 60)">
+      <path d="M0 52 L0 6"/>
+      <path d="M0 52 Q-14 60 -24 62 M0 52 Q12 60 22 63 M0 52 L2 64" stroke-width="2.4"/>
+      <path d="M0 6 C -40 6, -44 -36, -14 -40 C -8 -60, 22 -60, 26 -38 C 50 -34, 44 6, 0 6 Z" fill="#c9a44c" fill-opacity=".55"/>
+      <path d="M0 -6 L-12 -18 M0 -14 L12 -26" stroke-width="2.4"/>
+    </g>
+  </g>
+</svg>

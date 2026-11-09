@@ -1,0 +1,81 @@
+/* p2cx-papier.css — Look & Feel wie handwerk.p2cx.de („Erledigt.“): Papier, Tinte, Gold.
+   Wird NACH p2cx.css und nach dem Seiten-<style> eingebunden und überschreibt nur das Kleid,
+   nicht die Inhalte. Schriften liegen selbst gehostet unter /fonts (siehe /fonts/LIZENZ.md).
+   Kontraste geprüft gegen WCAG 2.2 AA: Gold #c9a44c nur als Fläche/Linie, nie als Textfarbe auf
+   Papier; Text auf Gold ist Tinte, Links sind Gold-Dunkel #7a6015. */
+
+@font-face{ font-family:'Inter'; font-style:normal; font-weight:400 800; font-display:swap; src:url('/fonts/inter-latin-var.woff2') format('woff2'); }
+@font-face{ font-family:'Caveat Brush'; font-style:normal; font-weight:400; font-display:swap; src:url('/fonts/caveat-brush-latin.woff2') format('woff2'); }
+
+html:root{
+  --paper:#f7f3ea; --paper-2:#efe9dc; --karte:#fbf9f4;
+  --ink:#24221f; --ink-soft:#5d5953; --line:#d9d1c1;
+  --gold:#c9a44c; --gold-dark:#a8862f; --gold-deep:#7a6015; --gold-wash:rgba(201,164,76,.18);
+  --p2cx-bg:var(--paper); --p2cx-text:var(--ink); --p2cx-muted:var(--ink-soft); --p2cx-border:var(--line);
+  --p2cx-radius:14px; --p2cx-shadow:0 1px 0 rgba(36,34,31,.04), 0 6px 18px rgba(36,34,31,.06);
+  --p2cx-shadow-hover:0 2px 0 rgba(36,34,31,.05), 0 10px 26px rgba(36,34,31,.10);
+  --bs-body-font-family:'Inter',-apple-system,system-ui,'Segoe UI',sans-serif;
+  --bs-body-bg:var(--paper); --bs-body-color:var(--ink);
+}
+
+html, body{ background:var(--paper); color:var(--ink); }
+body{ font-family:var(--bs-body-font-family); font-size:1.0625rem; line-height:1.6; }
+h1,h2,h3,.display-5{ color:var(--ink); font-weight:800; letter-spacing:-.02em; }
+.text-muted, .smallmuted{ color:var(--ink-soft)!important; }
+a{ color:var(--gold-deep); }
+a:hover{ color:var(--ink); }
+
+/* Handschrift als Akzent — nie für Fließtext */
+.hand{ font-family:'Caveat Brush',cursive; font-weight:400; letter-spacing:.01em; line-height:1.1; }
+
+/* Kopf und Fuß: Papier mit Unschärfe statt Weiß-Verlauf */
+.p2cx-bar{ background:rgba(247,243,234,.92)!important; box-shadow:none!important; backdrop-filter:blur(10px); }
+.p2cx-bar.top{ border-bottom:1px solid var(--line)!important; }
+.p2cx-bar.bottom{ border-top:1px solid var(--line)!important; background:var(--paper-2)!important; }
+.p2cx-bar a.foot{ color:var(--ink-soft); }
+.p2cx-bar [style*="color:#1f2328"], .p2cx-bar [style*="color:#374151"]{ color:var(--ink)!important; }
+
+/* Karten: helles Papier, feine Linie, kaum Schatten */
+.p2cx-card{ background:var(--karte); border-color:var(--line); border-radius:var(--p2cx-radius); }
+.p2cx-card[style*="linear-gradient"]{ background:var(--karte)!important; }
+.gate-card{ background:var(--paper)!important; border-color:var(--line)!important; }
+
+/* Chips wie handgeschriebene Notizen */
+.chip{ font-family:'Caveat Brush',cursive; font-size:1.15rem; line-height:1.1; padding:.15rem .7rem;
+  background:var(--gold-wash)!important; color:var(--gold-deep)!important; border:1px solid transparent; }
+
+/* Knöpfe: Pillen, Tinte auf Gold (Weiß auf Gold reicht nicht für AA) */
+.btn{ border-radius:999px; font-weight:600; padding-inline:1.2em; }
+.btn-p2cx{ --bs-btn-bg:var(--gold); --bs-btn-border-color:var(--ink); --bs-btn-color:var(--ink);
+  --bs-btn-hover-bg:var(--ink); --bs-btn-hover-border-color:var(--ink); --bs-btn-hover-color:var(--paper);
+  --bs-btn-active-bg:var(--ink); --bs-btn-active-color:var(--paper); border-width:2px; }
+.btn-outline-secondary{ --bs-btn-color:var(--ink); --bs-btn-border-color:var(--ink); --bs-btn-hover-bg:var(--ink);
+  --bs-btn-hover-border-color:var(--ink); --bs-btn-hover-color:var(--paper); border-width:2px; }
+
+/* Etappen-Karten und Gold-Details */
+.etappe .ziel, .details-cue{ background:var(--karte); }
+.etappe:hover .details-cue{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+.paket-tag{ background:var(--ink); }
+.form-control,.form-select{ background:#fff; border-color:var(--line); border-radius:10px; }
+.form-control:focus,.form-select:focus{ border-color:var(--gold-dark); box-shadow:0 0 0 .2rem var(--gold-wash); }
+
+/* Gezeichnete Bilder (img/zeichnungen) */
+.zeichnung{ display:block; width:100%; height:auto; }
+.zeichnung-titel{ display:grid; grid-template-columns:repeat(4,1fr); text-align:center; color:var(--ink); font-size:1.5rem; margin:-.25rem 0 .5rem; }
+.kern-figur{ max-width:240px; margin:0 auto; }
+.kern-figur figcaption{ text-align:center; font-size:1.35rem; color:var(--ink); margin-top:.25rem; }
+@media (max-width:575.98px){ .zeichnung-titel{ font-size:1.15rem; } }
+
+/* Kopf auf dem Handy: Knopf einzeilig und schmal, sonst schiebt er sich über das Logo */
+.p2cx-bar .btn-sm{ white-space:nowrap; padding-inline:.85em; }
+@media (max-width:575.98px){ .p2cx-bar .btn-sm{ font-size:.78rem; padding:.3em .7em; } .p2cx-bar nav{ gap:.6rem!important; } }
+
+/* Zitat in der Firmenseite: die Person spricht, abgesetzt von der Firmenstimme */
+.zitat{ margin:0; padding:.2rem 0 .2rem 1rem; border-left:3px solid var(--gold); color:var(--ink); font-style:italic; }
+
+/* Kleine Knöpfe nicht so breit polstern (Kopfzeilen auf schmalen Handys, z. B. /mittelstand-luebeck/) */
+.btn-sm{ padding-inline:.85em; }
+@media (max-width:575.98px){ .btn-sm{ padding-inline:.65em; } }
+
+/* Notizen: Bilder mit fester Höchstbreite am Handy nicht über den Rand laufen lassen */
+.artikel img.bild{ max-width:min(420px, 100%)!important; height:auto; }

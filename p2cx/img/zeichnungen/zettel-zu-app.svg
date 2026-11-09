@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="t d">
+  <title id="t">Von Zetteln und Listen zu einer App</title>
+  <desc id="d">Links ein Stapel Zettel, Excel-Listen und Notizen, ein goldener Pfeil, rechts eine App mit abgehakter Liste.</desc>
+  <g fill="none" stroke="#24221f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <!-- hinterster Zettel -->
+    <path d="M48 96 L196 74 Q201 73 202 79 L232 270 Q233 276 227 277 L80 300 Q74 301 73 295 L44 103 Q43 97 48 96 Z" fill="#efe9dc" transform="rotate(-6 140 190)"/>
+    <!-- mittlerer Zettel mit Text -->
+    <path d="M70 88 L214 92 Q220 92 220 98 L216 292 Q216 298 210 298 L66 295 Q60 295 60 289 L64 94 Q64 88 70 88 Z" fill="#fbf9f4" transform="rotate(5 140 190)"/>
+    <g transform="rotate(5 140 190)" stroke-width="2.4">
+      <path d="M86 120 Q130 117 196 121"/><path d="M86 142 Q120 140 170 143"/><path d="M86 164 Q140 162 192 165"/>
+    </g>
+    <!-- vorderster Zettel: Excel-Liste -->
+    <g transform="rotate(-3 150 220)">
+      <path d="M82 150 L232 148 Q238 148 238 154 L240 334 Q240 340 234 340 L86 342 Q80 342 80 336 L77 156 Q77 150 82 150 Z" fill="#fff"/>
+      <g stroke-width="2">
+        <path d="M78 184 Q160 182 239 183"/><path d="M78 216 Q160 214 239 215"/><path d="M79 248 Q160 247 239 247"/><path d="M79 280 Q160 279 240 279"/><path d="M80 312 Q160 311 240 311"/>
+        <path d="M128 150 Q127 250 129 341"/><path d="M184 149 Q185 250 184 341"/>
+      </g>
+      <!-- durchgestrichene Zahl, Fragezeichen -->
+      <path d="M92 200 L118 198" stroke="#a8862f" stroke-width="2.4"/>
+      <path d="M200 228 Q206 220 212 226 Q214 232 206 236 L206 240 M206 247 L206 248" stroke-width="2.4"/>
+    </g>
+    <!-- Haftnotiz -->
+    <path d="M196 52 L262 60 L254 124 L188 116 Z" fill="#c9a44c" fill-opacity=".55" transform="rotate(4 225 88)"/>
+    <path d="M204 78 Q224 80 246 83 M202 96 Q218 98 236 99" stroke-width="2.2" transform="rotate(4 225 88)"/>
+    <!-- goldener Pfeil -->
+    <path d="M262 214 C 300 168, 340 168, 372 196" stroke="#c9a44c" stroke-width="6"/>
+    <path d="M350 186 L374 198 L358 220" stroke="#c9a44c" stroke-width="6"/>
+    <!-- App -->
+    <rect x="392" y="62" width="168" height="270" rx="22" fill="#fff"/>
+    <path d="M392 104 L560 104" stroke-width="2.4"/>
+    <circle cx="414" cy="83" r="6" fill="#c9a44c" stroke="none"/>
+    <path d="M430 84 L500 84" stroke-width="2.4"/>
+    <!-- Liste mit Haken -->
+    <g stroke-width="2.6">
+      <rect x="412" y="128" width="22" height="22" rx="5"/><path d="M416 139 L423 146 L438 124" stroke="#c9a44c" stroke-width="4"/>
+      <path d="M448 140 Q490 138 536 141"/>
+      <rect x="412" y="172" width="22" height="22" rx="5"/><path d="M416 183 L423 190 L438 168" stroke="#c9a44c" stroke-width="4"/>
+      <path d="M448 184 Q480 182 520 185"/>
+      <rect x="412" y="216" width="22" height="22" rx="5"/>
+      <path d="M448 228 Q488 226 530 229"/>
+    </g>
+    <rect x="412" y="270" width="128" height="34" rx="17" fill="#c9a44c" stroke="#24221f"/>
+    <path d="M440 287 L512 287" stroke="#fff" stroke-width="3"/>
+  </g>
+</svg>
