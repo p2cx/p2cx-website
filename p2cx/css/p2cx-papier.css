@@ -72,3 +72,10 @@ a:hover{ color:var(--ink); }
 
 /* Zitat in der Firmenseite: die Person spricht, abgesetzt von der Firmenstimme */
 .zitat{ margin:0; padding:.2rem 0 .2rem 1rem; border-left:3px solid var(--gold); color:var(--ink); font-style:italic; }
+
+/* Kleine Knöpfe nicht so breit polstern (Kopfzeilen auf schmalen Handys, z. B. /mittelstand-luebeck/) */
+.btn-sm{ padding-inline:.85em; }
+@media (max-width:575.98px){ .btn-sm{ padding-inline:.65em; } }
+
+/* Notizen: Bilder mit fester Höchstbreite am Handy nicht über den Rand laufen lassen */
+.artikel img.bild{ max-width:min(420px, 100%)!important; height:auto; }
