@@ -458,9 +458,9 @@ async function sendLead(e){
     utm_content: params.get('utm_content') || '',
     page: location.pathname, lang: 'de', ts: new Date().toISOString()
   };
-  const FUNCTION_URL = 'https://prod-02.germanywestcentral.logic.azure.com:443/workflows/25ca0e47a6164ad79b3364698f13740e/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=DJlZD_qMRReJpH4_FbYw2ZoLTtE2HRNAlCuxCSuYKkg';
+  const FUNCTION_URL = '/api/kontakt';
   try{
-    const res = await fetch(FUNCTION_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const res = await fetch(FUNCTION_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({website:(document.getElementById('hp')||{}).value||''},payload))});
     if(res.ok){alert('Danke! Wir melden uns innerhalb eines Arbeitstages.');form.reset();setMethod();}
     else{alert('Das hat leider nicht geklappt. Bitte direkt mailen an hello@p2cx.de');}
   }catch(err){alert('Netzwerkfehler. Bitte direkt mailen an hello@p2cx.de');}

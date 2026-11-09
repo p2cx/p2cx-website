@@ -234,9 +234,9 @@
       utm_campaign: params.get('utm_campaign') || '', utm_content: params.get('utm_content') || '',
       page: location.pathname, lang: 'de', ts: new Date().toISOString()
     };
-    var URL = 'https://prod-02.germanywestcentral.logic.azure.com:443/workflows/25ca0e47a6164ad79b3364698f13740e/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=DJlZD_qMRReJpH4_FbYw2ZoLTtE2HRNAlCuxCSuYKkg';
+    var URL = '/api/kontakt';
     try {
-      var res = await fetch(URL, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(payload) });
+      var res = await fetch(URL, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(Object.assign({website:(document.getElementById('hp')||{}).value||''},payload)) });
       if (res.ok) { status.textContent = 'Danke! Ich melde mich innerhalb eines Arbeitstages.'; form.reset(); }
       else { status.textContent = 'Das hat leider nicht geklappt. Bitte direkt an hello@p2cx.de schreiben.'; }
     } catch(err) { status.textContent = 'Netzwerkfehler. Bitte direkt an hello@p2cx.de schreiben.'; }
