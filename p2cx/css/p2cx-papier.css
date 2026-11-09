@@ -87,3 +87,7 @@ a:hover{ color:var(--ink); }
 .flag{ border-radius:2px; box-shadow:0 0 0 1px rgba(31,35,40,.12); }
 /* Breite Tabellen im Inhalt (z. B. AVV) scrollen am Handy in sich, statt die Seite zu verbreitern */
 @media (max-width:575.98px){ .container table{ display:block; max-width:100%; overflow-x:auto; } }
+
+/* Fuß sitzt auch auf kurzen Seiten (Impressum) unten am Bildrand */
+body{ min-height:100vh; display:flex; flex-direction:column; }
+body > footer.p2cx-bar.bottom{ margin-top:auto!important; }
