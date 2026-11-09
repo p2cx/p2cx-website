@@ -41,6 +41,28 @@
   .gate-card{ border-style:dashed; border-color:#d9d2c2; background:#fbfaf6; }
   .gate-q{ font-weight:700; }
   .flag{ border-radius:2px; box-shadow:0 0 0 1px rgba(31,35,40,.12); }
+  /* Golden Circle (Board #1452): Warum → Wie → Was, Grundlage TeamMarketing/linkedin/warum-p2cx.html */
+  .kreis{ max-width:340px; margin:0 auto; }
+  .kreis svg{ width:100%; height:auto; display:block; }
+  .ring{ background:var(--karte,#fbf9f4); border:1px solid var(--line,#d9d1c1); border-radius:14px; padding:1rem 1.15rem; margin-bottom:.8rem; }
+  .ring.warum{ border:2px solid var(--gold,#c9a44c); }
+  .ring .satz{ font-weight:700; margin:0; }
+  .ring .klein{ color:var(--ink-soft,#5d5953); font-size:.95rem; margin:.4rem 0 0; }
+  .ring a{ font-weight:600; }
+  .pfeil-karte{ background:var(--paper,#f7f3ea); border:1px solid var(--line,#d9d1c1); border-radius:14px; padding:1rem 1.15rem; height:100%; }
+  .pfeil-karte.gut{ border:2px solid var(--gold,#c9a44c); background:var(--karte,#fbf9f4); }
+  .pfeil-karte svg{ width:100%; max-width:260px; height:auto; display:block; margin-bottom:.4rem; }
+  .pfeil-karte ul{ list-style:none; padding:0; margin:0; color:var(--ink-soft,#5d5953); font-size:.95rem; }
+  .pfeil-karte li{ padding:2px 0 2px 1.1rem; position:relative; }
+  .pfeil-karte li::before{ content:'–'; position:absolute; left:0; color:var(--gold-deep,#7a6015); }
+  /* Referenzen mit Gesicht: Gerüst, Namen/Logo/Satz erst mit schriftlicher Freigabe */
+  .referenz dl{ margin:0; }
+  .referenz dt{ font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--gold-deep,#7a6015); margin-top:.7rem; }
+  .referenz dd{ margin:0; color:var(--ink-soft,#5d5953); }
+  .referenz .gesicht{ display:flex; align-items:center; gap:.7rem; padding-bottom:.6rem; border-bottom:1px dashed var(--line,#d9d1c1); }
+  .referenz .logo-platz{ width:48px; height:48px; flex-shrink:0; border-radius:50%; border:2px dashed var(--line,#d9d1c1); display:flex; align-items:center; justify-content:center; color:var(--ink-soft,#5d5953); font-size:.7rem; }
+  .referenz .branche{ font-weight:700; margin:0; line-height:1.25; }
+  .referenz .stimme{ margin-top:.9rem; padding:.6rem .8rem; border:1px dashed var(--line,#d9d1c1); border-radius:10px; font-size:.88rem; color:var(--ink-soft,#5d5953); }
 </style>
 <link href="/css/p2cx-papier.css" rel="stylesheet">
 </head>
@@ -56,8 +78,9 @@
         <span class="ms-2 small d-none d-md-inline" style="color:#374151;">Digitale Prozesse. Starkes Unternehmen.</span>
       </div>
       <nav class="d-flex gap-3 align-items-center">
+        <a class="small d-none d-sm-inline" href="#warum" style="color:#6b7280;">Warum</a>
         <a class="small d-none d-sm-inline" href="#etappen" style="color:#6b7280;">Der Weg</a>
-        <a class="small d-none d-sm-inline" href="#einstieg" style="color:#6b7280;">Einstieg</a>
+        <a class="small d-none d-md-inline" href="#referenzen" style="color:#6b7280;">Beispiele</a>
         <a class="small d-none d-sm-inline" href="/de/notizen/" style="color:#6b7280;">Notizen</a>
         <a href="#kontakt" class="btn btn-primary btn-p2cx btn-sm">Kennenlernen anfragen</a>
         <a class="small d-inline-flex align-items-center" href="/de/index.html" aria-label="Deutsch" aria-current="page" title="Deutsch">
@@ -76,19 +99,19 @@
 
 <main>
 
-  <!-- Hero: vom Ziel her -->
+  <!-- Hero: vom Warum her (Tor 2, TeamMarketing/zwei-tore.md) -->
   <section class="py-3 pt-4">
     <div class="container">
       <div class="p2cx-card p-4 p-md-5">
         <div class="row g-4 align-items-center">
           <div class="col-lg-7">
-            <div class="chip">Digitalisierung in vier Etappen</div>
-            <h1 class="mb-2 mt-3 display-5">Am Ende könnt Ihr es selbst.</h1>
+            <div class="chip">p2cx aus Lübeck</div>
+            <h1 class="mb-2 mt-3 display-5">Eine Firma kommt nur an, wenn ihre Menschen mitkommen.</h1>
             <h2 class="h6 fw-normal text-muted mb-2">Prozesse digitalisieren im Mittelstand — in vier Etappen, ohne eigene IT-Abteilung, ohne Vorab-Invest.</h2>
-            <p class="text-muted mb-3 lead">Das ist unser Ziel — ehrlich. Wir digitalisieren Eure Prozesse und bauen dabei das <strong>Können in Eurem Haus</strong> auf. In vier Etappen, mit klaren Gates dazwischen: <strong>Weitergehen nur, wenn es sich für Euch und uns rechnet.</strong></p>
+            <p class="text-muted mb-3 lead">Darum gibt es uns. Wir wollen, dass die Firmen hier im Norden mit der Technik Schritt halten — und dass ihre Leute dabei mitwachsen, statt unter die Räder zu kommen. Deshalb baut bei uns <strong>mit, wer die Aufgabe bisher hatte</strong>. Am Ende könnt Ihr es selbst.</p>
             <div class="d-flex gap-2 flex-wrap">
               <a href="#kontakt" class="btn btn-primary btn-p2cx">Kennenlernen anfragen</a>
-              <a href="#etappen" class="btn btn-outline-secondary">Der Weg in 4 Etappen</a>
+              <a href="#warum" class="btn btn-outline-secondary">Warum es p2cx gibt</a>
             </div>
           </div>
           <div class="col-lg-5">
@@ -107,16 +130,89 @@
   </section>
 
 
-  <!-- Problem & Einwand -->
-  <section class="py-3">
+  <!-- Golden Circle: Warum → Wie → Was (Board #1452, Grundlage TeamMarketing/linkedin/warum-p2cx.html) -->
+  <section id="warum" class="py-3">
     <div class="container">
       <div class="p2cx-card"><div class="p2cx-body">
-        <h2 class="mb-2">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M7 9h7"/><path d="M7 12h10"/><path d="M7 15h5"/></svg></span>
-          Kommt Euch das bekannt vor?
-        </h2>
-        <p class="text-muted mb-2">Bestellungen werden abgetippt, dieselbe Liste wird an drei Stellen gepflegt, und was wo steht, weiß nur Frau Petersen. Vielleicht gab es schon mal einen Anlauf — und das Ergebnis war ein Konzept-Ordner im Regal und die Frage: <strong>„Warum ging das beim letzten Dienstleister nicht?"</strong></p>
-        <p class="text-muted mb-0">Ihr seid damit nicht allein, und es liegt nicht an Euch: Digitalisierungs-Großprojekte scheitern im Mittelstand, <em>weil</em> sie groß sind. Deshalb fangen wir anders an — mit einer App, in einer Woche, an einem Prozess, der Euch heute wirklich Geld kostet.</p>
+        <div class="chip mb-2">Von innen nach außen</div>
+        <h2 class="mb-2">Erst das Warum. Dann das Wie. Das Was ganz zum Schluss.</h2>
+        <p class="text-muted mb-3">Die meisten Firmen erzählen zuerst, was sie verkaufen. Wir fangen in der Mitte an — so wie Simon Sinek es mit seinem „Golden Circle“ beschreibt.</p>
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-5">
+            <div class="kreis">
+              <svg viewBox="0 0 400 400" role="img" aria-label="Drei Kreise: innen Warum, darum Wie, außen Was">
+                <circle cx="200" cy="200" r="190" fill="#fbf9f4" stroke="#d9d1c1" stroke-width="2"/>
+                <circle cx="200" cy="200" r="128" fill="#efe9dc" stroke="#d9d1c1" stroke-width="2"/>
+                <circle cx="200" cy="200" r="66" fill="#c9a44c"/>
+                <text x="200" y="212" text-anchor="middle" font-family="Caveat Brush, cursive" font-size="38" fill="#24221f">Warum</text>
+                <text x="200" y="104" text-anchor="middle" font-family="Caveat Brush, cursive" font-size="32" fill="#7a6015">Wie</text>
+                <text x="200" y="40" text-anchor="middle" font-family="Caveat Brush, cursive" font-size="30" fill="#5d5953">Was</text>
+                <text x="200" y="300" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#7a6015">die Menschen mitnehmen</text>
+                <text x="200" y="368" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#5d5953">Plattform · vier Etappen</text>
+              </svg>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <div class="ring warum">
+              <span class="chip">Warum</span>
+              <p class="satz mt-2">Eine Firma kommt nur an, wenn ihre Menschen mitkommen.</p>
+              <p class="klein">Lübeck ist unser Zuhause. Wir sehen, wie Firmen hier leise verschwinden, weil der Anfang zu teuer wirkt — und mit ihnen die Arbeit. Das wollen wir nicht hinnehmen. Und wir wissen, wie sich Zögern anfühlt: Wir gehören selbst zur breiten Mehrheit, die Veränderung nicht liebt.</p>
+            </div>
+            <div class="ring">
+              <span class="chip">Wie</span>
+              <p class="satz mt-2">Wir machen die Kosten der Veränderung so klein, dass Anfangen leicht wird — und Eure Leute bauen mit, bis sie es allein können.</p>
+              <p class="klein">Ein gehärteter Kern · bezahlt wird nur, was spart · ein Tor nach jeder Etappe · wer die Aufgabe hatte, baut das Neue. <a href="#etappen">Die vier Etappen →</a></p>
+            </div>
+            <div class="ring mb-0">
+              <span class="chip">Was</span>
+              <p class="satz mt-2">Eine Plattform auf Eurem ERP mit schlanken Apps für die Prozesse rund um Kunden und Lieferanten.</p>
+              <p class="klein">Automatisieren, was geht. Einfach machen, was bleibt. <a href="#einstieg">So fängt es an →</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3 mt-3">
+          <div class="col-md-6">
+            <div class="pfeil-karte">
+              <svg viewBox="0 0 300 150" role="img" aria-label="Pfeile, die in alle Richtungen zeigen">
+                <g stroke="#5d5953" stroke-width="4" stroke-linecap="round" fill="none">
+                  <path d="M40,40 L90,70"/><path d="M84,60 L90,70 L79,71"/>
+                  <path d="M150,30 L120,70"/><path d="M121,58 L120,70 L130,65"/>
+                  <path d="M200,60 L250,30"/><path d="M239,30 L250,30 L245,40"/>
+                  <path d="M70,120 L30,100"/><path d="M38,98 L30,100 L35,108"/>
+                  <path d="M160,110 L210,125"/><path d="M200,117 L210,125 L199,128"/>
+                  <path d="M260,110 L240,75"/><path d="M238,87 L240,75 L249,82"/>
+                </g>
+              </svg>
+              <p class="fw-bold mb-1">Ohne die Menschen</p>
+              <ul>
+                <li>Das Tool ist eingeführt, aber keiner nutzt es.</li>
+                <li>Jeder hält an seinen vertrauten Aufgaben fest.</li>
+                <li>Am Ende Dienst nach Vorschrift: Nur 10&nbsp;% der Beschäftigten sind hoch gebunden (Gallup 2025).</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="pfeil-karte gut">
+              <svg viewBox="0 0 300 150" role="img" aria-label="Alle Pfeile zeigen in eine Richtung">
+                <g stroke="#c9a44c" stroke-width="4" stroke-linecap="round" fill="none">
+                  <path d="M30,35 L120,35"/><path d="M110,27 L120,35 L110,43"/>
+                  <path d="M60,75 L160,75"/><path d="M150,67 L160,75 L150,83"/>
+                  <path d="M30,115 L130,115"/><path d="M120,107 L130,115 L120,123"/>
+                  <path d="M150,35 L240,35"/><path d="M230,27 L240,35 L230,43"/>
+                  <path d="M180,75 L275,75"/><path d="M265,67 L275,75 L265,83"/>
+                  <path d="M160,115 L250,115"/><path d="M240,107 L250,115 L240,123"/>
+                </g>
+              </svg>
+              <p class="fw-bold mb-1">Mit den Menschen</p>
+              <ul>
+                <li>Wer die Aufgabe hatte, baut das Neue — und ist stolz darauf.</li>
+                <li>Die gesparte Zeit geht dorthin, wo es dem Kunden wichtig ist.</li>
+                <li>Die Firma wird schneller und mehr wert, und die Leute wachsen mit.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div></div>
     </div>
   </section>
@@ -269,37 +365,7 @@
     </div>
   </section>
 
-  <!-- Zwei Ziele, ein Schritt -->
-  <section class="py-3">
-    <div class="container">
-      <div class="p2cx-card"><div class="p2cx-body">
-        <h2 class="mb-3">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/></svg></span>
-          Zwei Ziele — in einem Schritt
-        </h2>
-        <p class="text-muted mb-3">Die meisten trennen das. Wir verschmelzen es: Jede App, die entsteht, macht Euer Team ein Stück selbstständiger.</p>
-        <div class="row g-3">
-          <div class="col-md-6">
-            <div class="p2cx-card h-100"><div class="p2cx-body">
-              <strong>Prozesse digitalisieren</strong><br>
-              <span class="text-muted">Schluss mit Excel-Chaos und manuellen Abläufen — günstiger, schneller, weniger Fehler, mehr Überblick.</span>
-            </div></div>
-          </div>
-          <div class="col-md-6">
-            <div class="p2cx-card h-100" style="background:linear-gradient(135deg,#fff 0%,#f5eeda 100%);border-color:var(--p2cx-gold);"><div class="p2cx-body">
-              <strong>Können im Haus aufbauen</strong><br>
-              <span class="text-muted">Euer Team lernt mit jeder App mit. Ihr werdet unabhängiger — statt ewig vom Dienstleister abhängig zu sein.</span>
-            </div></div>
-          </div>
-        </div>
-        <div class="p2cx-card mt-3 p2cx-card-quiet"><div class="p2cx-body">
-          <span class="text-muted">Ihr braucht nicht <em>erst</em> Tools und <em>dann</em> Schulung — bei uns ist beides <strong>derselbe Schritt</strong>.</span>
-        </div></div>
-      </div></div>
-    </div>
-  </section>
-
-  <!-- Der schnellste Einstieg: Etappe 1 konkret (W2R) -->
+  <!-- Der schnellste Einstieg: Etappe 1 konkret (W2R) — im Golden Circle das „Was“ -->
   <section id="einstieg" class="py-3">
     <div class="container">
       <div class="p2cx-card"><div class="p2cx-body">
@@ -334,6 +400,73 @@
             <a href="#kontakt" class="btn btn-primary btn-p2cx">Workshop anfragen</a>
           </div>
         </div></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- Referenzen mit Gesicht (Board #1452) — GERÜST: Fälle anonym nach Branche (TeamMarketing/linkedin/arbeitsbeispiele.md).
+       Kundenname, Logo und persönlicher Satz erst mit schriftlicher Freigabe des Kunden (VA-SAM-04).
+       Vor Prod: Platzhalter „Kundenstimme“ ersetzen oder entfernen. „Daraus ist ein Produkt geworden“ erst,
+       wenn die Rechte am Code geklärt sind (Messe-Lead-App). -->
+  <section id="referenzen" class="py-3">
+    <div class="container">
+      <div class="p2cx-card"><div class="p2cx-body">
+        <div class="chip mb-2">Aus der Werkstatt</div>
+        <h2 class="mb-2">Wie das bei unseren Kunden aussieht</h2>
+        <p class="text-muted mb-3">Drei Beispiele: wo es klemmte, wie wir es gemeinsam angegangen sind und welcher Ablauf heute besser läuft.</p>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <article class="p2cx-card referenz h-100"><div class="p2cx-body">
+              <div class="gesicht">
+                <div class="logo-platz" aria-hidden="true">Logo</div>
+                <p class="branche">Maschinenbau</p>
+              </div>
+              <dl>
+                <dt>Ausgangslage</dt>
+                <dd>Rund 300 Bestellungen im Monat. Jede Auftragsbestätigung des Lieferanten wurde von Hand gegen die Bestellung geprüft.</dd>
+                <dt>Wie wir es gemacht haben</dt>
+                <dd>Gemeinsam mit dem Einkauf die Prüfung aufgenommen und eine App gebaut, in der KI jede Bestätigung Position für Position abgleicht.</dd>
+                <dt>Was besser wurde</dt>
+                <dd>Der Einkauf schaut nur noch dort hin, wo etwas abweicht. Produktiv im Alltag.</dd>
+              </dl>
+              <p class="stimme mb-0">Kundenstimme folgt — mit Freigabe des Kunden.</p>
+            </div></article>
+          </div>
+          <div class="col-md-4">
+            <article class="p2cx-card referenz h-100"><div class="p2cx-body">
+              <div class="gesicht">
+                <div class="logo-platz" aria-hidden="true">Logo</div>
+                <p class="branche">Messeaussteller</p>
+              </div>
+              <dl>
+                <dt>Ausgangslage</dt>
+                <dd>Auf der Messe landeten Kontakte auf Visitenkarten und Zetteln. Bis sie im CRM standen, vergingen Tage.</dd>
+                <dt>Wie wir es gemacht haben</dt>
+                <dd>Eine App fürs Standpersonal: Visitenkarte, Badge-QR oder Diktat — mehr braucht es nicht. Verbessert wurde während der laufenden Messe.</dd>
+                <dt>Was besser wurde</dt>
+                <dd>Der Lead steht in Sekunden im CRM. Auf einer Leitmesse über 600 Kontakte, fünf Verbesserungen live ohne Ausfall.</dd>
+              </dl>
+              <p class="stimme mb-0">Kundenstimme folgt — mit Freigabe des Kunden.</p>
+            </div></article>
+          </div>
+          <div class="col-md-4">
+            <article class="p2cx-card referenz h-100"><div class="p2cx-body">
+              <div class="gesicht">
+                <div class="logo-platz" aria-hidden="true">Logo</div>
+                <p class="branche">Spezialchemie</p>
+              </div>
+              <dl>
+                <dt>Ausgangslage</dt>
+                <dd>Neue Ideen liefen über Mails und Tabellen. Wer was bewertet und wann entschieden wird, war nirgends zu sehen.</dd>
+                <dt>Wie wir es gemacht haben</dt>
+                <dd>Zusammen mit dem Team des Kunden eine geführte Strecke gebaut: von der Idee über Phasen und Gates bis zum Review.</dd>
+                <dt>Was besser wurde</dt>
+                <dd>Jede Idee hat einen Platz, eine Bewertung und eine Entscheidung. Gebaut von den Leuten, die damit arbeiten.</dd>
+              </dl>
+              <p class="stimme mb-0">Kundenstimme folgt — mit Freigabe des Kunden.</p>
+            </div></article>
+          </div>
+        </div>
       </div></div>
     </div>
   </section>
