@@ -79,3 +79,11 @@ a:hover{ color:var(--ink); }
 
 /* Notizen: Bilder mit fester Höchstbreite am Handy nicht über den Rand laufen lassen */
 .artikel img.bild{ max-width:min(420px, 100%)!important; height:auto; }
+
+/* Kopf und Fuß wie auf der Startseite, für alle Unterseiten (bisher nur im <style> der Startseite) */
+.p2cx-bar.top{ position:sticky; top:0; z-index:50; }
+.p2cx-bar.bottom{ margin-top:1.5rem; }
+.p2cx-bar a.foot:hover{ color:var(--gold-deep); }
+.flag{ border-radius:2px; box-shadow:0 0 0 1px rgba(31,35,40,.12); }
+/* Breite Tabellen im Inhalt (z. B. AVV) scrollen am Handy in sich, statt die Seite zu verbreitern */
+@media (max-width:575.98px){ .container table{ display:block; max-width:100%; overflow-x:auto; } }
