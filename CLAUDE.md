@@ -38,6 +38,15 @@ Repo: `p2cx/p2cx-website` (früher `p2cx-landing` — alter Name leitet per GitH
 - **Tonalität:** Leitmotiv „gehärteter Kern + Individualisierung" — siehe `../kernbotschaften.md`
   und die globale Corporate Language (`~/.claude/CLAUDE.md`).
 
+- **Vor jedem Prod-Merge Linkprüfung:** `python -m http.server 8765 --directory p2cx` starten, dann
+  `python tools/linkcheck.py p2cx` → 0 kaputte Links, 0 falsche Sprache in Kopf/Fuß (Hauke 11.11.2026).
+  Danach gegen Prod: `python tools/linkcheck.py <entpacktes main>/p2cx https://p2cx.de`.
+- **Look:** `css/p2cx-papier.css` (Papier/Tinte/Gold wie handwerk.p2cx.de) als letztes Stylesheet auf allen Seiten;
+  Schriften/Bootstrap selbst gehostet (`/fonts`, `/js`, `/css/fonts.css`) – keine CDNs, keine Google Fonts.
+- **Bilder** nur per Bildbriefing (`bildbriefing/bildbriefing-website.md`), Rohdateien in `bildbriefing/eingang/`
+  (gitignored), eingebaut als WebP unter `img/motive/`.
+- **Stimme:** Die Seite spricht als GmbH; kein Fingerzeig auf andere Dienstleister, Kunden nicht schlechtmachen.
+
 ## Recht
 - **AGB** (`p2cx/de/agb/`): produkt-unabhängig — §2.2 verweist nur auf den Katalog (keine Produktliste),
   §2.3 erlaubt formloses Hinzubuchen weiterer Produkte ohne neuen Vertragsschluss.
