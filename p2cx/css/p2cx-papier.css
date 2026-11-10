@@ -91,3 +91,8 @@ a:hover{ color:var(--ink); }
 /* Fuß sitzt auch auf kurzen Seiten (Impressum) unten am Bildrand */
 body{ min-height:100vh; display:flex; flex-direction:column; }
 body > footer.p2cx-bar.bottom{ margin-top:auto!important; }
+
+/* Bilder aus dem Bildbriefing (img/motive): Papierkante, keine Verzerrung */
+.motiv{ display:block; width:100%; height:auto; border-radius:12px; border:1px solid var(--line); }
+.kern-figur{ max-width:320px; }
+#kontakt .motiv{ max-width:720px; margin-inline:auto; }
