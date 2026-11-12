@@ -91,7 +91,7 @@
             </div>
           </div>
           <div class="col-lg-5">
-            <img class="motiv mb-3" src="/img/motive/motiv-1.webp" width="1200" height="900" alt="Gezeichnet: Eine Frau im Büro schiebt einen Stapel Zettel und Listen zur Seite, vor ihr ein Laptop mit abgehakter Liste. Schrift: Ein Prozess, eine App. In Tagen, nicht Monaten.">
+            <img id="motiv-start" class="motiv mb-3" src="/img/motive/motiv-1-start.webp" data-video="/img/motive/motiv-1.mp4" width="1200" height="900" alt="Gezeichnet: Eine Frau im Büro schiebt einen Stapel Zettel und Listen zur Seite, vor ihr ein Laptop mit abgehakter Liste. Schrift: Ein Prozess, eine App. In Tagen, nicht Monaten.">
             <aside class="p2cx-card p2cx-card-quiet">
               <div class="p2cx-body">
                 <div class="chip">Kein Big-Bang</div>
@@ -506,6 +506,31 @@ async function sendLead(e){
   finally{if(btn) btn.disabled = false;}
   return false;
 }
+</script>
+<script>
+// Startbild animieren: Video erst laden, wenn die ganze Seite da ist (window load).
+// Bis dahin und bei "Bewegung reduzieren" oder Datensparmodus bleibt das Standbild.
+window.addEventListener('load', function(){
+  var img = document.getElementById('motiv-start');
+  if(!img || !window.matchMedia) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(navigator.connection && navigator.connection.saveData) return;
+  var v = document.createElement('video');
+  v.className = img.className; v.width = 1200; v.height = 900;
+  v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute('playsinline','');
+  v.setAttribute('aria-label', img.alt); v.poster = img.src; v.preload = 'auto';
+  v.src = img.dataset.video;
+  v.addEventListener('canplaythrough', function tausch(){
+    v.removeEventListener('canplaythrough', tausch);
+    if(!img.parentNode) return;
+    img.parentNode.replaceChild(v, img);
+    var p = v.play(); if(p && p.catch) p.catch(function(){});
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(e){ e[0].isIntersecting ? v.play().catch(function(){}) : v.pause(); }).observe(v);
+    }
+  });
+  v.load();
+});
 </script>
 <script type="application/ld+json">
 {
