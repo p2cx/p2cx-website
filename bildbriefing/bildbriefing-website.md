@@ -119,6 +119,18 @@ Gesicht. Keine Kamerabewegung, kein Zoom, kein Ton. Der Rest des Bildes
 (Pflanze, Ordner, Zettelstapel, Tasse) bewegt sich nicht oder nur minimal.
 ```
 
+**Variante B (bevorzugt, Stand 12.11.2026):** „Vom Papierstapel zur Checkliste“ – der Stapel
+schrumpft, die Häkchen erscheinen, sie bleibt von hinten. Erzählt die Überschrift, passt zum Stilblock.
+Erster Versuch nur 358 × 264 px mit 2 Bildern/Sekunde – Inhalt ok, Export zu klein. Ablauf statt oben:
+
+```
+Sekunde 0–3: Der Zettelstapel links wird Blatt für Blatt kleiner, einzelne Blätter
+gleiten zur Seite und verschwinden. Sekunde 3–6: Auf dem Laptop erscheinen
+nacheinander drei goldene Häkchen. Sekunde 6–8: kurzes Halten, dann zurück zum
+Startbild für eine nahtlose Schleife. Die Frau bleibt von hinten, tippt ruhig weiter.
+Flüssige Bewegung, mindestens 12 Bilder pro Sekunde.
+```
+
 **Export (wichtig):**
 
 | | Wert |
