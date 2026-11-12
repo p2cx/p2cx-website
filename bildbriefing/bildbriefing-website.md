@@ -91,6 +91,70 @@ nur auf dem Ablauf-Blatt. Handschrift oben quer:
 Klein seitlich: „nicht nur im Call“
 ```
 
+## Animation zu Motiv 1 · „Winke-Moment“ (Stand 12.11.2026)
+
+Erster Versuch (`Animierte Büro-Checkliste mit Winke-Moment.gif`) ist inhaltlich genau richtig:
+Sie dreht sich um und winkt. Aber nur **270 × 233 px** – auf der Startseite wäre das unscharf.
+Deshalb neu erzeugen, diesmal aus dem **Original** als Startbild.
+
+**So benutzen:** Video-/Animationsmodell öffnen (Bild-zu-Video), `eingang/motiv-1.png`
+(1448 px) als **Startbild** hochladen, darunter diesen Text:
+
+```
+Animiere genau dieses Bild. Stil, Linien, Farben und Schrift bleiben unverändert –
+es wird nichts neu gezeichnet, die Handschrift „EIN PROZESS · EINE APP“ und
+„IN TAGEN, NICHT MONATEN“ steht die ganze Zeit still und unverändert da.
+
+Ablauf, ruhig und ohne Hektik:
+1. Sekunde 0–2: Die Frau tippt am Laptop, die drei goldenen Häkchen erscheinen
+   nacheinander auf dem Bildschirm.
+2. Sekunde 2–4: Sie dreht sich auf dem Stuhl halb zum Betrachter, lächelt
+   und winkt kurz mit einer Hand.
+3. Sekunde 4–6: Sie dreht sich zurück zum Laptop und sitzt wieder genau
+   wie im Startbild.
+Das letzte Bild ist identisch mit dem ersten, damit die Schleife nahtlos läuft.
+
+Das Gesicht bleibt skizzenhaft im selben Tuschestil, kein fotorealistisches
+Gesicht. Keine Kamerabewegung, kein Zoom, kein Ton. Der Rest des Bildes
+(Pflanze, Ordner, Zettelstapel, Tasse) bewegt sich nicht oder nur minimal.
+```
+
+**Variante B (bevorzugt, Stand 12.11.2026):** „Vom Papierstapel zur Checkliste“ – der Stapel
+schrumpft, die Häkchen erscheinen, sie bleibt von hinten. Erzählt die Überschrift, passt zum Stilblock.
+Erster Versuch nur 358 × 264 px mit 2 Bildern/Sekunde – Inhalt ok, Export zu klein. Ablauf statt oben:
+
+```
+Sekunde 0–3: Der Zettelstapel links wird Blatt für Blatt kleiner, einzelne Blätter
+gleiten zur Seite und verschwinden. Sekunde 3–6: Auf dem Laptop erscheinen
+nacheinander drei goldene Häkchen. Sekunde 6–8: kurzes Halten, dann zurück zum
+Startbild für eine nahtlose Schleife. Die Frau bleibt von hinten, tippt ruhig weiter.
+Flüssige Bewegung, mindestens 12 Bilder pro Sekunde.
+```
+
+**Export (wichtig):**
+
+| | Wert |
+|---|---|
+| Format | **MP4** (H.264), ohne Ton. GIF geht auch, wird aber bei dieser Größe 5–10 MB schwer |
+| Größe | **mindestens 1200 px breit**, besser die vollen 1448 px, Seitenverhältnis 4:3 wie das Original |
+| Länge | 6–8 Sekunden, als Schleife |
+| Ablage | `TeamMarketing/website/bildbriefing/eingang/motiv-1-animiert.mp4` (oder in Downloads, ich hole es) |
+
+| Problem | Satz dazu |
+|---|---|
+| Schrift verwackelt oder ändert sich | „Die Handschrift ist fest und bewegt sich in keinem Bild.“ |
+| Gesicht wirkt wie KI-Foto | „Gesicht nur mit wenigen Tuschestrichen, wie im Rest der Zeichnung.“ |
+| Schleife springt am Ende | „Das letzte Bild exakt gleich dem Startbild.“ |
+| zu viel Bewegung | „Nur die Frau bewegt sich, alles andere steht still.“ |
+
+**Danach (mache ich):** Als `<video autoplay muted loop playsinline>` mit `motiv-1.webp` als Standbild
+einbauen. Wer im Betriebssystem „Bewegung reduzieren“ eingestellt hat, sieht nur das Standbild.
+Ziel unter 1 MB. Nur auf der DE-Startseite, weil die Schrift deutsch ist. Erst auf dev, dann
+Linkprüfung, dann Prod.
+
+Bewusste Ausnahme vom Stilblock: Dort steht „Personen von hinten, kein Gesicht“. Für den kurzen
+Winke-Moment darf sie sich umdrehen – das macht die Einladung aus. Das Gesicht bleibt Skizze.
+
 ## Wenn es nicht passt – Nachschärfen
 
 | Problem | Satz dazu |
