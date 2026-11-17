@@ -166,17 +166,20 @@ es wird nichts neu gezeichnet. Die Handschrift „FUNKE · EINZUG · AUSBAU · B
 und „IHR BESTIMMT DAS TEMPO“ steht die ganze Zeit still und unverändert da.
 Keine Kamerabewegung, kein Zoom, kein Ton.
 
-Die beiden Figuren gehen ruhig den Weg entlang, von links nach rechts, an den
-vier Stationen vorbei. Jede Station leuchtet kurz in Gold auf, wenn sie dort sind:
-1. Sekunde 0–2: FUNKE – die Laterne flackert auf, ein kleiner goldener Funke.
-2. Sekunde 2–4: EINZUG – die Tür schwingt ein Stück weiter auf, warmes Licht fällt heraus.
-3. Sekunde 4–6: AUSBAU – am Gerüst wird ein Brett angesetzt, das Haus wirkt fertiger.
-4. Sekunde 6–8: BLEIBEN – die Blätter des Baums bewegen sich im Wind und leuchten golden.
-5. Sekunde 8–9: Am Baum dreht sich eine der beiden Figuren kurz über die Schulter
-   zum Betrachter, lächelt und zwinkert mit einem Auge.
+Ablauf, ruhig und ohne Hektik (10 Sekunden):
+1. Sekunde 0–1: Die Frau mit dem Rucksack schaut kurz über die Schulter zum
+   Betrachter, lächelt und zwinkert mit einem Auge. Dann gehen beide los.
+2. Sekunde 1–3: FUNKE – sie gehen an der Laterne vorbei, die Laterne flackert auf,
+   ein kleiner goldener Funke steigt auf.
+3. Sekunde 3–5: EINZUG – die offene Tür schwingt ein Stück weiter auf, warmes
+   Licht fällt heraus, sie gehen hindurch.
+4. Sekunde 5–7: AUSBAU – am Gerüst wird ein Brett angesetzt, das Haus wirkt fertiger.
+5. Sekunde 7–9: BLEIBEN – die beiden kommen am Baum an, die goldenen Blätter
+   bewegen sich im Wind. Sie drehen sich um und winken kurz.
 6. Sekunde 9–10: Das Bild geht sanft zurück in das Startbild, damit die Schleife
    ohne Sprung neu beginnt.
 
+Die Figuren werden auf dem Weg nach hinten natürlich kleiner, wie im Bild angelegt.
 Die Gesichter bleiben skizzenhaft im selben Tuschestil, kein fotorealistisches
 Gesicht. Landschaft und Weg bewegen sich nicht oder nur minimal.
 ```
