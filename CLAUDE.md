@@ -47,6 +47,11 @@ Repo: `p2cx/p2cx-website` (früher `p2cx-landing` — alter Name leitet per GitH
   (gitignored), eingebaut als WebP unter `img/motive/`.
 - **Stimme:** Die Seite spricht als GmbH; kein Fingerzeig auf andere Dienstleister, Kunden nicht schlechtmachen.
 
+- **SEO/GEO (17.11.2026):** Kernseiten (Start, Etappen, FAQ, Produkte; DE/EN/DK) tragen Canonical, hreflang und
+  Open Graph (`img/teilen-de.jpg` / `img/teilen.jpg`). Neue Kernseite → dieselben Tags + Eintrag in `sitemap.xml`.
+  **Google Search Console:** Domain-Property `p2cx.de` (Konto hauke@p2cx.de), bestätigt per TXT
+  `google-site-verification=…` in Cloud DNS – **den TXT-Eintrag nie löschen**. Sitemaps p2cx.de und handwerk.p2cx.de eingereicht.
+
 ## Recht
 - **AGB** (`p2cx/de/agb/`): produkt-unabhängig — §2.2 verweist nur auf den Katalog (keine Produktliste),
   §2.3 erlaubt formloses Hinzubuchen weiterer Produkte ohne neuen Vertragsschluss.
