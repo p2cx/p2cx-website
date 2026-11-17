@@ -157,6 +157,8 @@ Winke-Moment darf sie sich umdrehen – das macht die Einladung aus. Das Gesicht
 
 ## Animation zu Motiv 2 · „Die Reise durch die vier Etappen“ (Stand 17.11.2026)
 
+Roter Faden aller Animationen: **das Gold wandert** (Motiv 1: Häkchen erscheinen, Motiv 2: Licht von Station zu Station). Kein Zwinkern, keine Gesichter – bewusst entschieden 17.11.2026.
+
 Startbild: `eingang/motiv-2.png` (1672 × 941 px). Ziel: Abschnitt „Vier Etappen“ der DE-Startseite,
 Einbau wie Motiv 1 (Standbild zuerst, Video erst nach dem Laden der Seite).
 
@@ -167,21 +169,19 @@ und „IHR BESTIMMT DAS TEMPO“ steht die ganze Zeit still und unverändert da.
 Keine Kamerabewegung, kein Zoom, kein Ton.
 
 Ablauf, ruhig und ohne Hektik (10 Sekunden):
-1. Sekunde 0–1: Die Frau mit dem Rucksack schaut kurz über die Schulter zum
-   Betrachter, lächelt und zwinkert mit einem Auge. Dann gehen beide los.
+1. Sekunde 0–1: Die beiden setzen sich ruhig in Bewegung, von hinten gesehen.
 2. Sekunde 1–3: FUNKE – sie gehen an der Laterne vorbei, die Laterne flackert auf,
    ein kleiner goldener Funke steigt auf.
 3. Sekunde 3–5: EINZUG – die offene Tür schwingt ein Stück weiter auf, warmes
    Licht fällt heraus, sie gehen hindurch.
 4. Sekunde 5–7: AUSBAU – am Gerüst wird ein Brett angesetzt, das Haus wirkt fertiger.
 5. Sekunde 7–9: BLEIBEN – die beiden kommen am Baum an, die goldenen Blätter
-   bewegen sich im Wind. Sie drehen sich um und winken kurz.
+   bewegen sich im Wind und leuchten auf. Die beiden bleiben unter dem Baum stehen.
 6. Sekunde 9–10: Das Bild geht sanft zurück in das Startbild, damit die Schleife
    ohne Sprung neu beginnt.
 
 Die Figuren werden auf dem Weg nach hinten natürlich kleiner, wie im Bild angelegt.
-Die Gesichter bleiben skizzenhaft im selben Tuschestil, kein fotorealistisches
-Gesicht. Landschaft und Weg bewegen sich nicht oder nur minimal.
+Die beiden bleiben die ganze Zeit von hinten zu sehen, keine Gesichter. Landschaft und Weg bewegen sich nicht oder nur minimal.
 ```
 
 Export: MP4 ohne Ton, mindestens 1200 px breit (besser 1672), 16:9, 10 Sekunden.
