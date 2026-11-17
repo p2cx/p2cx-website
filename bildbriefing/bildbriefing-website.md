@@ -155,6 +155,35 @@ Linkprüfung, dann Prod.
 Bewusste Ausnahme vom Stilblock: Dort steht „Personen von hinten, kein Gesicht“. Für den kurzen
 Winke-Moment darf sie sich umdrehen – das macht die Einladung aus. Das Gesicht bleibt Skizze.
 
+## Animation zu Motiv 2 · „Die Reise durch die vier Etappen“ (Stand 17.11.2026)
+
+Startbild: `eingang/motiv-2.png` (1672 × 941 px). Ziel: Abschnitt „Vier Etappen“ der DE-Startseite,
+Einbau wie Motiv 1 (Standbild zuerst, Video erst nach dem Laden der Seite).
+
+```
+Animiere genau dieses Bild. Stil, Linien, Farben und Schrift bleiben unverändert –
+es wird nichts neu gezeichnet. Die Handschrift „FUNKE · EINZUG · AUSBAU · BLEIBEN“
+und „IHR BESTIMMT DAS TEMPO“ steht die ganze Zeit still und unverändert da.
+Keine Kamerabewegung, kein Zoom, kein Ton.
+
+Die beiden Figuren gehen ruhig den Weg entlang, von links nach rechts, an den
+vier Stationen vorbei. Jede Station leuchtet kurz in Gold auf, wenn sie dort sind:
+1. Sekunde 0–2: FUNKE – die Laterne flackert auf, ein kleiner goldener Funke.
+2. Sekunde 2–4: EINZUG – die Tür schwingt ein Stück weiter auf, warmes Licht fällt heraus.
+3. Sekunde 4–6: AUSBAU – am Gerüst wird ein Brett angesetzt, das Haus wirkt fertiger.
+4. Sekunde 6–8: BLEIBEN – die Blätter des Baums bewegen sich im Wind und leuchten golden.
+5. Sekunde 8–9: Am Baum dreht sich eine der beiden Figuren kurz über die Schulter
+   zum Betrachter, lächelt und zwinkert mit einem Auge.
+6. Sekunde 9–10: Das Bild geht sanft zurück in das Startbild, damit die Schleife
+   ohne Sprung neu beginnt.
+
+Die Gesichter bleiben skizzenhaft im selben Tuschestil, kein fotorealistisches
+Gesicht. Landschaft und Weg bewegen sich nicht oder nur minimal.
+```
+
+Export: MP4 ohne Ton, mindestens 1200 px breit (besser 1672), 16:9, 10 Sekunden.
+Springt die Schleife trotzdem: kein Problem, den weichen Übergang zum Anfang baue ich beim Einbau selbst ein.
+
 ## Wenn es nicht passt – Nachschärfen
 
 | Problem | Satz dazu |
