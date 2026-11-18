@@ -14,6 +14,7 @@
 - `/media/` → `/var/www/p2cx-landing/media/`
 - `/sl/` → `/var/www/p2cx-landing/sl/` (Social Listening Landingpages)
 - `/apps/` → `/var/www/p2cx-landing/p2cxApps/`
+- Security-Header: Vorschlag in `nginx/` (Board #1817), Stand 18.11.2026 noch nicht auf Prod
 
 ### Deployment
 - **Primär: GitHub Actions** — Push auf `main` (Änderungen unter `p2cx/**`) → Workflow „Deploy to IONOS"
