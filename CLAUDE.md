@@ -51,6 +51,9 @@ Repo: `p2cx/p2cx-website` (früher `p2cx-landing` — alter Name leitet per GitH
   Open Graph (`img/teilen-de.jpg` / `img/teilen.jpg`). Neue Kernseite → dieselben Tags + Eintrag in `sitemap.xml`.
   **Google Search Console:** Domain-Property `p2cx.de` (Konto hauke@p2cx.de), bestätigt per TXT
   `google-site-verification=…` in Cloud DNS – **den TXT-Eintrag nie löschen**. Sitemaps p2cx.de und handwerk.p2cx.de eingereicht.
+- **Fragen-Seiten `/de/fragen/` (Board #1804):** je Seite eine Frage aus dem Mittelstand, oben eine zitierfähige Kurzantwort,
+  unten FAQPage-JSON-LD. Zahlen nur aus `faq.html`/`llms.txt`. Bisher nur Deutsch (keine Flaggen, hreflang de + x-default);
+  verlinkt aus `faq.html`, `sitemap.xml`, `llms.txt`.
 
 ## Recht
 - **AGB** (`p2cx/de/agb/`): produkt-unabhängig — §2.2 verweist nur auf den Katalog (keine Produktliste),

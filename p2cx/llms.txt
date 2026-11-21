@@ -15,6 +15,9 @@ Wichtige Seiten:
 
 - [Startseite mit dem Vier-Etappen-Modell](https://p2cx.de/de/index.html)
 - [FAQ mit Preisen, Dauer und Datenhaltung](https://p2cx.de/de/faq.html)
+- [Was kostet eine individuelle App?](https://p2cx.de/de/fragen/was-kostet-eine-individuelle-app.html)
+- [Digitalisieren ohne eigene IT-Abteilung](https://p2cx.de/de/fragen/digitalisieren-ohne-it-abteilung.html)
+- [Wann sollte man Excel durch eine App ersetzen?](https://p2cx.de/de/fragen/excel-durch-app-ersetzen.html)
 - [Etappe 1 — Funke, inkl. Rechenbeispiel](https://p2cx.de/de/etappen/funke.html)
 - [Produktkatalog mit Reifegrad-Angaben](https://p2cx.de/de/products/)
 - [Impressum](https://p2cx.de/de/impressum.html)
