@@ -1,0 +1,6 @@
+# Sicherheitskontakt der p2cx GmbH (RFC 9116, BSI-CS 149)
+# Schwachstellen bitte vertraulich an diese Adresse melden.
+Contact: mailto:security@p2cx.de
+Expires: 2027-11-30T23:00:00.000Z
+Preferred-Languages: de, en
+Canonical: https://p2cx.de/.well-known/security.txt
